@@ -1,561 +1,116 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Produk SinaArt</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
-
+<title>Produk — SinaArt</title>
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-:root {
-  --cream: #fffaf3;
-  --pink: #f5d9d7;
-  --pink-dark: #b97870;
-  --brown: #503a32;
-  --brown-light: #88756b;
-  --white: #ffffff;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background: var(--cream);
-  color: var(--brown);
-  line-height: 1.6;
-}
-
-/* NAVBAR */
-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: rgba(255, 250, 243, 0.96);
-  border-bottom: 1px solid #f0e5dc;
-  backdrop-filter: blur(10px);
-}
-
-.navbar {
-  max-width: 1200px;
-  margin: auto;
-  padding: 16px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-}
-
-.logo {
-  font-size: 23px;
-  font-weight: 800;
-  color: var(--brown);
-  text-decoration: none;
-}
-
-.logo span {
-  color: var(--pink-dark);
-}
-
-.nav-link {
-  text-decoration: none;
-  color: var(--brown);
-  font-weight: 600;
-  font-size: 14px;
-  padding: 10px 17px;
-  border: 1px solid #ead8ce;
-  border-radius: 30px;
-  transition: 0.25s;
-}
-
-.nav-link:hover {
-  background: var(--pink);
-  border-color: var(--pink);
-}
-
-/* HERO */
-.hero {
-  position: relative;
-  overflow: hidden;
-  padding: 65px 20px 70px;
-  text-align: center;
-  background:
-    radial-gradient(circle at 10% 20%, #f5d9d7 0, transparent 25%),
-    radial-gradient(circle at 90% 80%, #f4e2c9 0, transparent 25%),
-    var(--cream);
-}
-
-.hero-content {
-  max-width: 760px;
-  margin: auto;
-  position: relative;
-  z-index: 1;
-}
-
-.label {
-  display: inline-block;
-  padding: 7px 17px;
-  border-radius: 30px;
-  background: white;
-  color: var(--pink-dark);
-  font-size: 13px;
-  font-weight: 700;
-  margin-bottom: 16px;
-  box-shadow: 0 4px 15px #6a49330d;
-}
-
-.hero h1 {
-  font-size: clamp(32px, 5vw, 52px);
-  line-height: 1.2;
-  margin-bottom: 17px;
-  letter-spacing: -1px;
-}
-
-.hero h1 span {
-  color: var(--pink-dark);
-}
-
-.hero p {
-  max-width: 570px;
-  margin: auto;
-  color: var(--brown-light);
-  font-size: 16px;
-}
-
-.hero-decoration {
-  position: absolute;
-  font-size: 35px;
-  opacity: 0.65;
-}
-
-.decoration-one {
-  top: 25px;
-  left: 8%;
-  transform: rotate(-15deg);
-}
-
-.decoration-two {
-  bottom: 25px;
-  right: 9%;
-  transform: rotate(15deg);
-}
-
-/* PRODUK */
-main {
-  max-width: 1200px;
-  margin: auto;
-  padding: 45px 24px 75px;
-}
-
-.section-heading {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.section-heading h2 {
-  font-size: 29px;
-  margin-bottom: 6px;
-}
-
-.section-heading p {
-  color: var(--brown-light);
-  font-size: 14px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 25px;
-}
-
-.card {
-  background: var(--white);
-  border: 1px solid #f0e6df;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 7px 25px #6a49330b;
-  transition: transform 0.25s, box-shadow 0.25s;
-  min-width: 0;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 13px 30px #6a493318;
-}
-
-.image-wrap {
-  width: 100%;
-  height: 235px;
-  overflow: hidden;
-  background: #f7eae1;
-  display: grid;
-  place-items: center;
-}
-
-.image-wrap img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.35s;
-}
-
-.card:hover .image-wrap img {
-  transform: scale(1.04);
-}
-
-.no-image {
-  font-size: 48px;
-}
-
-.info {
-  padding: 20px;
-}
-
-.info h3 {
-  font-size: 19px;
-  line-height: 1.4;
-  margin-bottom: 8px;
-  overflow-wrap: anywhere;
-}
-
-.info p {
-  font-size: 14px;
-  color: var(--brown-light);
-  line-height: 1.7;
-  margin-bottom: 15px;
-  overflow-wrap: anywhere;
-}
-
-.harga {
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--pink-dark);
-}
-
-.btn {
-  display: block;
-  text-align: center;
-  background: var(--pink-dark);
-  color: white;
-  padding: 12px 16px;
-  border-radius: 12px;
-  text-decoration: none;
-  margin-top: 17px;
-  font-size: 14px;
-  font-weight: 700;
-  transition: 0.25s;
-}
-
-.btn:hover {
-  background: #9f625a;
-  transform: translateY(-1px);
-}
-
-/* PESAN STATUS */
-#pesan {
-  text-align: center;
-  padding: 35px 15px;
-  color: var(--brown-light);
-  grid-column: 1 / -1;
-  background: white;
-  border: 1px dashed #e8d5ca;
-  border-radius: 18px;
-}
-
-#pesan:empty {
-  display: none;
-}
-
-/* FOOTER */
-footer {
-  padding: 28px 20px;
-  background: #f6e9df;
-  text-align: center;
-  color: var(--brown-light);
-  font-size: 13px;
-}
-
-footer strong {
-  color: var(--brown);
-}
-
-/* RESPONSIVE */
-@media (max-width: 850px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-  }
-
-  .image-wrap {
-    height: 210px;
-  }
-}
-
-@media (max-width: 520px) {
-  .navbar {
-    padding: 13px 16px;
-  }
-
-  .logo {
-    font-size: 20px;
-  }
-
-  .nav-link {
-    padding: 8px 12px;
-    font-size: 12px;
-  }
-
-  .hero {
-    padding: 55px 20px;
-  }
-
-  .hero p {
-    font-size: 14px;
-  }
-
-  main {
-    padding: 35px 15px 55px;
-  }
-
-  .section-heading h2 {
-    font-size: 24px;
-  }
-
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-  }
-
-  .image-wrap {
-    height: 150px;
-  }
-
-  .info {
-    padding: 12px;
-  }
-
-  .info h3 {
-    font-size: 15px;
-  }
-
-  .info p {
-    font-size: 12px;
-  }
-
-  .harga {
-    font-size: 16px;
-  }
-
-  .btn {
-    font-size: 12px;
-    padding: 10px 5px;
-  }
-}
+:root{--cream:#fffaf3;--paper:#fffdf9;--brown:#684b3d;--brown2:#8b6754;--pink:#f4dce4;--line:#eadfd5;--muted:#8b7a70;--shadow:0 12px 32px #684b3d12}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--brown);font-family:Arial,Helvetica,sans-serif}
+a{color:inherit;text-decoration:none}
+.navbar{position:sticky;top:0;z-index:20;background:#fffaf3ed;backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1050px;margin:auto;padding:15px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.logo{font-size:25px;font-weight:800;letter-spacing:-1px}.rainbow{background:linear-gradient(90deg,#e89a9a,#d9a5cc,#9b9ddd,#7bbfc0,#d8b76e);-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav-links{display:flex;align-items:center;gap:22px;font-size:14px;font-weight:700}.nav-links a:hover{color:#bd8296}
+main{max-width:850px;margin:auto;padding:36px 18px 70px}
+.topline{font-size:12px;font-weight:800;letter-spacing:2px;text-align:center;color:var(--brown2);margin:4px 0 12px}
+h1{text-align:center;font-size:clamp(30px,5vw,44px);margin:0 0 10px;letter-spacing:-1.5px}
+.intro{text-align:center;color:var(--muted);line-height:1.7;max-width:550px;margin:0 auto 28px;font-size:15px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:20px 0 18px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:99px;background:#fffdf9;padding:9px 14px;font-size:13px;color:var(--brown2)}
+.back{font-weight:700;cursor:pointer}.back:hover{background:var(--pink)}
+#productList{display:flex;flex-direction:column;gap:24px}
+.product-card{background:var(--paper);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow)}
+.product-photo{width:100%;background:#f7f0e9;display:flex;align-items:center;justify-content:center;min-height:180px;max-height:680px;overflow:hidden}
+.product-photo img{display:block;width:100%;height:auto;max-height:680px;object-fit:contain}
+.product-photo.no-image{min-height:240px;color:#b39b8b;font-size:46px}
+.product-info{padding:22px 24px 24px}
+.product-info h2{font-size:clamp(21px,3vw,28px);margin:0 0 10px;line-height:1.3}
+.description{white-space:pre-line;line-height:1.8;color:#857369;margin:0 0 18px;font-size:15px;overflow-wrap:anywhere}
+.product-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:17px}
+.price{font-size:20px;font-weight:800;color:#936878}
+.order{display:inline-flex;justify-content:center;align-items:center;padding:12px 19px;border-radius:99px;background:var(--brown);color:white;font-weight:700;font-size:14px;transition:.2s}
+.order:hover{background:#8a6655;transform:translateY(-1px)}
+.state{background:#fffdf9;border:1px dashed #d9c8ba;padding:28px 20px;border-radius:18px;text-align:center;color:var(--muted);line-height:1.7}
+footer{text-align:center;border-top:1px solid var(--line);padding:25px 18px 32px;color:var(--muted);font-size:13px}
+@media(min-width:700px){.product-card{display:grid;grid-template-columns:minmax(0,1fr)}.product-photo{max-height:none}.product-photo img{max-height:680px}}
+@media(max-width:560px){.nav-inner{padding:13px 16px}.logo{font-size:22px}.nav-links{gap:13px;font-size:12px}main{padding:28px 13px 55px}.product-info{padding:18px}.product-photo img{max-height:70vh}.product-bottom{align-items:flex-start;flex-direction:column}.order{width:100%}}
 </style>
 </head>
-
 <body>
-
-<header>
-  <nav class="navbar">
-    <a href="index.html" class="logo">🎨 Sina<span>Art</span></a>
-    <a href="index.html" class="nav-link">← Kembali ke Beranda</a>
-  </nav>
+<header class="navbar">
+  <div class="nav-inner">
+    <a class="logo" href="index.html"><span class="rainbow">SinaArt</span>♡</a>
+    <nav class="nav-links" aria-label="Navigasi utama">
+      <a href="index.html#home">Home</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#about">About</a>
+    </nav>
+  </div>
 </header>
-
-<section class="hero">
-  <span class="hero-decoration decoration-one">✿</span>
-  <span class="hero-decoration decoration-two">♡</span>
-
-  <div class="hero-content">
-    <div class="label">♡ KREASI DENGAN HATI ♡</div>
-    <h1 id="judul">Produk <span>SinaArt</span></h1>
-    <p id="deskripsi">
-      Pilihan produk SinaArt untuk kamu. Temukan karya favoritmu dan
-      pesan langsung melalui WhatsApp 💗
-    </p>
-  </div>
-</section>
-
 <main>
-  <div class="section-heading">
-    <h2>♡ Pilihan Untukmu ♡</h2>
-    <p>Temukan produk yang kamu sukai</p>
+  <p class="topline">MADE WITH ♡ AND CREATIVITY</p>
+  <h1><span class="rainbow">Our Products</span></h1>
+  <p class="intro" id="intro">Temukan karya SinaArt yang sesuai dengan keinginanmu.</p>
+  <div class="toolbar">
+    <a class="pill back" href="index.html">← Kembali ke layanan</a>
+    <span class="pill" id="productCount">Memuat produk...</span>
   </div>
-
-  <div class="grid" id="daftar">
-    <p id="pesan">Memuat produk...</p>
-  </div>
+  <section id="productList" aria-live="polite"><div class="state">Memuat produk SinaArt... ♡</div></section>
 </main>
-
 <footer>
-  <strong>🎨 SinaArt</strong>
-  <p>Dibuat dengan cinta untuk setiap karya 💗</p>
-  <p>© <span id="tahun"></span> SinaArt. All rights reserved.</p>
+  <div class="logo"><span class="rainbow">SinaArt</span>♡</div>
+  <p>Made with ♡ and creativity.</p>
+  <p>© <span id="year"></span> SinaArt. All rights reserved.</p>
 </footer>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 <script>
-const nomorWA = "62895322852505";
-const params = new URLSearchParams(window.location.search);
-const serviceId = params.get("service_id");
-
-document.getElementById("tahun").textContent =
-  new Date().getFullYear();
-
-function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, function(c) {
-    return {
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;"
-    }[c];
-  });
+const whatsappNumber="62895322852505";
+const params=new URLSearchParams(location.search);
+const serviceId=params.get("service_id");
+const list=document.getElementById("productList");
+const count=document.getElementById("productCount");
+document.getElementById("year").textContent=new Date().getFullYear();
+function harga(v){if(v===null||v===undefined||v==="")return"Harga menyesuaikan";const n=Number(v);return Number.isFinite(n)?"Rp"+n.toLocaleString("id-ID"):"Harga menyesuaikan"}
+function escapeText(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function pesan(nama){const text="Halo SinaArt! Saya tertarik memesan produk "+nama+". Apakah masih tersedia?";window.open("https://wa.me/"+whatsappNumber+"?text="+encodeURIComponent(text),"_blank","noopener,noreferrer")}
+function buatProduk(p){
+ const card=document.createElement("article");card.className="product-card";
+ const photo=document.createElement("div");photo.className="product-photo";
+ if(p.image_url){
+   const img=document.createElement("img");img.src=p.image_url;img.alt=p.name||"Produk SinaArt";img.loading="lazy";img.decoding="async";
+   img.addEventListener("error",()=>{photo.replaceChildren();photo.classList.add("no-image");photo.textContent="♡"});
+   photo.appendChild(img);
+ }else{photo.classList.add("no-image");photo.textContent="♡"}
+ const info=document.createElement("div");info.className="product-info";
+ const title=document.createElement("h2");title.textContent=p.name||"Produk SinaArt";
+ const desc=document.createElement("p");desc.className="description";desc.textContent=p.description||"Karya dibuat dengan penuh kreativitas.";
+ const bottom=document.createElement("div");bottom.className="product-bottom";
+ const price=document.createElement("span");price.className="price";price.textContent=harga(p.price);
+ const btn=document.createElement("button");btn.className="order";btn.type="button";btn.textContent="Pesan via WhatsApp ↗";btn.addEventListener("click",()=>pesan(p.name||"produk SinaArt"));
+ bottom.append(price,btn);info.append(title,desc,bottom);card.append(photo,info);return card;
 }
-
-function tampilkanPesan(teks) {
-  const daftar = document.getElementById("daftar");
-  daftar.innerHTML = "";
-
-  const pesan = document.createElement("p");
-  pesan.id = "pesan";
-  pesan.textContent = teks;
-
-  daftar.appendChild(pesan);
+async function load(){
+ try{
+  if(!window.supabaseClient){throw new Error("Konfigurasi Supabase belum termuat. Periksa file supabase.js.")}
+  let query=supabaseClient.from("products").select("id,service_id,name,description,price,image_url,is_active,created_at").eq("is_active",true).order("created_at",{ascending:false});
+  if(serviceId)query=query.eq("service_id",serviceId);
+  const {data,error}=await query;if(error)throw error;
+  let rows=data||[];
+  if(serviceId){
+    const {data:svc,error:svcError}=await supabaseClient.from("services").select("id,name").eq("id",serviceId).maybeSingle();
+    if(!svcError&&svc){document.title=svc.name+" — SinaArt";document.getElementById("intro").textContent="Lihat pilihan produk untuk layanan "+svc.name+" dan pilih karya yang paling kamu suka. ♡";}
+  }
+  count.textContent=rows.length+" produk";
+  list.replaceChildren();
+  if(!rows.length){list.innerHTML='<div class="state">Belum ada produk aktif di layanan ini. Coba kembali lagi nanti ya. ♡</div>';return}
+  rows.forEach(p=>list.appendChild(buatProduk(p)));
+ }catch(e){console.error(e);count.textContent="Belum termuat";list.innerHTML='<div class="state">Produk belum dapat dimuat. Periksa koneksi dan pengaturan akses tabel products di Supabase.<br><small>'+escapeText(e.message)+'</small></div>'}
 }
-
-async function muatProduk() {
-  const daftar = document.getElementById("daftar");
-
-  // Supabase client bisa dibuat sebagai const di supabase.js,
-  // sehingga tidak selalu tersedia sebagai window.supabaseClient.
-  if (
-    typeof supabaseClient === "undefined" ||
-    !supabaseClient
-  ) {
-    tampilkanPesan(
-      "Koneksi Supabase belum tersedia. Periksa URL, key, dan isi file supabase.js."
-    );
-    console.error(
-      "supabaseClient tidak ditemukan. Periksa supabase.js dan urutan script."
-    );
-    return;
-  }
-
-  let query = supabaseClient
-    .from("products")
-    .select("id, name, description, price, image_url, service_id, is_active")
-    .eq("is_active", true)
-    .order("created_at", { ascending: false });
-
-  // Jika dibuka dari tombol Lihat Produk pada layanan,
-  // tampilkan produk milik layanan tersebut saja.
-  if (serviceId) {
-    const { data: layanan, error: errLayanan } =
-      await supabaseClient
-        .from("services")
-        .select("id, name, description")
-        .eq("id", serviceId)
-        .eq("is_active", true)
-        .maybeSingle();
-
-    if (errLayanan) {
-      console.error(errLayanan);
-      tampilkanPesan("Layanan gagal dimuat. Silakan coba lagi.");
-      return;
-    }
-
-    if (!layanan) {
-      tampilkanPesan("Layanan tidak ditemukan atau sedang tidak aktif.");
-      return;
-    }
-
-    document.getElementById("judul").innerHTML =
-      escapeHTML(layanan.name);
-
-    document.getElementById("deskripsi").textContent =
-      layanan.description ||
-      "Temukan produk pilihan dari layanan ini 💗";
-
-    query = query.eq("service_id", serviceId);
-  }
-
-  const { data: produk, error } = await query;
-
-  if (error) {
-    console.error("Gagal mengambil produk:", error);
-    tampilkanPesan(
-      "Produk gagal dimuat. Periksa tabel products dan kebijakan akses Supabase."
-    );
-    return;
-  }
-
-  if (!produk || produk.length === 0) {
-    tampilkanPesan(
-      serviceId
-        ? "Belum ada produk untuk layanan ini. Nantikan karya terbaru kami ya 💗"
-        : "Belum ada produk yang tersedia saat ini 💗"
-    );
-    return;
-  }
-
-  daftar.innerHTML = produk.map(function(p) {
-    const nama = escapeHTML(p.name || "Produk SinaArt");
-    const deskripsi = escapeHTML(
-      p.description || "Produk pilihan SinaArt."
-    );
-
-    const harga = Number(p.price || 0).toLocaleString("id-ID");
-
-    const teksWA =
-      `Halo SinaArt, saya tertarik dengan produk ${p.name || "SinaArt"} seharga Rp${harga}.`;
-
-    const gambar = p.image_url
-      ? `<div class="image-wrap">
-           <img
-             src="${escapeHTML(p.image_url)}"
-             alt="${nama}"
-             loading="lazy"
-             onerror="this.parentElement.innerHTML='<div class=&quot;no-image&quot;>🎨</div>'"
-           >
-         </div>`
-      : `<div class="image-wrap">
-           <div class="no-image">🎨</div>
-         </div>`;
-
-    return `
-      <article class="card">
-        ${gambar}
-        <div class="info">
-          <h3>${nama}</h3>
-          <p>${deskripsi}</p>
-          <div class="harga">Rp${harga}</div>
-          <a
-            class="btn"
-            href="https://wa.me/${nomorWA}?text=${encodeURIComponent(teksWA)}"
-            target="_blank"
-            rel="noopener noreferrer"
-          >♡ Pesan Produk</a>
-        </div>
-      </article>
-    `;
-  }).join("");
-}
-
-muatProduk();
+load();
 </script>
-
 </body>
 </html>
