@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -8,26 +8,36 @@
 
   <style>
     :root {
-      --pink: #e889ad;
-      --pink-dark: #ca638d;
-      --pink-light: #fff0f6;
-      --text: #4b3540;
-      --muted: #866f7b;
-      --border: #f0dce5;
+      --cream: #fff8e9;
+      --cream-dark: #f4e6cc;
+      --brown: #70452d;
+      --brown-dark: #4d2e20;
+      --brown-light: #986b4c;
       --white: #ffffff;
-      --red: #c74655;
-      --green: #25845b;
+      --text: #49372b;
+      --muted: #8d7a6b;
+      --border: #ead8c0;
+      --red: #bd4545;
+      --green: #27845b;
     }
 
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fff8fb;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, #fff0d8 0, transparent 25%),
+        radial-gradient(circle at 90% 70%, #f4e5cb 0, transparent 25%),
+        var(--cream);
       color: var(--text);
+      min-height: 100vh;
     }
 
     button, input, textarea {
@@ -36,68 +46,137 @@
 
     button {
       cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease,
+                  background .2s ease;
+    }
+
+    button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 12px #70452d20;
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
     }
 
     .topbar {
-      background: var(--white);
-      border-bottom: 1px solid var(--border);
+      background: #fffdf7eF;
+      border-bottom: 2px solid var(--border);
       padding: 17px 6%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 14px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
     }
 
     .brand {
-      font-size: 23px;
-      font-weight: bold;
-      color: var(--pink-dark);
+      font-size: 27px;
+      font-weight: 900;
+      letter-spacing: -.8px;
+      color: var(--brown);
+      white-space: nowrap;
     }
 
-    .brand span {
-      color: var(--text);
+    .rainbow {
+      background: linear-gradient(
+        90deg,
+        #e75a63,
+        #ed9845,
+        #e7c54c,
+        #65a875,
+        #55a8c7,
+        #8a75c9,
+        #df7caf
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: rainbowMove 5s linear infinite;
+    }
+
+    .brand-heart {
+      color: #d98a8a;
+      display: inline-block;
+      animation: heartbeat 2s ease-in-out infinite;
     }
 
     .container {
-      max-width: 1050px;
-      margin: 32px auto;
-      padding: 0 18px;
+      max-width: 1080px;
+      margin: 36px auto;
+      padding: 0 20px;
+      animation: fadeUp .6s ease both;
     }
 
     h1 {
-      margin-bottom: 8px;
-      font-size: 28px;
+      margin: 0 0 10px;
+      font-size: clamp(25px, 4vw, 34px);
+      color: var(--brown-dark);
+      line-height: 1.3;
+    }
+
+    h2 {
+      color: var(--brown-dark);
     }
 
     .muted {
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.7;
+      margin-top: 0;
     }
 
     .panel {
-      background: white;
+      background: #fffdf8;
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 22px;
+      border-radius: 22px;
+      padding: 25px;
       margin-top: 22px;
-      box-shadow: 0 5px 22px #8c52710b;
+      box-shadow: 0 8px 25px #70452d0c;
+      transition: box-shadow .25s ease, transform .25s ease;
+    }
+
+    .panel:hover {
+      box-shadow: 0 12px 30px #70452d14;
     }
 
     .panel h2 {
       margin-top: 0;
-      font-size: 20px;
+      font-size: 21px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-icon {
+      width: 42px;
+      height: 42px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      font-size: 21px;
     }
 
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 18px;
     }
 
     .field {
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 8px;
     }
 
     .field.full {
@@ -106,138 +185,180 @@
 
     label {
       font-size: 14px;
-      font-weight: bold;
+      font-weight: 800;
+      color: var(--brown);
     }
 
     input, textarea {
       width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      padding: 12px;
-      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 13px 14px;
+      background: #fffefa;
       color: var(--text);
       outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease;
     }
 
     input:focus, textarea:focus {
-      border-color: var(--pink);
-      box-shadow: 0 0 0 3px #e889ad20;
+      border-color: var(--brown-light);
+      box-shadow: 0 0 0 4px #986b4c18;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #b4a292;
     }
 
     textarea {
       resize: vertical;
-      min-height: 95px;
+      min-height: 110px;
     }
 
     .check-row {
       display: flex;
       align-items: center;
-      gap: 9px;
-      margin: 17px 0;
+      gap: 10px;
+      margin: 19px 0;
+      padding: 13px 15px;
+      background: var(--cream);
+      border-radius: 12px;
     }
 
     .check-row input {
-      width: auto;
+      width: 17px;
+      height: 17px;
+      accent-color: var(--brown);
+      cursor: pointer;
+    }
+
+    .check-row label {
+      cursor: pointer;
+      font-weight: 600;
     }
 
     .actions {
       display: flex;
       flex-wrap: wrap;
       gap: 9px;
-      margin-top: 14px;
+      margin-top: 16px;
     }
 
     .btn {
-      border: none;
-      border-radius: 9px;
-      padding: 11px 15px;
-      font-weight: bold;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      padding: 11px 16px;
+      font-weight: 800;
+      font-size: 13px;
     }
 
     .btn-primary {
-      background: var(--pink-dark);
+      background: var(--brown);
       color: white;
+      box-shadow: 0 4px 10px #70452d18;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--brown-dark);
     }
 
     .btn-light {
-      background: var(--pink-light);
-      color: var(--pink-dark);
+      background: var(--cream);
+      color: var(--brown);
+      border-color: var(--border);
     }
 
     .btn-danger {
-      background: #fff0f0;
+      background: #fff0ec;
       color: var(--red);
+      border-color: #f0d3cc;
     }
 
-    .btn:disabled {
-      opacity: .6;
-      cursor: not-allowed;
+    .btn-block {
+      width: 100%;
+      padding: 14px;
+      font-size: 15px;
     }
 
     .message {
-      padding: 12px;
-      border-radius: 9px;
-      margin: 14px 0;
+      padding: 13px 15px;
+      border-radius: 12px;
+      margin: 16px 0;
       display: none;
-      line-height: 1.5;
+      line-height: 1.6;
       overflow-wrap: anywhere;
+      font-size: 14px;
     }
 
     .message.show {
       display: block;
+      animation: fadeUp .3s ease both;
     }
 
     .message.error {
-      background: #fff0f0;
+      background: #fff0ed;
+      border: 1px solid #f3d1c9;
       color: #a52c3b;
     }
 
     .message.success {
-      background: #eaf8f0;
+      background: #eaf8ef;
+      border: 1px solid #c8e9d3;
       color: #206b49;
     }
 
     .service-list {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+      gap: 17px;
     }
 
     .service-item {
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
+      border-radius: 18px;
+      padding: 19px;
       min-width: 0;
+      background: #fffefa;
+      animation: fadeUp .4s ease both;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .service-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px #70452d13;
     }
 
     .service-item h3 {
-      margin: 0 0 8px;
+      margin: 0 0 10px;
+      color: var(--brown-dark);
+      font-size: 19px;
       overflow-wrap: anywhere;
     }
 
     .service-item p {
-      line-height: 1.5;
+      line-height: 1.7;
       overflow-wrap: anywhere;
+      font-size: 14px;
     }
 
     .price {
-      font-weight: bold;
-      color: var(--pink-dark);
-      font-size: 17px;
+      font-weight: 900;
+      color: var(--brown);
+      font-size: 18px !important;
     }
 
     .status {
       display: inline-block;
       border-radius: 20px;
-      padding: 5px 9px;
+      padding: 6px 11px;
       font-size: 12px;
+      font-weight: 800;
       background: #eaf8f0;
       color: var(--green);
     }
 
     .status.off {
-      background: #f3edf0;
-      color: #776671;
+      background: #f1ece7;
+      color: #776b61;
     }
 
     .hidden {
@@ -245,26 +366,89 @@
     }
 
     .login-box {
-      max-width: 430px;
+      max-width: 460px;
       margin: 65px auto;
     }
 
     .login-box .panel {
-      margin-top: 20px;
+      margin-top: 24px;
+      padding: 27px;
     }
 
     .login-box .field {
-      margin-bottom: 15px;
+      margin-bottom: 18px;
     }
 
-    .btn-block {
-      width: 100%;
+    .login-decoration {
+      font-size: 42px;
+      margin-bottom: 12px;
+      display: inline-block;
+      animation: float 3s ease-in-out infinite;
     }
 
     .top-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 9px;
+    }
+
+    .welcome-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 13px;
+      border-radius: 20px;
+      background: #f4e6cc;
+      color: var(--brown);
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 30px 12px;
+      color: var(--muted);
+      grid-column: 1 / -1;
+      line-height: 1.8;
+    }
+
+    .empty-state span {
+      display: block;
+      font-size: 35px;
+      margin-bottom: 8px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 15px 30px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    @keyframes rainbowMove {
+      to { background-position: 200% center; }
     }
 
     @media (max-width: 650px) {
@@ -273,15 +457,48 @@
       }
 
       .topbar {
-        padding: 15px 18px;
+        padding: 14px 16px;
+        align-items: flex-start;
       }
 
-      h1 {
-        font-size: 24px;
+      .brand {
+        font-size: 23px;
+      }
+
+      .top-actions {
+        justify-content: flex-end;
+      }
+
+      .top-actions .btn {
+        padding: 10px 11px;
+        font-size: 12px;
+      }
+
+      .container {
+        margin: 27px auto;
+        padding: 0 15px;
       }
 
       .panel {
-        padding: 16px;
+        padding: 18px;
+        border-radius: 18px;
+      }
+
+      .login-box {
+        margin-top: 42px;
+      }
+
+      .login-box .panel {
+        padding: 20px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
       }
     }
   </style>
@@ -289,39 +506,51 @@
 
 <body>
   <header class="topbar">
-    <div class="brand">Sina<span>Art</span> ♡</div>
+    <div class="brand">
+      Sina<span class="rainbow">Art</span>
+      <span class="brand-heart">♡</span>
+    </div>
+
     <div class="top-actions">
       <a href="index.html" style="text-decoration:none">
-        <button class="btn btn-light" type="button">Lihat website</button>
+        <button class="btn btn-light" type="button">♡ Lihat website</button>
       </a>
+
       <button id="logoutBtn" class="btn btn-danger hidden" type="button">
-        Keluar
+        Keluar ↗
       </button>
     </div>
   </header>
 
   <!-- FORM LOGIN -->
   <main id="loginSection" class="container login-box">
-    <h1>Halo, Admin! 🌷</h1>
-    <p class="muted">Login untuk mengelola layanan SinaArt.</p>
+    <div style="text-align:center">
+      <span class="login-decoration">🎨</span>
+      <div class="welcome-note">✦ AREA KHUSUS ADMIN ✦</div>
+      <h1>Halo, <span class="rainbow">Admin!</span></h1>
+      <p class="muted">Selamat datang kembali di ruang kreatif SinaArt ♡</p>
+    </div>
 
     <section class="panel">
+      <h2>Masuk ke akunmu ☁️</h2>
+      <p class="muted">Login untuk mengelola layanan SinaArt.</p>
+
       <form id="loginForm">
         <div class="field">
           <label for="email">Email admin</label>
           <input id="email" type="email" autocomplete="username"
-                 placeholder="Email akun admin" required>
+                 placeholder="Masukkan email admin" required>
         </div>
 
         <div class="field">
           <label for="password">Password</label>
           <input id="password" type="password"
                  autocomplete="current-password"
-                 placeholder="Password akun admin" required>
+                 placeholder="Masukkan password" required>
         </div>
 
         <button id="loginBtn" class="btn btn-primary btn-block" type="submit">
-          Login
+          Masuk ke Dashboard ♡
         </button>
 
         <div id="loginMessage" class="message" role="status"></div>
@@ -331,17 +560,26 @@
 
   <!-- DASHBOARD -->
   <main id="dashboardSection" class="container hidden">
-    <h1>Dashboard Admin 🌸</h1>
+    <div class="welcome-note">✦ ADMIN WORKSPACE ✦</div>
+    <h1>Dashboard <span class="rainbow">SinaArt</span> ♡</h1>
     <p class="muted">
-      Kelola layanan SinaArt di sini. Perubahan akan tersimpan ke Supabase.
+      Kelola layanan kreatifmu di sini. Semua perubahan akan tersimpan ke Supabase.
     </p>
 
     <div id="pageMessage" class="message" role="status"></div>
 
     <section class="panel">
-      <h2 id="formTitle">Tambah layanan baru</h2>
+      <div class="section-heading">
+        <div class="section-icon">🖌️</div>
+        <div>
+          <h2 id="formTitle" style="margin-bottom:5px">Tambah layanan baru</h2>
+          <p class="muted" style="margin-bottom:0;font-size:13px">
+            Tambahkan karya atau layanan yang ingin kamu tawarkan.
+          </p>
+        </div>
+      </div>
 
-      <form id="serviceForm">
+      <form id="serviceForm" style="margin-top:23px">
         <div class="form-grid">
           <div class="field full">
             <label for="serviceName">Nama layanan</label>
@@ -352,8 +590,7 @@
           <div class="field full">
             <label for="serviceDescription">Deskripsi layanan</label>
             <textarea id="serviceDescription" maxlength="1000"
-                      placeholder="Jelaskan layanan yang ditawarkan"
-                      required></textarea>
+                      placeholder="Ceritakan detail layananmu di sini..." required></textarea>
           </div>
 
           <div class="field">
@@ -365,13 +602,14 @@
 
         <div class="check-row">
           <input id="serviceActive" type="checkbox" checked>
-          <label for="serviceActive">Tampilkan layanan di website</label>
+          <label for="serviceActive">Tampilkan layanan di website ♡</label>
         </div>
 
         <div class="actions">
           <button id="saveBtn" class="btn btn-primary" type="submit">
-            Simpan layanan
+            ♡ Simpan layanan
           </button>
+
           <button id="cancelEditBtn" class="btn btn-light hidden"
                   type="button">
             Batal mengedit
@@ -381,15 +619,25 @@
     </section>
 
     <section class="panel">
-      <h2>Daftar layanan</h2>
-      <p class="muted">
-        Layanan nonaktif tidak ditampilkan kepada pengunjung website.
-      </p>
-      <div id="serviceList" class="service-list">
+      <div class="section-heading">
+        <div class="section-icon">🧸</div>
+        <div>
+          <h2 style="margin-bottom:5px">Daftar layanan</h2>
+          <p class="muted" style="margin-bottom:0;font-size:13px">
+            Atur layanan yang akan dilihat pengunjung website.
+          </p>
+        </div>
+      </div>
+
+      <div id="serviceList" class="service-list" style="margin-top:22px">
         <p class="muted">Memuat layanan...</p>
       </div>
     </section>
   </main>
+
+  <footer>
+    Dibuat dengan <span class="rainbow">♡ cinta dan kreativitas ♡</span> oleh SinaArt
+  </footer>
 
   <!-- Supabase harus dimuat sebelum kode dashboard -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -518,7 +766,7 @@
         );
       } finally {
         loginBtn.disabled = false;
-        loginBtn.textContent = "Login";
+        loginBtn.textContent = "Masuk ke Dashboard ♡";
       }
     });
 
@@ -554,9 +802,9 @@
       serviceList.replaceChildren();
 
       if (!data || data.length === 0) {
-        const empty = document.createElement("p");
-        empty.className = "muted";
-        empty.textContent = "Belum ada layanan. Tambahkan layanan pertama!";
+        const empty = document.createElement("div");
+        empty.className = "empty-state";
+        empty.innerHTML = "<span>🎨</span>Belum ada layanan.<br>Yuk, tambahkan layanan pertamamu!";
         serviceList.appendChild(empty);
         return;
       }
@@ -577,7 +825,7 @@
 
         const status = document.createElement("span");
         status.className = "status" + (item.is_active ? "" : " off");
-        status.textContent = item.is_active ? "Aktif" : "Nonaktif";
+        status.textContent = item.is_active ? "♡ Aktif" : "Nonaktif";
 
         const actions = document.createElement("div");
         actions.className = "actions";
@@ -585,7 +833,7 @@
         const editButton = document.createElement("button");
         editButton.type = "button";
         editButton.className = "btn btn-light";
-        editButton.textContent = "Edit";
+        editButton.textContent = "✏️ Edit";
         editButton.addEventListener("click", function() {
           mulaiEdit(item);
         });
@@ -601,7 +849,7 @@
         const deleteButton = document.createElement("button");
         deleteButton.type = "button";
         deleteButton.className = "btn btn-danger";
-        deleteButton.textContent = "Hapus";
+        deleteButton.textContent = "🗑 Hapus";
         deleteButton.addEventListener("click", function() {
           hapusLayanan(item);
         });
@@ -632,16 +880,19 @@
           "error"
         );
         saveBtn.disabled = false;
-        saveBtn.textContent = editId === null ? "Simpan layanan" : "Simpan perubahan";
+        saveBtn.textContent = editId === null
+          ? "♡ Simpan layanan"
+          : "Simpan perubahan";
         return;
       }
 
+      const sedangEdit = editId !== null;
       const serviceData = { name, description, price, is_active };
 
       try {
         let result;
 
-        if (editId === null) {
+        if (!sedangEdit) {
           result = await supabaseClient
             .from("services")
             .insert([serviceData]);
@@ -657,9 +908,9 @@
         resetForm();
         showMessage(
           pageMessage,
-          editId === null
-            ? "Layanan berhasil disimpan!"
-            : "Perubahan layanan berhasil disimpan!",
+          sedangEdit
+            ? "Perubahan layanan berhasil disimpan! ♡"
+            : "Layanan berhasil ditambahkan! ♡",
           "success"
         );
 
@@ -674,7 +925,7 @@
       } finally {
         saveBtn.disabled = false;
         saveBtn.textContent = editId === null
-          ? "Simpan layanan"
+          ? "♡ Simpan layanan"
           : "Simpan perubahan";
       }
     });
@@ -688,12 +939,12 @@
       document.getElementById("servicePrice").value = item.price ?? 0;
       document.getElementById("serviceActive").checked = !!item.is_active;
 
-      document.getElementById("formTitle").textContent = "Edit layanan";
+      document.getElementById("formTitle").textContent = "Edit layanan ✏️";
       saveBtn.textContent = "Simpan perubahan";
       cancelEditBtn.classList.remove("hidden");
 
       document.getElementById("serviceName").focus();
-      document.getElementById("serviceForm").scrollIntoView({
+      serviceForm.scrollIntoView({
         behavior: "smooth",
         block: "start"
       });
@@ -711,7 +962,7 @@
         return;
       }
 
-      showMessage(pageMessage, "Status layanan berhasil diubah.", "success");
+      showMessage(pageMessage, "Status layanan berhasil diubah. ♡", "success");
       await muatLayanan();
     }
 
@@ -742,7 +993,7 @@
       serviceForm.reset();
       document.getElementById("serviceActive").checked = true;
       document.getElementById("formTitle").textContent = "Tambah layanan baru";
-      saveBtn.textContent = "Simpan layanan";
+      saveBtn.textContent = "♡ Simpan layanan";
       cancelEditBtn.classList.add("hidden");
     }
 
@@ -773,3 +1024,4 @@
   </script>
 </body>
 </html>
+```
