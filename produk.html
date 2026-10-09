@@ -5,119 +5,557 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Produk SinaArt</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#fffaf3;color:#503a32;font-family:'Segoe UI',sans-serif}
-header{padding:18px 7%;display:flex;justify-content:space-between;align-items:center;background:#fff}
-header a{color:#704c40;text-decoration:none;font-weight:600}
-main{max-width:1100px;margin:35px auto;padding:0 20px}
-h1{color:#9c655c;text-align:center}
-#deskripsi{text-align:center;color:#88756b}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;margin-top:30px}
-.card{background:white;border-radius:18px;overflow:hidden;box-shadow:0 4px 15px #6a493315}
-.card img{width:100%;height:210px;object-fit:cover;background:#f5e8dc}
-.info{padding:17px}
-.info h3{margin:0 0 8px}
-.info p{color:#88756b;line-height:1.5}
-.harga{font-weight:bold;color:#a35e52;font-size:18px}
-.btn{display:block;text-align:center;background:#b97870;color:white;padding:11px;border-radius:10px;text-decoration:none;margin-top:15px}
-#pesan{text-align:center;padding:40px 10px}
-</style>
-</head>
-<body>
-<header>
-<a href="index.html">← Kembali ke SinaArt</a>
-<strong>🎨 SinaArt</strong>
-</header>
-<main>
-<h1 id="judul">Produk Kami</h1>
-<p id="deskripsi">Pilihan produk SinaArt untuk kamu 💗</p>
-<div class="grid" id="daftar"></div>
-<p id="pesan">Memuat produk...</p>
-</main>
-<script>
-const nomorWA = "62895322852505";
-const params = new URLSearchParams(location.search);
-const serviceId = params.get("service_id");
-
-async function muatProduk(){
-  const daftar = document.getElementById("daftar");
-  const pesan = document.getElementById("pesan");
-
-  if(!serviceId){
-    pesan.textContent = "Pilih layanan terlebih dahulu dari halaman utama.";
-    return;
-  }
-
-  if(!window.supabaseClient){
-    pesan.textContent = "Koneksi Supabase belum tersedia. Periksa file supabase.js.";
-    return;
-  }
-
-  const {data: layanan,error: errLayanan} = await supabaseClient
-    .from("services")
-    .select("id,name,description")
-    .eq("id",serviceId)
-    .eq("is_active",true)
-    .maybeSingle();
-
-  if(errLayanan || !layanan){
-    pesan.textContent = "Layanan tidak ditemukan.";
-    return;
-  }
-
-  document.getElementById("judul").textContent = layanan.name;
-  document.getElementById("deskripsi").textContent =
-    layanan.description || "Temukan produk pilihan dari layanan ini.";
-
-  const {data: produk,error} = await supabaseClient
-    .from("products")
-    .select("id,name,description,price,image_url")
-    .eq("service_id",serviceId)
-    .eq("is_active",true)
-    .order("created_at",{ascending:false});
-
-  if(error){
-    pesan.textContent = "Produk gagal dimuat: " + error.message;
-    return;
-  }
-
-  if(!produk || produk.length===0){
-    pesan.textContent = "Belum ada produk untuk layanan ini.";
-    return;
-  }
-
-  pesan.style.display="none";
-
-  daftar.innerHTML = produk.map(p=>{
-    const harga = Number(p.price).toLocaleString("id-ID");
-    const teks = `Halo SinaArt, saya tertarik dengan produk ${p.name} seharga Rp${harga}.`;
-    const gambar = p.image_url
-      ? `<img src="${escapeHTML(p.image_url)}" alt="${escapeHTML(p.name)}" onerror="this.style.display='none'">`
-      : `<div style="height:210px;display:grid;place-items:center;background:#f5e8dc">🎨</div>`;
-
-    return `<article class="card">
-      ${gambar}
-      <div class="info">
-        <h3>${escapeHTML(p.name)}</h3>
-        <p>${escapeHTML(p.description || "Produk pilihan SinaArt.")}</p>
-        <div class="harga">Rp${harga}</div>
-        <a class="btn" target="_blank" rel="noopener"
-          href="https://wa.me/${nomorWA}?text=${encodeURIComponent(teks)}">Pesan Produk</a>
-      </div>
-    </article>`;
-  }).join("");
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-function escapeHTML(value){
-  return String(value ?? "").replace(/[&<>"']/g,c=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  })[c]);
+:root {
+  --cream: #fffaf3;
+  --pink: #f5d9d7;
+  --pink-dark: #b97870;
+  --brown: #503a32;
+  --brown-light: #88756b;
+  --white: #ffffff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--cream);
+  color: var(--brown);
+  line-height: 1.6;
+}
+
+/* NAVBAR */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255, 250, 243, 0.96);
+  border-bottom: 1px solid #f0e5dc;
+  backdrop-filter: blur(10px);
+}
+
+.navbar {
+  max-width: 1200px;
+  margin: auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.logo {
+  font-size: 23px;
+  font-weight: 800;
+  color: var(--brown);
+  text-decoration: none;
+}
+
+.logo span {
+  color: var(--pink-dark);
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--brown);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 17px;
+  border: 1px solid #ead8ce;
+  border-radius: 30px;
+  transition: 0.25s;
+}
+
+.nav-link:hover {
+  background: var(--pink);
+  border-color: var(--pink);
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 65px 20px 70px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 10% 20%, #f5d9d7 0, transparent 25%),
+    radial-gradient(circle at 90% 80%, #f4e2c9 0, transparent 25%),
+    var(--cream);
+}
+
+.hero-content {
+  max-width: 760px;
+  margin: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.label {
+  display: inline-block;
+  padding: 7px 17px;
+  border-radius: 30px;
+  background: white;
+  color: var(--pink-dark);
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 15px #6a49330d;
+}
+
+.hero h1 {
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1.2;
+  margin-bottom: 17px;
+  letter-spacing: -1px;
+}
+
+.hero h1 span {
+  color: var(--pink-dark);
+}
+
+.hero p {
+  max-width: 570px;
+  margin: auto;
+  color: var(--brown-light);
+  font-size: 16px;
+}
+
+.hero-decoration {
+  position: absolute;
+  font-size: 35px;
+  opacity: 0.65;
+}
+
+.decoration-one {
+  top: 25px;
+  left: 8%;
+  transform: rotate(-15deg);
+}
+
+.decoration-two {
+  bottom: 25px;
+  right: 9%;
+  transform: rotate(15deg);
+}
+
+/* PRODUK */
+main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 45px 24px 75px;
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.section-heading h2 {
+  font-size: 29px;
+  margin-bottom: 6px;
+}
+
+.section-heading p {
+  color: var(--brown-light);
+  font-size: 14px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 25px;
+}
+
+.card {
+  background: var(--white);
+  border: 1px solid #f0e6df;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 7px 25px #6a49330b;
+  transition: transform 0.25s, box-shadow 0.25s;
+  min-width: 0;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 13px 30px #6a493318;
+}
+
+.image-wrap {
+  width: 100%;
+  height: 235px;
+  overflow: hidden;
+  background: #f7eae1;
+  display: grid;
+  place-items: center;
+}
+
+.image-wrap img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s;
+}
+
+.card:hover .image-wrap img {
+  transform: scale(1.04);
+}
+
+.no-image {
+  font-size: 48px;
+}
+
+.info {
+  padding: 20px;
+}
+
+.info h3 {
+  font-size: 19px;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  overflow-wrap: anywhere;
+}
+
+.info p {
+  font-size: 14px;
+  color: var(--brown-light);
+  line-height: 1.7;
+  margin-bottom: 15px;
+  overflow-wrap: anywhere;
+}
+
+.harga {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--pink-dark);
+}
+
+.btn {
+  display: block;
+  text-align: center;
+  background: var(--pink-dark);
+  color: white;
+  padding: 12px 16px;
+  border-radius: 12px;
+  text-decoration: none;
+  margin-top: 17px;
+  font-size: 14px;
+  font-weight: 700;
+  transition: 0.25s;
+}
+
+.btn:hover {
+  background: #9f625a;
+  transform: translateY(-1px);
+}
+
+/* PESAN STATUS */
+#pesan {
+  text-align: center;
+  padding: 35px 15px;
+  color: var(--brown-light);
+  grid-column: 1 / -1;
+  background: white;
+  border: 1px dashed #e8d5ca;
+  border-radius: 18px;
+}
+
+#pesan:empty {
+  display: none;
+}
+
+/* FOOTER */
+footer {
+  padding: 28px 20px;
+  background: #f6e9df;
+  text-align: center;
+  color: var(--brown-light);
+  font-size: 13px;
+}
+
+footer strong {
+  color: var(--brown);
+}
+
+/* RESPONSIVE */
+@media (max-width: 850px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .image-wrap {
+    height: 210px;
+  }
+}
+
+@media (max-width: 520px) {
+  .navbar {
+    padding: 13px 16px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .nav-link {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .hero {
+    padding: 55px 20px;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  main {
+    padding: 35px 15px 55px;
+  }
+
+  .section-heading h2 {
+    font-size: 24px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .image-wrap {
+    height: 150px;
+  }
+
+  .info {
+    padding: 12px;
+  }
+
+  .info h3 {
+    font-size: 15px;
+  }
+
+  .info p {
+    font-size: 12px;
+  }
+
+  .harga {
+    font-size: 16px;
+  }
+
+  .btn {
+    font-size: 12px;
+    padding: 10px 5px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav class="navbar">
+    <a href="index.html" class="logo">🎨 Sina<span>Art</span></a>
+    <a href="index.html" class="nav-link">← Kembali ke Beranda</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <span class="hero-decoration decoration-one">✿</span>
+  <span class="hero-decoration decoration-two">♡</span>
+
+  <div class="hero-content">
+    <div class="label">♡ KREASI DENGAN HATI ♡</div>
+    <h1 id="judul">Produk <span>SinaArt</span></h1>
+    <p id="deskripsi">
+      Pilihan produk SinaArt untuk kamu. Temukan karya favoritmu dan
+      pesan langsung melalui WhatsApp 💗
+    </p>
+  </div>
+</section>
+
+<main>
+  <div class="section-heading">
+    <h2>♡ Pilihan Untukmu ♡</h2>
+    <p>Temukan produk yang kamu sukai</p>
+  </div>
+
+  <div class="grid" id="daftar">
+    <p id="pesan">Memuat produk...</p>
+  </div>
+</main>
+
+<footer>
+  <strong>🎨 SinaArt</strong>
+  <p>Dibuat dengan cinta untuk setiap karya 💗</p>
+  <p>© <span id="tahun"></span> SinaArt. All rights reserved.</p>
+</footer>
+
+<script>
+const nomorWA = "62895322852505";
+const params = new URLSearchParams(window.location.search);
+const serviceId = params.get("service_id");
+
+document.getElementById("tahun").textContent =
+  new Date().getFullYear();
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, function(c) {
+    return {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[c];
+  });
+}
+
+function tampilkanPesan(teks) {
+  const daftar = document.getElementById("daftar");
+  daftar.innerHTML = "";
+
+  const pesan = document.createElement("p");
+  pesan.id = "pesan";
+  pesan.textContent = teks;
+
+  daftar.appendChild(pesan);
+}
+
+async function muatProduk() {
+  const daftar = document.getElementById("daftar");
+
+  // Supabase client bisa dibuat sebagai const di supabase.js,
+  // sehingga tidak selalu tersedia sebagai window.supabaseClient.
+  if (
+    typeof supabaseClient === "undefined" ||
+    !supabaseClient
+  ) {
+    tampilkanPesan(
+      "Koneksi Supabase belum tersedia. Periksa URL, key, dan isi file supabase.js."
+    );
+    console.error(
+      "supabaseClient tidak ditemukan. Periksa supabase.js dan urutan script."
+    );
+    return;
+  }
+
+  let query = supabaseClient
+    .from("products")
+    .select("id, name, description, price, image_url, service_id, is_active")
+    .eq("is_active", true)
+    .order("created_at", { ascending: false });
+
+  // Jika dibuka dari tombol Lihat Produk pada layanan,
+  // tampilkan produk milik layanan tersebut saja.
+  if (serviceId) {
+    const { data: layanan, error: errLayanan } =
+      await supabaseClient
+        .from("services")
+        .select("id, name, description")
+        .eq("id", serviceId)
+        .eq("is_active", true)
+        .maybeSingle();
+
+    if (errLayanan) {
+      console.error(errLayanan);
+      tampilkanPesan("Layanan gagal dimuat. Silakan coba lagi.");
+      return;
+    }
+
+    if (!layanan) {
+      tampilkanPesan("Layanan tidak ditemukan atau sedang tidak aktif.");
+      return;
+    }
+
+    document.getElementById("judul").innerHTML =
+      escapeHTML(layanan.name);
+
+    document.getElementById("deskripsi").textContent =
+      layanan.description ||
+      "Temukan produk pilihan dari layanan ini 💗";
+
+    query = query.eq("service_id", serviceId);
+  }
+
+  const { data: produk, error } = await query;
+
+  if (error) {
+    console.error("Gagal mengambil produk:", error);
+    tampilkanPesan(
+      "Produk gagal dimuat. Periksa tabel products dan kebijakan akses Supabase."
+    );
+    return;
+  }
+
+  if (!produk || produk.length === 0) {
+    tampilkanPesan(
+      serviceId
+        ? "Belum ada produk untuk layanan ini. Nantikan karya terbaru kami ya 💗"
+        : "Belum ada produk yang tersedia saat ini 💗"
+    );
+    return;
+  }
+
+  daftar.innerHTML = produk.map(function(p) {
+    const nama = escapeHTML(p.name || "Produk SinaArt");
+    const deskripsi = escapeHTML(
+      p.description || "Produk pilihan SinaArt."
+    );
+
+    const harga = Number(p.price || 0).toLocaleString("id-ID");
+
+    const teksWA =
+      `Halo SinaArt, saya tertarik dengan produk ${p.name || "SinaArt"} seharga Rp${harga}.`;
+
+    const gambar = p.image_url
+      ? `<div class="image-wrap">
+           <img
+             src="${escapeHTML(p.image_url)}"
+             alt="${nama}"
+             loading="lazy"
+             onerror="this.parentElement.innerHTML='<div class=&quot;no-image&quot;>🎨</div>'"
+           >
+         </div>`
+      : `<div class="image-wrap">
+           <div class="no-image">🎨</div>
+         </div>`;
+
+    return `
+      <article class="card">
+        ${gambar}
+        <div class="info">
+          <h3>${nama}</h3>
+          <p>${deskripsi}</p>
+          <div class="harga">Rp${harga}</div>
+          <a
+            class="btn"
+            href="https://wa.me/${nomorWA}?text=${encodeURIComponent(teksWA)}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >♡ Pesan Produk</a>
+        </div>
+      </article>
+    `;
+  }).join("");
 }
 
 muatProduk();
 </script>
+
 </body>
 </html>
