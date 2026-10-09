@@ -775,6 +775,21 @@
     document.getElementById("year").textContent =
       new Date().getFullYear();
   </script>
+<script>
+async function tesKoneksi() {
+  const { data, error } = await supabaseClient
+    .from('services')
+    .select('id, name')
+    .limit(5);
 
+  if (error) {
+    console.error('Koneksi gagal:', error.message);
+  } else {
+    console.log('Koneksi berhasil!', data);
+  }
+}
+
+tesKoneksi();
+</script>
 </body>
 </html>
