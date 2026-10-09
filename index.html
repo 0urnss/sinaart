@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -5,46 +6,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#4b3028">
   <title>Welcome to SinaArt</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --brown: #4b3028;
-      --brown-2: #704936;
-      --caramel: #a87550;
+      --brown2: #704936;
       --cream: #fff7e9;
       --paper: #fffdf7;
       --pink: #f5b7c8;
       --pink-dark: #c95f7b;
-      --yellow: #ffd166;
-      --blue: #8ecae6;
-      --green: #a8c686;
-      --purple: #b7a0d8;
-      --text: #4b3028;
       --muted: #826b60;
       --line: #e8c9b5;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 95px; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
+
     body {
-      color: var(--text);
-      background:
-        radial-gradient(circle at 8% 12%, #80523c 0, transparent 24rem),
-        radial-gradient(circle at 92% 55%, #704936 0, transparent 25rem),
-        var(--brown);
       font-family: "Nunito", sans-serif;
+      color: var(--brown);
       line-height: 1.65;
       overflow-x: hidden;
+      background:
+        radial-gradient(circle at 8% 12%, #80523c, transparent 24rem),
+        radial-gradient(circle at 92% 55%, #704936, transparent 25rem),
+        var(--brown);
     }
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; }
-    .container { width: min(1120px, 91%); margin: auto; }
-    h1, h2, h3, .logo { font-family: "Baloo 2", cursive; line-height: 1.12; }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(1120px, 91%);
+      margin: auto;
+    }
+
+    h1, h2, h3, .logo {
+      font-family: "Baloo 2", cursive;
+      line-height: 1.2;
+    }
+
     .rainbow-text {
       display: inline-block;
-      background: linear-gradient(100deg, #ed7186 0%, #f6ad55 22%, #f6d66b 38%, #8fbd8a 54%, #7db6dc 70%, #a997d5 84%, #ed7186 100%);
+      background: linear-gradient(
+        100deg,
+        #ed7186,
+        #f6ad55,
+        #f6d66b,
+        #8fbd8a,
+        #7db6dc,
+        #a997d5,
+        #ed7186
+      );
       background-size: 220% auto;
       color: transparent;
       -webkit-background-clip: text;
@@ -52,203 +83,595 @@
       animation: rainbow 7s linear infinite;
       filter: drop-shadow(0 2px 0 #fff);
     }
-    @keyframes rainbow { to { background-position: 220% center; } }
-    @keyframes floaty { 0%,100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-9px) rotate(3deg); } }
-    @keyframes twinkle { 0%,100% { opacity: .55; transform: scale(.85) rotate(0); } 50% { opacity: 1; transform: scale(1.16) rotate(12deg); } }
-    @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-    @keyframes wiggle { 0%,100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
 
-    /* Header & navigation */
-    header { padding-top: 18px; position: sticky; top: 0; z-index: 20; }
+    @keyframes rainbow {
+      to { background-position: 220% center; }
+    }
+
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-9px) rotate(3deg); }
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: .55; transform: scale(.85); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    /* NAVBAR */
+    header {
+      padding-top: 18px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
     .header-inner {
-      min-height: 76px; display: flex; align-items: center; justify-content: space-between;
-      gap: 18px; padding: 10px 22px; background: var(--cream);
-      border: 2px dashed #e8bca7; border-radius: 24px;
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 10px 22px;
+      background: var(--cream);
+      border: 2px dashed #e8bca7;
+      border-radius: 24px;
       box-shadow: 0 7px 0 #321e1a35;
     }
-    .logo { font-size: 34px; font-weight: 800; letter-spacing: -.8px; color: var(--brown); white-space: nowrap; }
-    .logo .rainbow-text { filter: drop-shadow(0 2px 0 #f5d4c3); }
-    .nav-links { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .nav-links a {
-      padding: 9px 17px; border-radius: 25px; font-weight: 800; font-size: 14px;
-      transition: transform .2s, background .2s, color .2s;
+
+    .logo {
+      font-size: 34px;
+      font-weight: 800;
+      white-space: nowrap;
     }
-    .nav-links a:hover, .nav-links a:focus-visible { background: #f7d5d9; color: #a74661; transform: translateY(-2px); outline: none; }
-    .nav-links .nav-cta { background: var(--pink); color: var(--brown); }
-    .nav-links .nav-cta:hover { background: var(--yellow); }
 
-    /* Decorative doodles */
-    .doodle { position: absolute; pointer-events: none; user-select: none; animation: twinkle 3s ease-in-out infinite; }
-    .doodle-star { color: #f3b84e; font-size: 32px; }
-    .doodle-heart { color: var(--pink-dark); font-size: 27px; animation-delay: .7s; }
-    .doodle-flower { color: #d77b89; font-size: 31px; animation-delay: 1.2s; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
 
-    /* Hero */
-    .hero { padding: 34px 0 25px; }
+    .nav-links a {
+      padding: 9px 16px;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 800;
+      transition: .2s;
+    }
+
+    .nav-links a:hover {
+      background: #f7d5d9;
+      color: #a74661;
+      transform: translateY(-2px);
+    }
+
+    .nav-links .nav-cta {
+      background: var(--pink);
+    }
+
+    /* HERO */
+    .hero {
+      padding: 34px 0 25px;
+    }
+
     .hero-panel {
-      position: relative; overflow: hidden; display: grid; grid-template-columns: 1.05fr .95fr;
-      align-items: center; gap: 28px; padding: clamp(26px, 5vw, 55px);
-      background: var(--cream); border: 2px solid #f3d4c0; border-radius: 30px;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 28px;
+      padding: clamp(26px, 5vw, 55px);
+      background: var(--cream);
+      border: 2px solid #f3d4c0;
+      border-radius: 30px;
       box-shadow: 0 8px 0 #321e1a35;
     }
-    .hero-panel:before {
-      content: ""; position: absolute; inset: 12px; border: 2px dashed #edc0b2;
-      border-radius: 23px; pointer-events: none;
-    }
-    .hero-copy, .hero-art { position: relative; z-index: 1; }
-    .eyebrow {
-      display: inline-block; background: #f9dce1; color: #a94f63; border: 1px solid #efbdc6;
-      border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 900;
-      letter-spacing: .7px; margin-bottom: 14px;
-    }
-    h1 { font-size: clamp(39px, 5.2vw, 63px); margin-bottom: 15px; }
-    h1 .welcome-word { display: block; }
-    .hero-copy p { max-width: 500px; color: var(--muted); font-size: 16px; margin-bottom: 24px; }
-    .hero-buttons { display: flex; gap: 11px; flex-wrap: wrap; }
-    .button {
-      display: inline-flex; align-items: center; justify-content: center; border: 2px solid transparent;
-      cursor: pointer; padding: 11px 19px; border-radius: 24px; font-weight: 900;
-      transition: transform .2s, box-shadow .2s, background .2s;
-    }
-    .button:hover { transform: translateY(-3px) rotate(-1deg); box-shadow: 0 5px 0 #4b302826; }
-    .button-primary { background: var(--brown-2); color: white; }
-    .button-primary:hover { background: var(--pink-dark); }
-    .button-outline { border-color: #d8aa91; color: var(--brown); background: #fffdf7; }
-    .hero-art { min-height: 275px; display: grid; place-items: center; }
-    .art-paper {
-      width: min(290px, 85%); min-height: 260px; display: flex; flex-direction: column;
-      justify-content: center; align-items: center; gap: 4px; background: #f8dce0;
-      border: 3px solid #fff; outline: 2px dashed #dca58f; outline-offset: -12px;
-      border-radius: 48% 46% 44% 43%; transform: rotate(3deg);
-      box-shadow: 0 10px 0 #4b30281c; animation: floaty 5s ease-in-out infinite;
-    }
-    .palette { font-size: clamp(72px, 8vw, 100px); line-height: 1.2; }
-    .art-paper strong { font-family: "Baloo 2", cursive; font-size: 23px; color: var(--brown-2); }
-    .floating-note {
-      position: absolute; background: #fffdf7; border: 1px solid #eac4ad; border-radius: 12px;
-      padding: 8px 13px; box-shadow: 0 5px 0 #4b30281c; font-size: 13px; font-weight: 900;
-    }
-    .note-one { top: 14px; left: 0; transform: rotate(-7deg); }
-    .note-two { right: 0; bottom: 18px; transform: rotate(5deg); }
 
-    /* Sections */
-    section { scroll-margin-top: 100px; }
-    .orders { padding: 34px 0 65px; }
-    .section-heading { position: relative; text-align: center; max-width: 690px; margin: 0 auto 28px; color: var(--cream); }
-    .section-heading .eyebrow { margin-bottom: 8px; }
-    .section-heading h2 { font-size: clamp(32px, 4.2vw, 44px); margin-bottom: 8px; }
-    .section-heading p { color: #f2dfd2; font-size: 15px; }
-    .category-view, .products-view {
-      background: var(--cream); padding: clamp(15px, 3vw, 28px);
-      border: 2px solid #e8c3ac; border-radius: 28px; box-shadow: 0 8px 0 #321e1a35;
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 2px dashed #edc0b2;
+      border-radius: 23px;
+      pointer-events: none;
     }
-    .category-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-    .category-card {
-      position: relative; min-width: 0; display: grid; grid-template-columns: minmax(90px, .8fr) 1.2fr;
-      align-items: center; gap: 18px; text-align: left; padding: 18px;
-      background: var(--paper); border: 2px solid #e8c9b5; border-radius: 22px;
-      cursor: pointer; color: var(--text); transition: transform .22s, box-shadow .22s, border-color .22s;
+
+    .hero-copy, .hero-art {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: #f9dce1;
+      color: #a94f63;
+      border: 1px solid #efbdc6;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .5px;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(39px, 5.2vw, 63px);
+      margin-bottom: 15px;
+    }
+
+    .welcome-word {
+      display: block;
+    }
+
+    .hero-copy p {
+      max-width: 500px;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 11px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid transparent;
+      cursor: pointer;
+      padding: 11px 19px;
+      border-radius: 24px;
+      font-weight: 900;
+      transition: .2s;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 0 #4b302826;
+    }
+
+    .button-primary {
+      background: var(--brown2);
+      color: white;
+    }
+
+    .button-primary:hover {
+      background: var(--pink-dark);
+    }
+
+    .button-outline {
+      border-color: #d8aa91;
+      background: var(--paper);
+    }
+
+    .hero-art {
+      min-height: 275px;
+      display: grid;
+      place-items: center;
+    }
+
+    .art-paper {
+      width: min(290px, 85%);
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      background: #f8dce0;
+      border: 3px solid white;
+      outline: 2px dashed #dca58f;
+      outline-offset: -12px;
+      border-radius: 48% 46% 44% 43%;
+      transform: rotate(3deg);
+      box-shadow: 0 10px 0 #4b30281c;
+      animation: floaty 5s ease-in-out infinite;
+    }
+
+    .palette {
+      font-size: 90px;
+      line-height: 1.2;
+    }
+
+    .art-paper strong {
+      font-family: "Baloo 2", cursive;
+      font-size: 23px;
+      color: var(--brown2);
+    }
+
+    .floating-note {
+      position: absolute;
+      background: var(--paper);
+      border: 1px solid #eac4ad;
+      border-radius: 12px;
+      padding: 8px 13px;
+      box-shadow: 0 5px 0 #4b30281c;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .note-one {
+      top: 14px;
+      left: 0;
+      transform: rotate(-7deg);
+    }
+
+    .note-two {
+      right: 0;
+      bottom: 18px;
+      transform: rotate(5deg);
+    }
+
+    .doodle {
+      position: absolute;
+      pointer-events: none;
+      animation: twinkle 3s infinite;
+    }
+
+    .doodle-star {
+      top: 12px;
+      right: 16px;
+      color: #f3b84e;
+      font-size: 32px;
+    }
+
+    .doodle-heart {
+      left: 18px;
+      bottom: 40px;
+      color: var(--pink-dark);
+      font-size: 27px;
+    }
+
+    /* JUDUL BAGIAN */
+    section {
+      scroll-margin-top: 100px;
+    }
+
+    .orders {
+      padding: 34px 0 65px;
+    }
+
+    .section-heading {
+      text-align: center;
+      max-width: 690px;
+      margin: 0 auto 28px;
+      color: var(--cream);
+    }
+
+    .section-heading h2 {
+      font-size: clamp(32px, 4.2vw, 44px);
+      margin-bottom: 8px;
+    }
+
+    .section-heading p {
+      color: #f2dfd2;
+      font-size: 15px;
+    }
+
+    /* KARTU LAYANAN DARI SUPABASE */
+    .category-view {
+      background: var(--cream);
+      padding: clamp(15px, 3vw, 28px);
+      border: 2px solid #e8c3ac;
+      border-radius: 28px;
+      box-shadow: 0 8px 0 #321e1a35;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .service-card {
+      position: relative;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      background: var(--paper);
+      border: 2px solid var(--line);
+      border-radius: 22px;
+      padding: 22px;
       overflow: hidden;
+      transition: transform .22s, box-shadow .22s;
     }
-    .category-card:before { content: "✦"; position: absolute; top: 7px; right: 12px; color: #d98c76; animation: twinkle 3s infinite; }
-    .category-card:hover, .category-card:focus-visible {
-      transform: translateY(-5px) rotate(-.5deg); border-color: var(--pink-dark);
-      box-shadow: 0 7px 0 #d9a7a3; outline: none;
+
+    .service-card::after {
+      content: "✦";
+      position: absolute;
+      top: 8px;
+      right: 13px;
+      color: #d98c76;
+      animation: twinkle 3s infinite;
     }
-    .category-icon {
-      min-height: 140px; border-radius: 17px; display: grid; place-items: center;
-      font-size: clamp(43px, 5vw, 63px); background: #f9dfe4; border: 2px dashed #e9b7b9;
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--pink-dark);
+      box-shadow: 0 7px 0 #d9a7a3;
+    }
+
+    .service-icon {
+      width: 100%;
+      min-height: 115px;
+      display: grid;
+      place-items: center;
+      background: #f9dfe4;
+      border: 2px dashed #e9b7b9;
+      border-radius: 17px;
+      font-size: 53px;
+      margin-bottom: 16px;
       animation: bob 4s ease-in-out infinite;
     }
-    .category-card:nth-child(2) .category-icon { background: #e3e7f8; border-color: #b8bce2; animation-delay: .5s; }
-    .category-card:nth-child(3) .category-icon { background: #f4e7d6; border-color: #dfc09d; animation-delay: 1s; }
-    .category-card:nth-child(4) .category-icon { background: #e6efd9; border-color: #bfd3a8; animation-delay: 1.5s; }
-    .category-card h3 { font-size: clamp(19px, 2.2vw, 26px); margin-bottom: 7px; overflow-wrap: anywhere; }
-    .category-card p { color: var(--muted); font-size: 13px; line-height: 1.5; }
-    .category-action { display: inline-block; margin-top: 13px; background: var(--brown-2); color: white; border-radius: 22px; padding: 8px 13px; font-size: 12px; font-weight: 900; }
-    .category-card:hover .category-action { background: var(--pink-dark); }
 
-    /* Product cards */
-    .products-view { display: none; }
-    .products-view.show { display: block; }
-    .category-view.hide { display: none; }
-    .products-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 22px; flex-wrap: wrap; }
-    .products-toolbar h3 { font-size: 28px; }
-    .back-button { border: 2px solid #d8aa91; border-radius: 25px; background: #fffdf7; color: var(--brown); padding: 9px 15px; cursor: pointer; font-weight: 900; transition: .2s; }
-    .back-button:hover { background: #f9dce1; transform: translateY(-2px); }
-    .product-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-    .product-card { background: var(--paper); border: 2px solid #e8c9b5; border-radius: 20px; overflow: hidden; min-width: 0; transition: transform .22s, box-shadow .22s; }
-    .product-card:hover { transform: translateY(-4px); box-shadow: 0 7px 0 #d9a7a3; }
-    .product-image { height: 210px; background: linear-gradient(135deg, #f9dfe4, #e8e8f5, #f9edcf); display: flex; justify-content: center; align-items: center; overflow: hidden; color: var(--brown-2); font-size: 58px; }
-    .product-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .product-info { padding: 17px; }
-    .product-info h3 { font-size: 21px; margin-bottom: 7px; overflow-wrap: anywhere; }
-    .product-info p { color: var(--muted); font-size: 13px; min-height: 43px; overflow-wrap: anywhere; margin-bottom: 13px; }
-    .product-bottom { display: flex; justify-content: space-between; align-items: center; gap: 9px; border-top: 1px dashed #dfc3b0; padding-top: 13px; flex-wrap: wrap; }
-    .product-price { color: var(--pink-dark); font-weight: 900; font-size: 14px; }
-    .order-link { background: var(--brown-2); color: white; border-radius: 22px; padding: 8px 12px; font-size: 12px; font-weight: 900; white-space: nowrap; }
-    .order-link:hover { background: var(--pink-dark); }
-    .message { grid-column: 1 / -1; padding: 30px 15px; text-align: center; color: var(--muted); background: #fffaf2; border-radius: 18px; border: 2px dashed #e2bda7; }
+    .service-card:nth-child(2n) .service-icon {
+      background: #e3e7f8;
+      border-color: #b8bce2;
+    }
 
-    /* About/contact/footer */
-    .about { padding: 60px 0; }
-    .about-box { max-width: 790px; margin: auto; text-align: center; background: var(--cream); border: 2px dashed #e8c3ac; border-radius: 28px; padding: clamp(25px, 5vw, 45px); box-shadow: 0 7px 0 #321e1a35; }
-    .about-box h2 { font-size: clamp(30px, 4vw, 42px); margin-bottom: 14px; }
-    .about-box p { color: var(--muted); margin-bottom: 14px; }
-    .about-decoration { font-size: 32px; margin-top: 16px; animation: wiggle 3s ease-in-out infinite; }
-    .contact { padding: 10px 0 55px; }
-    .contact-box { text-align: center; padding: 42px 22px; border: 2px solid #e8c3ac; border-radius: 28px; background: var(--cream); box-shadow: 0 7px 0 #321e1a35; }
-    .contact-box h2 { font-size: clamp(29px, 4vw, 40px); margin-bottom: 12px; }
-    .contact-box p { color: var(--muted); margin-bottom: 22px; }
-    footer { padding: 25px 0; text-align: center; color: #f5dfd1; font-size: 13px; }
-    footer .logo { display: inline-block; margin-bottom: 5px; color: #fff7e9; font-size: 28px; }
-    footer .logo span { color: var(--pink); }
+    .service-card:nth-child(3n) .service-icon {
+      background: #f4e7d6;
+      border-color: #dfc09d;
+    }
 
+    .service-card:nth-child(4n) .service-icon {
+      background: #e6efd9;
+      border-color: #bfd3a8;
+    }
+
+    .service-card h3 {
+      font-size: clamp(20px, 2.5vw, 26px);
+      margin-bottom: 8px;
+      overflow-wrap: anywhere;
+    }
+
+    .service-description {
+      color: var(--muted);
+      font-size: 14px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      flex: 1;
+      width: 100%;
+    }
+
+    .service-price {
+      color: var(--pink-dark);
+      font-size: 19px;
+      font-weight: 900;
+      margin: 16px 0;
+    }
+
+    .service-order {
+      display: inline-block;
+      background: var(--brown2);
+      color: white;
+      padding: 9px 15px;
+      border-radius: 22px;
+      font-size: 12px;
+      font-weight: 900;
+      transition: .2s;
+      margin-top: auto;
+    }
+
+    .service-order:hover {
+      background: var(--pink-dark);
+      transform: translateY(-2px);
+    }
+
+    .message {
+      grid-column: 1 / -1;
+      width: 100%;
+      padding: 30px 15px;
+      text-align: center;
+      color: var(--muted);
+      background: #fffaf2;
+      border-radius: 18px;
+      border: 2px dashed #e2bda7;
+    }
+
+    /* ABOUT */
+    .about {
+      padding: 60px 0;
+    }
+
+    .about-box {
+      max-width: 790px;
+      margin: auto;
+      text-align: center;
+      background: var(--cream);
+      border: 2px dashed #e8c3ac;
+      border-radius: 28px;
+      padding: clamp(25px, 5vw, 45px);
+      box-shadow: 0 7px 0 #321e1a35;
+    }
+
+    .about-box h2 {
+      font-size: clamp(30px, 4vw, 42px);
+      margin-bottom: 14px;
+    }
+
+    .about-box p {
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .about-decoration {
+      font-size: 32px;
+      margin-top: 16px;
+      animation: floaty 3s infinite;
+    }
+
+    /* KONTAK */
+    .contact {
+      padding: 10px 0 55px;
+    }
+
+    .contact-box {
+      text-align: center;
+      padding: 42px 22px;
+      border: 2px solid #e8c3ac;
+      border-radius: 28px;
+      background: var(--cream);
+      box-shadow: 0 7px 0 #321e1a35;
+    }
+
+    .contact-box h2 {
+      font-size: clamp(29px, 4vw, 40px);
+      margin-bottom: 12px;
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
+    footer {
+      padding: 25px 0;
+      text-align: center;
+      color: #f5dfd1;
+      font-size: 13px;
+    }
+
+    footer .logo {
+      display: inline-block;
+      margin-bottom: 5px;
+      color: var(--cream);
+      font-size: 28px;
+    }
+
+    /* RESPONSIVE HP */
     @media (max-width: 760px) {
-      header { padding-top: 10px; }
-      .header-inner { min-height: 66px; padding: 9px 13px; }
-      .logo { font-size: 29px; }
-      .nav-links { gap: 2px; }
-      .nav-links a { padding: 8px 10px; font-size: 12px; }
-      .hero-panel { grid-template-columns: 1fr; gap: 14px; }
-      .hero-art { min-height: 260px; }
-      .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-      .category-card { grid-template-columns: 1fr; gap: 10px; padding: 12px; }
-      .category-icon { min-height: 115px; font-size: 48px; }
-      .category-card h3 { font-size: 19px; }
-      .category-card p { font-size: 12px; }
-      .category-action { margin-top: 10px; }
-      .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-      .product-image { height: 150px; font-size: 42px; }
-      .product-info { padding: 12px; }
-      .product-info h3 { font-size: 18px; }
-      .product-info p { font-size: 12px; min-height: 48px; }
-      .product-bottom { align-items: flex-start; flex-direction: column; }
+      header {
+        padding-top: 10px;
+      }
+
+      .header-inner {
+        min-height: 66px;
+        padding: 9px 13px;
+      }
+
+      .logo {
+        font-size: 29px;
+      }
+
+      .nav-links {
+        gap: 2px;
+      }
+
+      .nav-links a {
+        padding: 8px 10px;
+        font-size: 12px;
+      }
+
+      .hero-panel {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .hero-art {
+        min-height: 260px;
+      }
+
+      .service-grid {
+        gap: 12px;
+      }
+
+      .service-card {
+        padding: 13px;
+      }
+
+      .service-icon {
+        min-height: 95px;
+        font-size: 43px;
+      }
+
+      .service-card h3 {
+        font-size: 19px;
+      }
+
+      .service-description {
+        font-size: 12px;
+      }
+
+      .service-price {
+        font-size: 15px;
+        margin: 12px 0;
+      }
+
+      .service-order {
+        font-size: 11px;
+        padding: 8px 10px;
+      }
     }
+
     @media (max-width: 420px) {
-      .container { width: 93%; }
-      .header-inner { align-items: center; gap: 6px; }
-      .logo { font-size: 25px; }
-      .nav-links a { padding: 7px 8px; font-size: 11px; }
-      .hero-panel { padding: 25px 20px; }
-      .hero-copy p { font-size: 14px; }
-      .hero-buttons .button { font-size: 12px; padding: 10px 13px; }
-      .category-view, .products-view { padding: 12px; }
-      .category-icon { min-height: 90px; }
-      .category-card h3 { font-size: 17px; }
-      .category-action { font-size: 11px; padding: 7px 10px; }
-      .products-toolbar h3 { font-size: 22px; }
-      .back-button { font-size: 12px; }
+      .container {
+        width: 93%;
+      }
+
+      .header-inner {
+        gap: 6px;
+      }
+
+      .logo {
+        font-size: 25px;
+      }
+
+      .nav-links a {
+        padding: 7px 8px;
+        font-size: 11px;
+      }
+
+      .hero-panel {
+        padding: 25px 20px;
+      }
+
+      .hero-copy p {
+        font-size: 14px;
+      }
+
+      .hero-buttons .button {
+        font-size: 12px;
+        padding: 10px 13px;
+      }
+
+      .category-view {
+        padding: 12px;
+      }
+
+      .service-card h3 {
+        font-size: 17px;
+      }
     }
+
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
     }
   </style>
 </head>
+
 <body>
   <header>
     <nav class="container header-inner" aria-label="Navigasi utama">
-      <a href="#home" class="logo"><span class="rainbow-text">SinaArt</span>♡</a>
+      <a href="#home" class="logo">
+        <span class="rainbow-text">SinaArt</span>♡
+      </a>
+
       <div class="nav-links">
         <a href="#home">Home</a>
         <a href="#pemesanan" class="nav-cta">Pemesanan</a>
@@ -258,75 +681,115 @@
   </header>
 
   <main>
+    <!-- HOME -->
     <section class="hero" id="home">
       <div class="container">
         <div class="hero-panel">
           <div class="hero-copy">
             <span class="eyebrow">✿ A little art, a lot of love ✿</span>
-            <h1><span class="welcome-word rainbow-text">Welcome</span> to <span class="rainbow-text">SinaArt!</span></h1>
-            <p>Temukan karya dan layanan kreatif yang bisa mewujudkan ide, kenangan, dan imajinasimu menjadi sebuah karya seni yang istimewa. ♡</p>
+
+            <h1>
+              <span class="welcome-word rainbow-text">Welcome</span>
+              to <span class="rainbow-text">SinaArt!</span>
+            </h1>
+
+            <p>
+              Temukan karya dan layanan kreatif yang bisa mewujudkan ide,
+              kenangan, dan imajinasimu menjadi sebuah karya seni yang istimewa. ♡
+            </p>
+
             <div class="hero-buttons">
-              <a href="#pemesanan" class="button button-primary">Jelajahi Layanan ✦</a>
-              <a href="#about" class="button button-outline">Tentang SinaArt ♡</a>
+              <a href="#pemesanan" class="button button-primary">
+                Jelajahi Layanan ✦
+              </a>
+
+              <a href="#about" class="button button-outline">
+                Tentang SinaArt ♡
+              </a>
             </div>
           </div>
-          <div class="hero-art" aria-label="Ilustrasi palet seni">
-            <span class="doodle doodle-star" style="top:12px;right:16px">✦</span>
-            <span class="doodle doodle-heart" style="left:18px;bottom:40px">♥</span>
-            <span class="doodle doodle-flower" style="right:10px;bottom:20px">✿</span>
+
+          <div class="hero-art">
+            <span class="doodle doodle-star">✦</span>
+            <span class="doodle doodle-heart">♥</span>
+
             <div class="floating-note note-one">♡ Made with love</div>
+
             <div class="art-paper">
               <div class="palette">🎨</div>
               <strong>little ideas, big art</strong>
-              <span class="rainbow-text" style="font-weight:900">made just for you ✨</span>
+              <span class="rainbow-text" style="font-weight:900">
+                made just for you ✨
+              </span>
             </div>
+
             <div class="floating-note note-two">✦ Art is a feeling</div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- LAYANAN -->
     <section class="orders" id="pemesanan">
       <div class="container">
         <div class="section-heading">
           <span class="eyebrow">✿ Find your favorite ✿</span>
-          <h2><span class="rainbow-text" id="orderHeading">Our Services</span></h2>
-          <p id="orderDescription">Pilih layanan yang kamu butuhkan dan temukan karya yang paling cocok untukmu. ♡</p>
+          <h2><span class="rainbow-text">Our Services</span></h2>
+          <p>
+            Pilih layanan yang kamu butuhkan dan temukan karya
+            yang paling cocok untukmu. ♡
+          </p>
         </div>
 
-        <div class="category-view" id="categoryView">
-          <div class="category-grid" id="categoryGrid">
-            <p class="message">Memuat kategori...</p>
+        <div class="category-view">
+          <div class="service-grid" id="serviceGrid">
+            <p class="message">Memuat layanan SinaArt... ♡</p>
           </div>
-        </div>
-
-        <div class="products-view" id="productsView">
-          <div class="products-toolbar">
-            <h3 id="selectedCategory">Produk</h3>
-            <button type="button" class="back-button" id="backButton">← Kembali ke Layanan</button>
-          </div>
-          <div class="product-grid" id="productGrid"></div>
         </div>
       </div>
     </section>
 
+    <!-- ABOUT -->
     <section class="about" id="about">
       <div class="container about-box">
         <span class="eyebrow">♡ A little about us ♡</span>
-        <h2><span class="rainbow-text">Art that tells your story.</span></h2>
-        <p>SinaArt adalah ruang kreatif untuk menghadirkan karya seni yang personal. Setiap ide punya cerita, dan setiap cerita layak diabadikan melalui karya.</p>
-        <p>Mulai dari pembuatan website hingga gambar manual dan lukisan di atas kanvas, kami ingin membantu mengubah ide kreatifmu menjadi sesuatu yang bisa kamu simpan dan kenang.</p>
+
+        <h2>
+          <span class="rainbow-text">Art that tells your story.</span>
+        </h2>
+
+        <p>
+          SinaArt adalah ruang kreatif untuk menghadirkan karya seni yang personal.
+          Setiap ide punya cerita, dan setiap cerita layak diabadikan melalui karya.
+        </p>
+
+        <p>
+          Mulai dari pembuatan website hingga gambar manual dan lukisan di atas kanvas,
+          kami ingin membantu mengubah ide kreatifmu menjadi sesuatu yang bisa kamu simpan dan kenang.
+        </p>
+
         <div class="about-decoration">♡ ✿ ✦ ♡</div>
       </div>
     </section>
 
+    <!-- KONTAK -->
     <section class="contact">
       <div class="container">
         <div class="contact-box">
           <span class="eyebrow">✦ Let's make something ✦</span>
-          <h2><span class="rainbow-text">Have an idea in mind?</span></h2>
-          <p>Punya pertanyaan atau ide karya sendiri? Hubungi SinaArt melalui WhatsApp.</p>
-          <button type="button" id="whatsappButton" class="button button-primary">Hubungi via WhatsApp ↗</button>
+
+          <h2>
+            <span class="rainbow-text">Have an idea in mind?</span>
+          </h2>
+
+          <p>
+            Punya pertanyaan atau ide karya sendiri?
+            Hubungi SinaArt melalui WhatsApp.
+          </p>
+
+          <button type="button" id="whatsappButton" class="button button-primary">
+            Hubungi via WhatsApp ↗
+          </button>
         </div>
       </div>
     </section>
@@ -334,242 +797,161 @@
 
   <footer>
     <div class="container">
-      <a href="#home" class="logo"><span class="rainbow-text">SinaArt</span>♡</a>
+      <a href="#home" class="logo">
+        <span class="rainbow-text">SinaArt</span>♡
+      </a>
+
       <p>Made with ♡ and creativity.</p>
       <p>© <span id="year"></span> SinaArt. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- Jangan hapus kedua script ini -->
+  <!-- KONEKSI SUPABASE: JANGAN HAPUS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
 
   <script>
     const whatsappNumber = "62895322852505";
-    const categoryView = document.getElementById("categoryView");
-    const productsView = document.getElementById("productsView");
-    const categoryGrid = document.getElementById("categoryGrid");
-    const productGrid = document.getElementById("productGrid");
-    const orderHeading = document.getElementById("orderHeading");
-    const orderDescription = document.getElementById("orderDescription");
-    const selectedCategory = document.getElementById("selectedCategory");
+    const serviceGrid = document.getElementById("serviceGrid");
 
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    function pilihIkonKategori(kategori) {
-      const nama = kategori.toLowerCase();
-      if (nama.includes("digital") || nama.includes("illustration")) return "🎨";
-      if (nama.includes("traditional") || nama.includes("bnw") || nama.includes("b&w") || nama.includes("drawing") || nama.includes("gambar") || nama.includes("line art")) return "✏️";
-      if (nama.includes("painting") || nama.includes("lukisan") || nama.includes("canvas") || nama.includes("kanvas")) return "🖼️";
-      if (nama.includes("web") || nama.includes("website")) return "💻";
-      return "♡";
-    }
-
-    function deskripsiKategori(kategori) {
-      const nama = kategori.toLowerCase();
-      if (nama.includes("website") || nama.includes("web")) return "Website personal, toko online, undangan digital, dan lainnya.";
-      if (nama.includes("digital")) return "Portrait, chibi, ilustrasi, dan custom artwork.";
-      if (nama.includes("traditional") || nama.includes("bnw") || nama.includes("b&w") || nama.includes("drawing") || nama.includes("gambar")) return "Sketsa pensil, line art, B&W, dan gambar manual.";
-      if (nama.includes("painting") || nama.includes("lukisan") || nama.includes("kanvas")) return "Lukisan kanvas custom, pemandangan, portrait, dan lainnya.";
-      return "Pilih layanan ini untuk melihat produk yang tersedia.";
-    }
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
 
     function formatHarga(harga) {
-      if (harga === null || harga === undefined || harga === "") return "Harga menyesuaikan";
+      if (harga === null || harga === undefined || harga === "") {
+        return "Harga menyesuaikan";
+      }
+
       const angka = Number(harga);
-      if (!Number.isFinite(angka)) return "Harga menyesuaikan";
+
+      if (!Number.isFinite(angka)) {
+        return "Harga menyesuaikan";
+      }
+
       return "Rp" + angka.toLocaleString("id-ID");
     }
 
-    function pesanViaWhatsApp(namaProduk) {
-      if (!/^[0-9]+$/.test(whatsappNumber)) {
-        alert("Periksa kembali nomor WhatsApp di index.html.");
-        return;
-      }
-      const pesan = namaProduk
-        ? "Halo SinaArt! Saya tertarik memesan produk " + namaProduk + ". Apakah masih tersedia?"
-        : "Halo SinaArt! Saya ingin bertanya tentang layanan dan produk kamu.";
-      window.open("https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(pesan), "_blank", "noopener,noreferrer");
+    function pesanViaWhatsApp(namaLayanan) {
+      const pesan =
+        "Halo SinaArt! Saya tertarik dengan layanan " +
+        namaLayanan +
+        ". Boleh tanya informasi lebih lanjut?";
+
+      window.open(
+        "https://wa.me/" + whatsappNumber +
+        "?text=" + encodeURIComponent(pesan),
+        "_blank",
+        "noopener,noreferrer"
+      );
     }
 
-    document.getElementById("whatsappButton").addEventListener("click", function () {
-      pesanViaWhatsApp("");
-    });
+    document.getElementById("whatsappButton")
+      .addEventListener("click", function () {
+        pesanViaWhatsApp("SinaArt");
+      });
 
-    function tampilkanPesan(elemen, teks) {
-      elemen.replaceChildren();
-      const pesan = document.createElement("p");
-      pesan.className = "message";
-      pesan.textContent = teks;
-      elemen.appendChild(pesan);
-    }
-
-    async function ambilProduk() {
+    async function ambilLayanan() {
       if (typeof supabaseClient === "undefined") {
-        throw new Error("supabaseClient tidak ditemukan. Periksa file supabase.js.");
+        throw new Error(
+          "supabaseClient tidak ditemukan. Periksa file supabase.js."
+        );
       }
+
       const { data, error } = await supabaseClient
-        .from("products")
-        .select("id, nama, category, price, is_active, created_at, decription, image_url")
+        .from("services")
+        .select("id, name, description, price, is_active, created_at")
         .eq("is_active", true)
-        .order("created_at", { ascending: true });
+        .order("created_at", { ascending: false });
+
       if (error) throw error;
+
       return data || [];
     }
 
-    function tampilkanKategori(produk) {
-      categoryGrid.replaceChildren();
-
-      // Empat layanan utama ditampilkan sesuai sketsa.
-      // Nama category di Supabase sebaiknya konsisten dengan nama di daftar ini.
-      const layananUtama = [
-        { nama: "Jasa Pembuatan Website", kata: ["website", "web"], ikon: "💻" },
-        { nama: "Digital Art", kata: ["digital"], ikon: "🎨" },
-        { nama: "Traditional Art / B&W", kata: ["traditional", "tradisional", "bnw", "b&w", "drawing", "gambar", "line art"], ikon: "✏️" },
-        { nama: "Painting", kata: ["painting", "lukisan", "kanvas", "canvas"], ikon: "🖼️" }
-      ];
-
-      const kategoriTersedia = [...new Set(produk.map(item => (item.category || "").trim()).filter(Boolean))];
-
-      const daftarLayanan = layananUtama.map(layanan => {
-        const kategoriCocok = kategoriTersedia.filter(kategori => {
-          const nama = kategori.toLowerCase();
-          return layanan.kata.some(kata => nama.includes(kata));
-        });
-        return { ...layanan, kategori: kategoriCocok };
-      });
-
-      daftarLayanan.forEach(layanan => {
-        const produkLayanan = produk.filter(item => layanan.kategori.includes((item.category || "").trim()));
-        const card = document.createElement("button");
-        card.type = "button";
-        card.className = "category-card";
-        card.setAttribute("aria-label", "Lihat layanan " + layanan.nama);
-
-        const icon = document.createElement("div");
-        icon.className = "category-icon";
-        icon.textContent = layanan.ikon;
-
-        const detail = document.createElement("div");
-        const title = document.createElement("h3");
-        title.innerHTML = layanan.nama === "Jasa Pembuatan Website"
-          ? 'Jasa Pembuatan <span class="rainbow-text">Website</span>'
-          : layanan.nama === "Digital Art"
-            ? '<span class="rainbow-text">Digital Art</span>'
-            : layanan.nama === "Traditional Art / B&W"
-              ? '<span class="rainbow-text">Traditional Art / B&W</span>'
-              : '<span class="rainbow-text">Painting</span>';
-
-        const deskripsi = document.createElement("p");
-        deskripsi.textContent = deskripsiKategori(layanan.nama);
-
-        const jumlah = document.createElement("p");
-        jumlah.style.marginTop = "6px";
-        jumlah.textContent = produkLayanan.length + (produkLayanan.length === 1 ? " produk tersedia" : " produk tersedia");
-
-        const action = document.createElement("span");
-        action.className = "category-action";
-        action.textContent = "Lihat Produk →";
-
-        detail.append(title, deskripsi, jumlah, action);
-        card.append(icon, detail);
-        card.addEventListener("click", function () {
-          if (layanan.kategori.length === 0) {
-            orderHeading.textContent = layanan.nama;
-            orderDescription.textContent = deskripsiKategori(layanan.nama);
-            categoryView.classList.add("hide");
-            productsView.classList.add("show");
-            selectedCategory.textContent = layanan.nama;
-            tampilkanPesan(productGrid, "Produk untuk layanan ini belum tersedia. Silakan tambahkan produk melalui dashboard admin dan pilih kategori yang sesuai.");
-            document.getElementById("pemesanan").scrollIntoView({ behavior: "smooth", block: "start" });
-            return;
-          }
-          bukaKategoriGabungan(layanan.nama, layanan.kategori, produk);
-        });
-        categoryGrid.appendChild(card);
-      });
+    function pilihIkon(index) {
+      const ikon = ["🎨", "✏️", "🖼️", "💻", "🌷", "✨"];
+      return ikon[index % ikon.length];
     }
 
-    function buatKartuProduk(produk, kategori) {
+    function buatKartuLayanan(layanan, index) {
       const card = document.createElement("article");
-      card.className = "product-card";
+      card.className = "service-card";
 
-      const imageContainer = document.createElement("div");
-      imageContainer.className = "product-image";
-      if (produk.image_url && produk.image_url.trim() !== "") {
-        const image = document.createElement("img");
-        image.src = produk.image_url;
-        image.alt = produk.nama || "Produk SinaArt";
-        image.loading = "lazy";
-        image.addEventListener("error", function () {
-          imageContainer.replaceChildren();
-          imageContainer.textContent = pilihIkonKategori(kategori);
-        });
-        imageContainer.appendChild(image);
-      } else {
-        imageContainer.textContent = pilihIkonKategori(kategori);
-      }
+      const icon = document.createElement("div");
+      icon.className = "service-icon";
+      icon.textContent = pilihIkon(index);
 
-      const info = document.createElement("div");
-      info.className = "product-info";
       const title = document.createElement("h3");
-      title.textContent = produk.nama || "Produk SinaArt";
+      title.textContent = layanan.name || "Layanan SinaArt";
+
       const description = document.createElement("p");
-      description.textContent = produk.decription || "Karya dibuat dengan penuh kreativitas.";
-      const bottom = document.createElement("div");
-      bottom.className = "product-bottom";
-      const price = document.createElement("span");
-      price.className = "product-price";
-      price.textContent = formatHarga(produk.price);
+      description.className = "service-description";
+      description.textContent =
+        layanan.description || "Layanan kreatif dari SinaArt.";
+
+      const price = document.createElement("div");
+      price.className = "service-price";
+      price.textContent = formatHarga(layanan.price);
+
       const order = document.createElement("a");
-      order.href = "#";
-      order.className = "order-link";
-      order.textContent = "Pesan ↗";
-      order.addEventListener("click", function (event) {
-        event.preventDefault();
-        pesanViaWhatsApp(produk.nama || "produk SinaArt");
-      });
-      bottom.append(price, order);
-      info.append(title, description, bottom);
-      card.append(imageContainer, info);
+      order.className = "service-order";
+      order.href =
+        "https://wa.me/" + whatsappNumber +
+        "?text=" + encodeURIComponent(
+          "Halo SinaArt! Saya tertarik dengan layanan " +
+          (layanan.name || "SinaArt") +
+          ". Boleh tanya informasi lebih lanjut?"
+        );
+
+      order.target = "_blank";
+      order.rel = "noopener noreferrer";
+      order.textContent = "Pesan via WhatsApp ↗";
+
+      card.append(icon, title, description, price, order);
+
       return card;
     }
 
-    function bukaKategoriGabungan(namaLayanan, kategoriYangDipilih, semuaProduk) {
-      const produkKategori = semuaProduk.filter(item => kategoriYangDipilih.includes((item.category || "").trim()));
-      categoryView.classList.add("hide");
-      productsView.classList.add("show");
-      orderHeading.textContent = namaLayanan;
-      orderDescription.textContent = "Pilih produk dan harga yang sesuai dengan kebutuhanmu. ♡";
-      selectedCategory.textContent = namaLayanan;
-      productGrid.replaceChildren();
+    function tampilkanLayanan(layanan) {
+      serviceGrid.replaceChildren();
 
-      if (produkKategori.length === 0) {
-        tampilkanPesan(productGrid, "Belum ada produk di layanan ini. Tambahkan produk melalui dashboard admin.");
-      } else {
-        produkKategori.forEach(produk => productGrid.appendChild(buatKartuProduk(produk, produk.category || namaLayanan)));
+      if (layanan.length === 0) {
+        const pesan = document.createElement("p");
+        pesan.className = "message";
+        pesan.textContent =
+          "Belum ada layanan aktif. Nantikan layanan terbaru dari SinaArt ya! ♡";
+
+        serviceGrid.appendChild(pesan);
+        return;
       }
-      document.getElementById("pemesanan").scrollIntoView({ behavior: "smooth", block: "start" });
+
+      layanan.forEach(function (item, index) {
+        serviceGrid.appendChild(
+          buatKartuLayanan(item, index)
+        );
+      });
     }
 
-    document.getElementById("backButton").addEventListener("click", function () {
-      productsView.classList.remove("show");
-      categoryView.classList.remove("hide");
-      orderHeading.innerHTML = '<span class="rainbow-text">Our Services</span>';
-      orderDescription.textContent = "Pilih layanan yang kamu butuhkan dan temukan karya yang paling cocok untukmu. ♡";
-      document.getElementById("pemesanan").scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-
-    async function tampilkanProdukDanKategori() {
+    async function muatLayanan() {
       try {
-        const produk = await ambilProduk();
-        tampilkanKategori(produk);
+        const layanan = await ambilLayanan();
+        tampilkanLayanan(layanan);
       } catch (error) {
-        console.error("Gagal memuat produk:", error);
-        tampilkanPesan(categoryGrid, "Produk belum dapat dimuat. Periksa koneksi Supabase dan pengaturan akses tabel products.");
+        console.error("Gagal memuat layanan:", error);
+
+        serviceGrid.replaceChildren();
+
+        const pesan = document.createElement("p");
+        pesan.className = "message";
+        pesan.textContent =
+          "Oops! Layanan belum bisa dimuat. Periksa koneksi dan pengaturan Supabase.";
+
+        serviceGrid.appendChild(pesan);
       }
     }
-    tampilkanProdukDanKategori();
+
+    muatLayanan();
   </script>
 </body>
 </html>
+```
