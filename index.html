@@ -1,11 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff0f5">
   <title>SinaArt — Art Made With Love</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,6 +30,7 @@
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: 90px;
     }
 
     body {
@@ -54,13 +54,19 @@
       margin: auto;
     }
 
+    h1, h2, h3 {
+      font-family: "Playfair Display", serif;
+      line-height: 1.2;
+    }
+
     /* NAVBAR */
     header {
-      background: rgba(255, 250, 247, 0.96);
+      background: rgba(255, 250, 247, .96);
       border-bottom: 1px solid #f4e4e9;
       position: sticky;
       top: 0;
       z-index: 10;
+      backdrop-filter: blur(12px);
     }
 
     nav {
@@ -102,6 +108,36 @@
       border-radius: 30px;
     }
 
+    /* BUTTON */
+    .button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      cursor: pointer;
+      padding: 13px 23px;
+      border-radius: 30px;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .button-primary {
+      background: var(--pink-dark);
+      color: white;
+    }
+
+    .button-primary:hover {
+      background: #a94e73;
+      transform: translateY(-2px);
+    }
+
+    .button-outline {
+      border: 1px solid #e5bdcc;
+      color: var(--pink-dark);
+      margin-left: 9px;
+      background: transparent;
+    }
+
     /* HERO */
     .hero {
       padding: 76px 0 84px;
@@ -112,7 +148,7 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: 1.1fr .9fr;
       align-items: center;
       gap: 65px;
     }
@@ -128,11 +164,6 @@
       letter-spacing: 1.5px;
       text-transform: uppercase;
       margin-bottom: 22px;
-    }
-
-    h1, h2, h3 {
-      font-family: "Playfair Display", serif;
-      line-height: 1.2;
     }
 
     h1 {
@@ -153,35 +184,6 @@
       margin-bottom: 30px;
     }
 
-    .button {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      border: none;
-      cursor: pointer;
-      padding: 13px 23px;
-      border-radius: 30px;
-      font-weight: 700;
-      transition: 0.2s;
-    }
-
-    .button-primary {
-      background: var(--pink-dark);
-      color: white;
-    }
-
-    .button-primary:hover {
-      background: #a94e73;
-      transform: translateY(-2px);
-    }
-
-    .button-outline {
-      border: 1px solid #e5bdcc;
-      color: var(--pink-dark);
-      margin-left: 9px;
-      background: transparent;
-    }
-
     .hero-art {
       min-height: 365px;
       border-radius: 48% 48% 24px 24px;
@@ -198,7 +200,7 @@
       height: 270px;
       border-radius: 50% 50% 45% 45%;
       background: #fff8f3;
-      border: 1px solid rgba(189, 102, 136, 0.18);
+      border: 1px solid #bd66882e;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -207,7 +209,7 @@
       box-shadow: 0 18px 50px #bd66881c;
     }
 
-    .art-circle .flower {
+    .flower {
       font-size: 86px;
       line-height: 1.3;
     }
@@ -256,7 +258,9 @@
       margin-bottom: 13px;
     }
 
-    .section-heading h2 {
+    .section-heading h2,
+    .about-box h2,
+    .contact-box h2 {
       font-size: clamp(32px, 4vw, 43px);
       margin-bottom: 13px;
     }
@@ -282,7 +286,8 @@
       border-radius: 22px;
       overflow: hidden;
       background: white;
-      transition: 0.25s;
+      transition: .25s;
+      min-width: 0;
     }
 
     .service-card:hover {
@@ -296,12 +301,10 @@
       align-items: center;
       justify-content: center;
       font-size: 68px;
-      position: relative;
     }
 
     .visual-bnw {
       background: #f1edef;
-      filter: grayscale(0.8);
     }
 
     .visual-digital {
@@ -312,6 +315,14 @@
       background: #f9e7d9;
     }
 
+    .visual-web {
+      background: #e9e3f8;
+    }
+
+    .visual-default {
+      background: #fce8f0;
+    }
+
     .service-content {
       padding: 24px;
     }
@@ -319,6 +330,7 @@
     .service-content h3 {
       font-size: 23px;
       margin-bottom: 10px;
+      overflow-wrap: anywhere;
     }
 
     .service-content p {
@@ -326,6 +338,7 @@
       font-size: 14px;
       min-height: 68px;
       margin-bottom: 18px;
+      overflow-wrap: anywhere;
     }
 
     .service-bottom {
@@ -335,6 +348,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
+      flex-wrap: wrap;
     }
 
     .price {
@@ -349,6 +363,17 @@
       font-weight: 700;
     }
 
+    .text-link:hover {
+      text-decoration: underline;
+    }
+
+    .loading-message {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 30px;
+      color: var(--muted);
+    }
+
     /* PORTFOLIO */
     .portfolio-grid {
       display: grid;
@@ -361,6 +386,11 @@
       overflow: hidden;
       background: white;
       border: 1px solid #f2e5e9;
+      transition: .25s;
+    }
+
+    .portfolio-card:hover {
+      transform: translateY(-4px);
     }
 
     .portfolio-art {
@@ -373,7 +403,6 @@
 
     .portfolio-art.one {
       background: linear-gradient(145deg, #e8e1e3, #c8bdc3);
-      filter: grayscale(0.7);
     }
 
     .portfolio-art.two {
@@ -410,7 +439,6 @@
     }
 
     .about-box h2 {
-      font-size: clamp(32px, 4vw, 43px);
       margin-bottom: 20px;
     }
 
@@ -432,7 +460,6 @@
     }
 
     .contact-box h2 {
-      font-size: clamp(32px, 4vw, 43px);
       margin-bottom: 14px;
     }
 
@@ -536,7 +563,6 @@
 </head>
 
 <body>
-
   <header>
     <nav class="container">
       <a href="#" class="logo">Sina<span>Art.</span></a>
@@ -600,57 +626,9 @@
           </p>
         </div>
 
-        <div class="service-grid">
-          <article class="service-card">
-            <div class="service-visual visual-bnw">✎</div>
-
-            <div class="service-content">
-              <h3>BNW Drawing</h3>
-              <p>
-                Gambar hitam putih dengan detail garis yang
-                cocok untuk hadiah, kenangan, atau pajangan.
-              </p>
-
-              <div class="service-bottom">
-                <span class="price">Harga menyesuaikan</span>
-                <a href="#kontak" class="text-link">Pesan ↗</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="service-card">
-            <div class="service-visual visual-digital">🎨</div>
-
-            <div class="service-content">
-              <h3>Digital Art</h3>
-              <p>
-                Ilustrasi digital dengan gaya menarik untuk
-                hadiah, foto profil, atau koleksi pribadi.
-              </p>
-
-              <div class="service-bottom">
-                <span class="price">Harga menyesuaikan</span>
-                <a href="#kontak" class="text-link">Pesan ↗</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="service-card">
-            <div class="service-visual visual-paint">🖼️</div>
-
-            <div class="service-content">
-              <h3>Handmade Painting</h3>
-              <p>
-                Lukisan buatan tangan yang dibuat dengan
-                perhatian pada detail dan sentuhan personal.
-              </p>
-
-              <div class="service-bottom">
-                <span class="price">Harga menyesuaikan</span>
-                <a href="#kontak" class="text-link">Pesan ↗</a>
-              </div>
-            </div>
-          </article>
+        <!-- Layanan akan dimuat otomatis dari Supabase -->
+        <div class="service-grid" id="serviceGrid">
+          <p class="loading-message">Memuat layanan SinaArt...</p>
         </div>
       </div>
     </section>
@@ -662,7 +640,7 @@
           <h2>Selected Creations</h2>
           <p>
             Beberapa kategori karya yang bisa kamu jelajahi.
-            Galeri ini nantinya akan menampilkan karya aslimu.
+            Galeri ini nantinya dapat diisi dengan karya aslimu.
           </p>
         </div>
 
@@ -670,7 +648,7 @@
           <article class="portfolio-card">
             <div class="portfolio-art one">✏️</div>
             <div class="portfolio-caption">
-              <h3>Black & White</h3>
+              <h3>Black &amp; White</h3>
               <p>Drawing · Line Art</p>
             </div>
           </article>
@@ -746,50 +724,168 @@
     </div>
   </footer>
 
+  <!-- Library Supabase harus dimuat sebelum supabase.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+
   <script>
-    // Ganti dengan nomor WhatsApp kamu.
-    // Gunakan kode negara 62 tanpa tanda + atau angka 0 di depan.
-    const whatsappNumber = "GANTI_DENGAN_NOMOR_WA";
+    // GANTI dengan nomor WhatsApp kamu.
+    // Gunakan kode negara 62, tanpa tanda + atau angka 0 di depan.
+    const whatsappNumber = "62895322852505";
 
     const whatsappMessage =
-      "Halo SinaArt! Saya ingin bertanya tentang layanan karya seni.";
+      "Halo SinaArt! Saya ingin bertanya tentang layanan kamu.";
 
     const whatsappButton = document.getElementById("whatsappButton");
 
-    whatsappButton.addEventListener("click", function (event) {
+    function pesanViaWhatsApp(namaLayanan) {
       if (!/^[0-9]+$/.test(whatsappNumber)) {
-        event.preventDefault();
         alert(
-          "Nomor WhatsApp belum diatur. Silakan ganti nomor pada variabel whatsappNumber di dalam kode."
+          "Nomor WhatsApp belum diatur. Ganti whatsappNumber di index.html terlebih dahulu."
         );
         return;
       }
 
-      whatsappButton.href =
+      const pesan = namaLayanan
+        ? "Halo SinaArt! Saya tertarik dengan layanan " + namaLayanan + "."
+        : whatsappMessage;
+
+      const url =
         "https://wa.me/" +
         whatsappNumber +
         "?text=" +
-        encodeURIComponent(whatsappMessage);
+        encodeURIComponent(pesan);
+
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+
+    whatsappButton.addEventListener("click", function (event) {
+      event.preventDefault();
+      pesanViaWhatsApp("");
     });
 
     document.getElementById("year").textContent =
       new Date().getFullYear();
+
+    // Menentukan ilustrasi berdasarkan nama layanan.
+    function pilihVisual(nama) {
+      const n = nama.toLowerCase();
+
+      if (n.includes("bnw") || n.includes("drawing") || n.includes("line art")) {
+        return { icon: "✎", css: "visual-bnw" };
+      }
+
+      if (n.includes("digital")) {
+        return { icon: "🎨", css: "visual-digital" };
+      }
+
+      if (n.includes("painting") || n.includes("lukisan") || n.includes("canvas")) {
+        return { icon: "🖼️", css: "visual-paint" };
+      }
+
+      if (n.includes("website") || n.includes("web") || n.includes("online")) {
+        return { icon: "💻", css: "visual-web" };
+      }
+
+      return { icon: "♡", css: "visual-default" };
+    }
+
+    // Mengambil data layanan dari Supabase.
+    async function tampilkanLayanan() {
+      const serviceGrid = document.getElementById("serviceGrid");
+
+      try {
+        if (typeof supabaseClient === "undefined") {
+          throw new Error(
+            "supabaseClient tidak ditemukan. Periksa file supabase.js."
+          );
+        }
+
+        const { data, error } = await supabaseClient
+          .from("services")
+          .select("id, name, description, price")
+          .eq("is_active", true)
+          .order("created_at", { ascending: true });
+
+        if (error) {
+          throw error;
+        }
+
+        serviceGrid.replaceChildren();
+
+        if (!data || data.length === 0) {
+          const pesan = document.createElement("p");
+          pesan.className = "loading-message";
+          pesan.textContent =
+            "Belum ada layanan aktif. Silakan cek kembali nanti.";
+          serviceGrid.appendChild(pesan);
+          return;
+        }
+
+        data.forEach(function (layanan) {
+          const visual = pilihVisual(layanan.name || "");
+
+          const card = document.createElement("article");
+          card.className = "service-card";
+
+          const gambar = document.createElement("div");
+          gambar.className = "service-visual " + visual.css;
+          gambar.textContent = visual.icon;
+          gambar.setAttribute("aria-hidden", "true");
+
+          const content = document.createElement("div");
+          content.className = "service-content";
+
+          const title = document.createElement("h3");
+          title.textContent = layanan.name || "Layanan SinaArt";
+
+          const description = document.createElement("p");
+          description.textContent =
+            layanan.description || "Karya dibuat sesuai kebutuhanmu.";
+
+          const bottom = document.createElement("div");
+          bottom.className = "service-bottom";
+
+          const price = document.createElement("span");
+          price.className = "price";
+
+          const harga = Number(layanan.price);
+          price.textContent = Number.isFinite(harga)
+            ? "Mulai Rp" + harga.toLocaleString("id-ID")
+            : "Harga menyesuaikan";
+
+          const order = document.createElement("a");
+          order.href = "#kontak";
+          order.className = "text-link";
+          order.textContent = "Pesan ↗";
+
+          order.addEventListener("click", function (event) {
+            event.preventDefault();
+            pesanViaWhatsApp(layanan.name || "");
+          });
+
+          bottom.append(price, order);
+          content.append(title, description, bottom);
+          card.append(gambar, content);
+          serviceGrid.appendChild(card);
+        });
+
+        console.log("Layanan berhasil dimuat:", data.length);
+      } catch (error) {
+        console.error("Gagal memuat layanan:", error.message);
+
+        serviceGrid.replaceChildren();
+
+        const pesan = document.createElement("p");
+        pesan.className = "loading-message";
+        pesan.textContent =
+          "Layanan belum dapat dimuat. Silakan coba refresh halaman.";
+
+        serviceGrid.appendChild(pesan);
+      }
+    }
+
+    tampilkanLayanan();
   </script>
-<script>
-async function tesKoneksi() {
-  const { data, error } = await supabaseClient
-    .from('services')
-    .select('id, name')
-    .limit(5);
-
-  if (error) {
-    console.error('Koneksi gagal:', error.message);
-  } else {
-    console.log('Koneksi berhasil!', data);
-  }
-}
-
-tesKoneksi();
-</script>
 </body>
 </html>
