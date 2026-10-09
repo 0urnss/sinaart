@@ -18,7 +18,7 @@ label{font-size:14px;font-weight:800;color:var(--brown)}input,textarea,select{wi
 .message{display:none;padding:12px 14px;border-radius:11px;margin:15px 0;overflow-wrap:anywhere}.message.show{display:block}.error{background:#fff0ed;border:1px solid #f3d1c9;color:#a52c3b}.success{background:#eaf8ef;border:1px solid #c8e9d3;color:#206b49}
 .list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-top:20px}.item{border:1px solid var(--border);border-radius:16px;padding:17px;background:#fffefa;min-width:0}.item h3{margin:0 0 8px;color:var(--dark);overflow-wrap:anywhere}.item p{font-size:14px;line-height:1.6;overflow-wrap:anywhere}.price{font-size:18px;font-weight:900;color:var(--brown)}.status{display:inline-block;border-radius:20px;padding:5px 10px;font-size:12px;font-weight:800;background:#eaf8f0;color:var(--green)}.off{background:#f1ece7;color:#776b61}
 .hidden{display:none!important}.login-box{max-width:460px;margin:60px auto}.login-box .field{margin-bottom:16px}.top-actions{display:flex;gap:8px;align-items:center}.empty{text-align:center;padding:25px;color:var(--muted);grid-column:1/-1}
-.table-wrap{overflow-x:auto;margin-top:18px}table{width:100%;border-collapse:collapse;min-width:620px}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:top}th{background:var(--cream);color:var(--dark)}.thumb{width:90px;height:75px;object-fit:cover;border-radius:8px;display:block;margin-top:7px;background:var(--cream)}
+.table-wrap{overflow-x:auto;margin-top:18px}table{width:100%;border-collapse:collapse;min-width:620px}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:top}th{background:var(--cream);color:var(--dark)}.thumb{width:90px;height:75px;object-fit:cover;border-radius:8px;display:block;margin-top:7px;background:var(--cream)}.preview{display:none;max-width:180px;max-height:180px;object-fit:cover;border-radius:12px;border:1px solid var(--border);margin-top:10px}.hint{font-size:12px;color:var(--muted);line-height:1.5}
 footer{text-align:center;padding:25px;color:var(--muted);font-size:12px}
 @media(max-width:650px){.container{padding:0 14px;margin:25px auto}.panel{padding:17px}.form-grid,.list{grid-template-columns:1fr}.topbar{padding:14px 15px}.brand{font-size:22px}.btn{padding:9px 10px;font-size:12px}}
 </style>
@@ -57,6 +57,7 @@ footer{text-align:center;padding:25px;color:var(--muted);font-size:12px}
         <div class="field full"><label for="serviceName">Nama layanan</label><input id="serviceName" maxlength="100" required placeholder="Contoh: Jasa Digital Art"></div>
         <div class="field full"><label for="serviceDescription">Deskripsi layanan</label><textarea id="serviceDescription" maxlength="1000" required placeholder="Ceritakan detail layananmu..."></textarea></div>
         <div class="field"><label for="servicePrice">Harga dasar (Rp)</label><input id="servicePrice" type="number" min="0" step="1" required placeholder="25000"></div>
+        <div class="field full"><label for="serviceImageFile">Foto layanan dari galeri</label><input id="serviceImageFile" type="file" accept="image/*"><div class="hint">Pilih foto layanan dari HP atau komputer. JPG, PNG, atau WEBP; maksimal 5 MB.</div><img id="serviceImagePreview" class="preview" alt="Pratinjau foto layanan"><button id="removeServiceImage" class="btn light" type="button" style="align-self:flex-start">Hapus pilihan foto</button></div>
       </div>
       <div class="check-row"><input id="serviceActive" type="checkbox" checked><label for="serviceActive">Tampilkan layanan di website ♡</label></div>
       <div class="actions"><button id="saveBtn" class="btn primary" type="submit">♡ Simpan layanan</button><button id="cancelEditBtn" class="btn light hidden" type="button">Batal mengedit</button></div>
@@ -74,7 +75,7 @@ footer{text-align:center;padding:25px;color:var(--muted);font-size:12px}
         <div class="field full"><label for="productName">Nama produk</label><input id="productName" maxlength="150" required placeholder="Contoh: Lukisan Portrait A4"></div>
         <div class="field full"><label for="productDescription">Deskripsi produk</label><textarea id="productDescription" maxlength="1500" placeholder="Ukuran, bahan, atau detail produk..."></textarea></div>
         <div class="field"><label for="productPrice">Harga (Rp)</label><input id="productPrice" type="number" min="0" step="1" required placeholder="50000"></div>
-        <div class="field"><label for="productImage">URL gambar produk (opsional)</label><input id="productImage" type="url" placeholder="https://..."></div>
+        <div class="field full"><label for="productImageFile">Foto produk dari galeri</label><input id="productImageFile" type="file" accept="image/*"><div class="hint">Pilih foto dari HP atau komputer. Format gambar seperti JPG, PNG, atau WEBP; maksimal 5 MB.</div><img id="productImagePreview" class="preview" alt="Pratinjau foto produk"><button id="removeProductImage" class="btn light" type="button" style="align-self:flex-start">Hapus pilihan foto</button></div>
       </div>
       <div class="check-row"><input id="productActive" type="checkbox" checked><label for="productActive">Produk aktif dan ditampilkan di website ♡</label></div>
       <div class="actions"><button id="productSaveBtn" class="btn primary" type="submit">♡ Simpan produk</button><button id="productCancelBtn" class="btn light hidden" type="button">Batal mengedit</button></div>
@@ -92,7 +93,7 @@ footer{text-align:center;padding:25px;color:var(--muted);font-size:12px}
 <script src="supabase.js"></script>
 <script>
 const $ = id => document.getElementById(id);
-let editId = null, productEditId = null, allServices = [], allProducts = [];
+let editId = null, productEditId = null, allServices = [], allProducts = [], currentProductImageUrl = null, currentServiceImageUrl = null;
 
 function msg(el, text, type="error"){el.textContent=text;el.className="message show "+type}
 function clearMsg(el){el.textContent="";el.className="message"}
@@ -133,13 +134,14 @@ $("logoutBtn").addEventListener("click",async()=>{
 
 async function muatLayanan(){
   $("serviceList").textContent="Memuat layanan...";
-  const {data,error}=await supabaseClient.from("services").select("id,name,description,price,is_active,created_at").order("created_at",{ascending:false});
+  const {data,error}=await supabaseClient.from("services").select("id,name,description,price,image_url,is_active,created_at").order("created_at",{ascending:false});
   if(error){$("serviceList").textContent="Gagal memuat layanan: "+error.message;return}
   allServices=data||[];$("serviceList").replaceChildren();
   if(!allServices.length){$("serviceList").innerHTML='<div class="empty">🎨<br>Belum ada layanan. Tambahkan layanan pertamamu!</div>';return}
   allServices.forEach(s=>{
     const card=document.createElement("article");card.className="item";
     const h=document.createElement("h3");h.textContent=s.name;
+    if(s.image_url){const img=document.createElement("img");img.src=s.image_url;img.alt=s.name;img.className="thumb";img.loading="lazy";img.onerror=()=>img.remove();card.append(img)}
     const d=document.createElement("p");d.textContent=s.description||"Belum ada deskripsi.";
     const p=document.createElement("p");p.className="price";p.textContent=rupiah(s.price);
     const badge=document.createElement("span");badge.className="status"+(s.is_active?"":" off");badge.textContent=s.is_active?"Aktif":"Nonaktif";
@@ -153,17 +155,18 @@ $("serviceForm").addEventListener("submit",async e=>{
   e.preventDefault();clearMsg($("pageMessage"));$("saveBtn").disabled=true;
   const raw=$("servicePrice").value,price=Number(raw);
   if(!Number.isSafeInteger(price)||price<0||raw===""){msg($("pageMessage"),"Masukkan harga yang benar.");$("saveBtn").disabled=false;return}
-  const payload={name:$("serviceName").value.trim(),description:$("serviceDescription").value.trim(),price,is_active:$("serviceActive").checked};
   const wasEdit=editId!==null;
   try{
+    const imageUrl=await uploadFotoLayanan();
+    const payload={name:$("serviceName").value.trim(),description:$("serviceDescription").value.trim(),price,image_url:imageUrl||null,is_active:$("serviceActive").checked};
     const r=wasEdit?await supabaseClient.from("services").update(payload).eq("id",editId):await supabaseClient.from("services").insert([payload]);
     if(r.error)throw r.error;
     resetServiceForm();msg($("pageMessage"),wasEdit?"Layanan berhasil diperbarui ♡":"Layanan berhasil ditambahkan ♡","success");await muatLayanan();await muatProduk();
   }catch(e){msg($("pageMessage"),"Gagal menyimpan layanan: "+e.message)}
   finally{$("saveBtn").disabled=false;$("saveBtn").textContent=editId===null?"♡ Simpan layanan":"Simpan perubahan"}
 });
-function editLayanan(s){editId=s.id;$("serviceName").value=s.name||"";$("serviceDescription").value=s.description||"";$("servicePrice").value=s.price??0;$("serviceActive").checked=!!s.is_active;$("formTitle").textContent="✏️ Edit layanan";$("saveBtn").textContent="Simpan perubahan";$("cancelEditBtn").classList.remove("hidden");$("panelLayanan").scrollIntoView({behavior:"smooth"})}
-function resetServiceForm(){editId=null;$("serviceForm").reset();$("serviceActive").checked=true;$("formTitle").textContent="🖌️ Tambah layanan baru";$("saveBtn").textContent="♡ Simpan layanan";$("cancelEditBtn").classList.add("hidden")}
+function editLayanan(s){editId=s.id;currentServiceImageUrl=s.image_url||null;$("serviceName").value=s.name||"";$("serviceDescription").value=s.description||"";$("servicePrice").value=s.price??0;$("serviceImageFile").value="";const preview=$("serviceImagePreview");if(currentServiceImageUrl){preview.src=currentServiceImageUrl;preview.style.display="block"}else{preview.removeAttribute("src");preview.style.display="none"}$("serviceActive").checked=!!s.is_active;$("formTitle").textContent="✏️ Edit layanan";$("saveBtn").textContent="Simpan perubahan";$("cancelEditBtn").classList.remove("hidden");$("panelLayanan").scrollIntoView({behavior:"smooth"})}
+function resetServiceForm(){editId=null;currentServiceImageUrl=null;$("serviceForm").reset();$("serviceImageFile").value="";const preview=$("serviceImagePreview");preview.removeAttribute("src");preview.style.display="none";$("serviceActive").checked=true;$("formTitle").textContent="🖌️ Tambah layanan baru";$("saveBtn").textContent="♡ Simpan layanan";$("cancelEditBtn").classList.add("hidden")}
 $("cancelEditBtn").addEventListener("click",resetServiceForm);
 async function toggleLayanan(s){const {error}=await supabaseClient.from("services").update({is_active:!s.is_active}).eq("id",s.id);if(error){msg($("pageMessage"),error.message);return}msg($("pageMessage"),"Status layanan diperbarui ♡","success");await muatLayanan()}
 async function hapusLayanan(s){if(!confirm('Hapus layanan "'+s.name+'"?'))return;const {error}=await supabaseClient.from("services").delete().eq("id",s.id);if(error){msg($("pageMessage"),"Gagal menghapus layanan: "+error.message);return}if(String(editId)===String(s.id))resetServiceForm();msg($("pageMessage"),"Layanan berhasil dihapus.","success");await muatLayanan();await muatProduk()}
@@ -176,15 +179,60 @@ async function muatPilihanLayanan(){
   allServices.forEach(s=>{const o=document.createElement("option");o.value=s.id;o.textContent=s.name;$("productService").append(o)});
   if(old&&allServices.some(s=>String(s.id)===String(old)))$("productService").value=old;
 }
+$("serviceImageFile").addEventListener("change",()=>{
+  const file=$("serviceImageFile").files[0],preview=$("serviceImagePreview");
+  if(!file){preview.removeAttribute("src");preview.style.display="none";return}
+  if(!file.type.startsWith("image/")){msg($("pageMessage"),"Pilih file gambar yang valid.");$("serviceImageFile").value="";return}
+  if(file.size>5*1024*1024){msg($("pageMessage"),"Ukuran foto maksimal 5 MB.");$("serviceImageFile").value="";return}
+  clearMsg($("pageMessage"));preview.src=URL.createObjectURL(file);preview.style.display="block";
+});
+$("removeServiceImage").addEventListener("click",()=>{
+  $("serviceImageFile").value="";currentServiceImageUrl=null;
+  const preview=$("serviceImagePreview");preview.removeAttribute("src");preview.style.display="none";
+});
+async function uploadFotoLayanan(){
+  const file=$("serviceImageFile").files[0];
+  if(!file)return currentServiceImageUrl;
+  if(!file.type.startsWith("image/")||file.size>5*1024*1024)throw new Error("Foto layanan harus berupa gambar dengan ukuran maksimal 5 MB.");
+  const ext=(file.name.split(".").pop()||"jpg").toLowerCase().replace(/[^a-z0-9]/g,"")||"jpg";
+  const path="services/"+Date.now()+"-"+Math.random().toString(36).slice(2,9)+"."+ext;
+  const {data,error}=await supabaseClient.storage.from("sinaart-images").upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type});
+  if(error)throw new Error("Gagal mengunggah foto layanan: "+error.message+". Pastikan bucket sinaart-images mengizinkan upload untuk admin.");
+  const {data:publicData}=supabaseClient.storage.from("sinaart-images").getPublicUrl(data.path);
+  return publicData.publicUrl;
+}
+$("productImageFile").addEventListener("change",()=>{
+  const file=$("productImageFile").files[0],preview=$("productImagePreview");
+  if(!file){preview.removeAttribute("src");preview.style.display="none";return}
+  if(!file.type.startsWith("image/")){msg($("productMessage"),"Pilih file gambar yang valid.");$("productImageFile").value="";return}
+  if(file.size>5*1024*1024){msg($("productMessage"),"Ukuran foto maksimal 5 MB.");$("productImageFile").value="";return}
+  clearMsg($("productMessage"));preview.src=URL.createObjectURL(file);preview.style.display="block";
+});
+$("removeProductImage").addEventListener("click",()=>{
+  $("productImageFile").value="";currentProductImageUrl=null;
+  const preview=$("productImagePreview");preview.removeAttribute("src");preview.style.display="none";
+});
+async function uploadFotoProduk(){
+  const file=$("productImageFile").files[0];
+  if(!file)return currentProductImageUrl;
+  if(!file.type.startsWith("image/")||file.size>5*1024*1024)throw new Error("Foto harus berupa gambar dengan ukuran maksimal 5 MB.");
+  const ext=(file.name.split(".").pop()||"jpg").toLowerCase().replace(/[^a-z0-9]/g,"")||"jpg";
+  const path="products/"+Date.now()+"-"+Math.random().toString(36).slice(2,9)+"."+ext;
+  const {data,error}=await supabaseClient.storage.from("sinaart-images").upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type});
+  if(error)throw new Error("Gagal mengunggah foto: "+error.message+". Pastikan bucket sinaart-images mengizinkan upload untuk admin.");
+  const {data:publicData}=supabaseClient.storage.from("sinaart-images").getPublicUrl(data.path);
+  return publicData.publicUrl;
+}
 $("productForm").addEventListener("submit",async e=>{
   e.preventDefault();clearMsg($("productMessage"));$("productSaveBtn").disabled=true;
   const raw=$("productPrice").value,price=Number(raw);
   if(!$("productService").value||!$("productName").value.trim()||raw===""||!Number.isSafeInteger(price)||price<0){
     msg($("productMessage"),"Pilih layanan dan isi nama serta harga dengan benar.");$("productSaveBtn").disabled=false;return
   }
-  const payload={service_id:Number($("productService").value),name:$("productName").value.trim(),description:$("productDescription").value.trim(),price,image_url:$("productImage").value.trim()||null,is_active:$("productActive").checked};
   const wasEdit=productEditId!==null;
   try{
+    const imageUrl=await uploadFotoProduk();
+    const payload={service_id:Number($("productService").value),name:$("productName").value.trim(),description:$("productDescription").value.trim(),price,image_url:imageUrl||null,is_active:$("productActive").checked};
     const r=wasEdit?await supabaseClient.from("products").update(payload).eq("id",productEditId):await supabaseClient.from("products").insert([payload]);
     if(r.error)throw r.error;
     resetProductForm();msg($("productMessage"),wasEdit?"Produk berhasil diperbarui ♡":"Produk berhasil ditambahkan ♡","success");await muatProduk();
@@ -208,8 +256,8 @@ async function muatProduk(){
     tr.append(td1,td2,td3,td4,td5);$("productTable").append(tr);
   });
 }
-function editProduk(p){productEditId=p.id;$("productId").value=p.id;$("productService").value=p.service_id==null?"":String(p.service_id);$("productName").value=p.name||"";$("productDescription").value=p.description||"";$("productPrice").value=p.price??"";$("productImage").value=p.image_url||"";$("productActive").checked=!!p.is_active;$("productFormTitle").textContent="✏️ Edit produk";$("productSaveBtn").textContent="Simpan perubahan";$("productCancelBtn").classList.remove("hidden");$("panelProduk").scrollIntoView({behavior:"smooth"})}
-function resetProductForm(){productEditId=null;$("productForm").reset();$("productId").value="";$("productActive").checked=true;$("productFormTitle").textContent="🎨 Tambah produk baru";$("productSaveBtn").textContent="♡ Simpan produk";$("productCancelBtn").classList.add("hidden")}
+function editProduk(p){productEditId=p.id;currentProductImageUrl=p.image_url||null;$("productId").value=p.id;$("productService").value=p.service_id==null?"":String(p.service_id);$("productName").value=p.name||"";$("productDescription").value=p.description||"";$("productPrice").value=p.price??"";$("productImageFile").value="";const preview=$("productImagePreview");if(currentProductImageUrl){preview.src=currentProductImageUrl;preview.style.display="block"}else{preview.removeAttribute("src");preview.style.display="none"}$("productActive").checked=!!p.is_active;$("productFormTitle").textContent="✏️ Edit produk";$("productSaveBtn").textContent="Simpan perubahan";$("productCancelBtn").classList.remove("hidden");$("panelProduk").scrollIntoView({behavior:"smooth"})}
+function resetProductForm(){productEditId=null;currentProductImageUrl=null;$("productForm").reset();$("productImageFile").value="";const preview=$("productImagePreview");preview.removeAttribute("src");preview.style.display="none";$("productId").value="";$("productActive").checked=true;$("productFormTitle").textContent="🎨 Tambah produk baru";$("productSaveBtn").textContent="♡ Simpan produk";$("productCancelBtn").classList.add("hidden")}
 $("productCancelBtn").addEventListener("click",resetProductForm);
 async function toggleProduk(p){const {error}=await supabaseClient.from("products").update({is_active:!p.is_active}).eq("id",p.id);if(error){msg($("productMessage"),"Gagal mengubah status: "+error.message);return}msg($("productMessage"),"Status produk diperbarui ♡","success");await muatProduk()}
 async function hapusProduk(p){if(!confirm('Yakin ingin menghapus produk "'+p.name+'"?'))return;const {error}=await supabaseClient.from("products").delete().eq("id",p.id);if(error){msg($("productMessage"),"Gagal menghapus produk: "+error.message);return}if(String(productEditId)===String(p.id))resetProductForm();msg($("productMessage"),"Produk berhasil dihapus.","success");await muatProduk()}
