@@ -1,1027 +1,229 @@
-```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin SinaArt</title>
-
-  <style>
-    :root {
-      --cream: #fff8e9;
-      --cream-dark: #f4e6cc;
-      --brown: #70452d;
-      --brown-dark: #4d2e20;
-      --brown-light: #986b4c;
-      --white: #ffffff;
-      --text: #49372b;
-      --muted: #8d7a6b;
-      --border: #ead8c0;
-      --red: #bd4545;
-      --green: #27845b;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: "Trebuchet MS", Arial, sans-serif;
-      background:
-        radial-gradient(circle at 10% 10%, #fff0d8 0, transparent 25%),
-        radial-gradient(circle at 90% 70%, #f4e5cb 0, transparent 25%),
-        var(--cream);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    button, input, textarea {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-      transition: transform .2s ease, box-shadow .2s ease,
-                  background .2s ease;
-    }
-
-    button:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 12px #70452d20;
-    }
-
-    button:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-    }
-
-    .topbar {
-      background: #fffdf7eF;
-      border-bottom: 2px solid var(--border);
-      padding: 17px 6%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(12px);
-    }
-
-    .brand {
-      font-size: 27px;
-      font-weight: 900;
-      letter-spacing: -.8px;
-      color: var(--brown);
-      white-space: nowrap;
-    }
-
-    .rainbow {
-      background: linear-gradient(
-        90deg,
-        #e75a63,
-        #ed9845,
-        #e7c54c,
-        #65a875,
-        #55a8c7,
-        #8a75c9,
-        #df7caf
-      );
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: rainbowMove 5s linear infinite;
-    }
-
-    .brand-heart {
-      color: #d98a8a;
-      display: inline-block;
-      animation: heartbeat 2s ease-in-out infinite;
-    }
-
-    .container {
-      max-width: 1080px;
-      margin: 36px auto;
-      padding: 0 20px;
-      animation: fadeUp .6s ease both;
-    }
-
-    h1 {
-      margin: 0 0 10px;
-      font-size: clamp(25px, 4vw, 34px);
-      color: var(--brown-dark);
-      line-height: 1.3;
-    }
-
-    h2 {
-      color: var(--brown-dark);
-    }
-
-    .muted {
-      color: var(--muted);
-      line-height: 1.7;
-      margin-top: 0;
-    }
-
-    .panel {
-      background: #fffdf8;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 25px;
-      margin-top: 22px;
-      box-shadow: 0 8px 25px #70452d0c;
-      transition: box-shadow .25s ease, transform .25s ease;
-    }
-
-    .panel:hover {
-      box-shadow: 0 12px 30px #70452d14;
-    }
-
-    .panel h2 {
-      margin-top: 0;
-      font-size: 21px;
-    }
-
-    .section-heading {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .section-icon {
-      width: 42px;
-      height: 42px;
-      flex-shrink: 0;
-      display: grid;
-      place-items: center;
-      background: var(--cream);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      font-size: 21px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .field.full {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--brown);
-    }
-
-    input, textarea {
-      width: 100%;
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      padding: 13px 14px;
-      background: #fffefa;
-      color: var(--text);
-      outline: none;
-      transition: border-color .2s ease, box-shadow .2s ease;
-    }
-
-    input:focus, textarea:focus {
-      border-color: var(--brown-light);
-      box-shadow: 0 0 0 4px #986b4c18;
-    }
-
-    input::placeholder, textarea::placeholder {
-      color: #b4a292;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 110px;
-    }
-
-    .check-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 19px 0;
-      padding: 13px 15px;
-      background: var(--cream);
-      border-radius: 12px;
-    }
-
-    .check-row input {
-      width: 17px;
-      height: 17px;
-      accent-color: var(--brown);
-      cursor: pointer;
-    }
-
-    .check-row label {
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin-top: 16px;
-    }
-
-    .btn {
-      border: 1px solid transparent;
-      border-radius: 12px;
-      padding: 11px 16px;
-      font-weight: 800;
-      font-size: 13px;
-    }
-
-    .btn-primary {
-      background: var(--brown);
-      color: white;
-      box-shadow: 0 4px 10px #70452d18;
-    }
-
-    .btn-primary:hover:not(:disabled) {
-      background: var(--brown-dark);
-    }
-
-    .btn-light {
-      background: var(--cream);
-      color: var(--brown);
-      border-color: var(--border);
-    }
-
-    .btn-danger {
-      background: #fff0ec;
-      color: var(--red);
-      border-color: #f0d3cc;
-    }
-
-    .btn-block {
-      width: 100%;
-      padding: 14px;
-      font-size: 15px;
-    }
-
-    .message {
-      padding: 13px 15px;
-      border-radius: 12px;
-      margin: 16px 0;
-      display: none;
-      line-height: 1.6;
-      overflow-wrap: anywhere;
-      font-size: 14px;
-    }
-
-    .message.show {
-      display: block;
-      animation: fadeUp .3s ease both;
-    }
-
-    .message.error {
-      background: #fff0ed;
-      border: 1px solid #f3d1c9;
-      color: #a52c3b;
-    }
-
-    .message.success {
-      background: #eaf8ef;
-      border: 1px solid #c8e9d3;
-      color: #206b49;
-    }
-
-    .service-list {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 17px;
-    }
-
-    .service-item {
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 19px;
-      min-width: 0;
-      background: #fffefa;
-      animation: fadeUp .4s ease both;
-      transition: transform .25s ease, box-shadow .25s ease;
-    }
-
-    .service-item:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 25px #70452d13;
-    }
-
-    .service-item h3 {
-      margin: 0 0 10px;
-      color: var(--brown-dark);
-      font-size: 19px;
-      overflow-wrap: anywhere;
-    }
-
-    .service-item p {
-      line-height: 1.7;
-      overflow-wrap: anywhere;
-      font-size: 14px;
-    }
-
-    .price {
-      font-weight: 900;
-      color: var(--brown);
-      font-size: 18px !important;
-    }
-
-    .status {
-      display: inline-block;
-      border-radius: 20px;
-      padding: 6px 11px;
-      font-size: 12px;
-      font-weight: 800;
-      background: #eaf8f0;
-      color: var(--green);
-    }
-
-    .status.off {
-      background: #f1ece7;
-      color: #776b61;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .login-box {
-      max-width: 460px;
-      margin: 65px auto;
-    }
-
-    .login-box .panel {
-      margin-top: 24px;
-      padding: 27px;
-    }
-
-    .login-box .field {
-      margin-bottom: 18px;
-    }
-
-    .login-decoration {
-      font-size: 42px;
-      margin-bottom: 12px;
-      display: inline-block;
-      animation: float 3s ease-in-out infinite;
-    }
-
-    .top-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-    }
-
-    .welcome-note {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 8px 13px;
-      border-radius: 20px;
-      background: #f4e6cc;
-      color: var(--brown);
-      font-size: 12px;
-      font-weight: 800;
-      margin-bottom: 15px;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 30px 12px;
-      color: var(--muted);
-      grid-column: 1 / -1;
-      line-height: 1.8;
-    }
-
-    .empty-state span {
-      display: block;
-      font-size: 35px;
-      margin-bottom: 8px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 25px 15px 30px;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(14px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-7px); }
-    }
-
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.15); }
-    }
-
-    @keyframes rainbowMove {
-      to { background-position: 200% center; }
-    }
-
-    @media (max-width: 650px) {
-      .form-grid, .service-list {
-        grid-template-columns: 1fr;
-      }
-
-      .topbar {
-        padding: 14px 16px;
-        align-items: flex-start;
-      }
-
-      .brand {
-        font-size: 23px;
-      }
-
-      .top-actions {
-        justify-content: flex-end;
-      }
-
-      .top-actions .btn {
-        padding: 10px 11px;
-        font-size: 12px;
-      }
-
-      .container {
-        margin: 27px auto;
-        padding: 0 15px;
-      }
-
-      .panel {
-        padding: 18px;
-        border-radius: 18px;
-      }
-
-      .login-box {
-        margin-top: 42px;
-      }
-
-      .login-box .panel {
-        padding: 20px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: .01ms !important;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin SinaArt</title>
+<style>
+:root{--cream:#fff8e9;--brown:#70452d;--dark:#4d2e20;--muted:#8d7a6b;--border:#ead8c0;--red:#bd4545;--green:#27845b}
+*{box-sizing:border-box}body{margin:0;font-family:"Trebuchet MS",Arial,sans-serif;background:radial-gradient(circle at 10% 10%,#fff0d8,transparent 25%),radial-gradient(circle at 90% 70%,#f4e5cb,transparent 25%),var(--cream);color:#49372b}
+button,input,textarea,select{font:inherit}button{cursor:pointer;transition:.2s}button:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 5px 12px #70452d20}button:disabled{opacity:.6;cursor:not-allowed}
+.topbar{background:#fffdf7ef;border-bottom:2px solid var(--border);padding:17px 6%;display:flex;align-items:center;justify-content:space-between;gap:14px;position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
+.brand{font-size:27px;font-weight:900;color:var(--brown)}.rainbow{background:linear-gradient(90deg,#e75a63,#ed9845,#e7c54c,#65a875,#55a8c7,#8a75c9,#df7caf);-webkit-background-clip:text;background-clip:text;color:transparent}
+.container{max-width:1080px;margin:35px auto;padding:0 20px}h1{font-size:clamp(25px,4vw,34px);color:var(--dark)}h2{color:var(--dark);font-size:21px;margin-top:0}.muted{color:var(--muted);line-height:1.7}
+.panel{background:#fffdf8;border:1px solid var(--border);border-radius:20px;padding:24px;margin-top:22px;box-shadow:0 8px 25px #70452d0c}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:flex;flex-direction:column;gap:8px}.full{grid-column:1/-1}
+label{font-size:14px;font-weight:800;color:var(--brown)}input,textarea,select{width:100%;border:1.5px solid var(--border);border-radius:11px;padding:12px;background:#fffefa;color:#49372b;outline:none}input:focus,textarea:focus,select:focus{border-color:#986b4c;box-shadow:0 0 0 3px #986b4c18}textarea{resize:vertical;min-height:90px}
+.check-row{display:flex;align-items:center;gap:10px;margin:16px 0;padding:12px;background:var(--cream);border-radius:12px}.check-row input{width:17px;accent-color:var(--brown)}.check-row label{font-weight:600}
+.btn{border:1px solid transparent;border-radius:11px;padding:10px 14px;font-size:13px;font-weight:800}.primary{background:var(--brown);color:white}.light{background:var(--cream);color:var(--brown);border-color:var(--border)}.danger{background:#fff0ec;color:var(--red);border-color:#f0d3cc}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.message{display:none;padding:12px 14px;border-radius:11px;margin:15px 0;overflow-wrap:anywhere}.message.show{display:block}.error{background:#fff0ed;border:1px solid #f3d1c9;color:#a52c3b}.success{background:#eaf8ef;border:1px solid #c8e9d3;color:#206b49}
+.list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-top:20px}.item{border:1px solid var(--border);border-radius:16px;padding:17px;background:#fffefa;min-width:0}.item h3{margin:0 0 8px;color:var(--dark);overflow-wrap:anywhere}.item p{font-size:14px;line-height:1.6;overflow-wrap:anywhere}.price{font-size:18px;font-weight:900;color:var(--brown)}.status{display:inline-block;border-radius:20px;padding:5px 10px;font-size:12px;font-weight:800;background:#eaf8f0;color:var(--green)}.off{background:#f1ece7;color:#776b61}
+.hidden{display:none!important}.login-box{max-width:460px;margin:60px auto}.login-box .field{margin-bottom:16px}.top-actions{display:flex;gap:8px;align-items:center}.empty{text-align:center;padding:25px;color:var(--muted);grid-column:1/-1}
+.table-wrap{overflow-x:auto;margin-top:18px}table{width:100%;border-collapse:collapse;min-width:620px}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:top}th{background:var(--cream);color:var(--dark)}.thumb{width:90px;height:75px;object-fit:cover;border-radius:8px;display:block;margin-top:7px;background:var(--cream)}
+footer{text-align:center;padding:25px;color:var(--muted);font-size:12px}
+@media(max-width:650px){.container{padding:0 14px;margin:25px auto}.panel{padding:17px}.form-grid,.list{grid-template-columns:1fr}.topbar{padding:14px 15px}.brand{font-size:22px}.btn{padding:9px 10px;font-size:12px}}
+</style>
 </head>
-
 <body>
-  <header class="topbar">
-    <div class="brand">
-      Sina<span class="rainbow">Art</span>
-      <span class="brand-heart">♡</span>
-    </div>
+<header class="topbar">
+  <div class="brand">Sina<span class="rainbow">Art</span> ♡</div>
+  <div class="top-actions">
+    <a href="index.html"><button type="button" class="btn light">♡ Lihat website</button></a>
+    <button id="logoutBtn" class="btn danger hidden" type="button">Keluar</button>
+  </div>
+</header>
 
-    <div class="top-actions">
-      <a href="index.html" style="text-decoration:none">
-        <button class="btn btn-light" type="button">♡ Lihat website</button>
-      </a>
+<main id="loginSection" class="container login-box">
+  <div style="text-align:center"><div style="font-size:42px">🎨</div><p class="muted">✦ AREA KHUSUS ADMIN ✦</p><h1>Halo, <span class="rainbow">Admin!</span></h1><p class="muted">Selamat datang di ruang kreatif SinaArt ♡</p></div>
+  <section class="panel">
+    <h2>Masuk ke akunmu ☁️</h2><p class="muted">Login untuk mengelola layanan dan produk.</p>
+    <form id="loginForm">
+      <div class="field"><label for="email">Email admin</label><input id="email" type="email" autocomplete="username" required placeholder="Email admin"></div>
+      <div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required placeholder="Password"></div>
+      <button id="loginBtn" class="btn primary" style="width:100%;padding:14px" type="submit">Masuk ke Dashboard ♡</button>
+      <div id="loginMessage" class="message" role="status"></div>
+    </form>
+  </section>
+</main>
 
-      <button id="logoutBtn" class="btn btn-danger hidden" type="button">
-        Keluar ↗
-      </button>
-    </div>
-  </header>
+<main id="dashboardSection" class="container hidden">
+  <p class="muted">✦ ADMIN WORKSPACE ✦</p><h1>Dashboard <span class="rainbow">SinaArt</span> ♡</h1>
+  <p class="muted">Kelola layanan dan produk SinaArt. Perubahan tersimpan ke Supabase.</p>
+  <div id="pageMessage" class="message" role="status"></div>
 
-  <!-- FORM LOGIN -->
-  <main id="loginSection" class="container login-box">
-    <div style="text-align:center">
-      <span class="login-decoration">🎨</span>
-      <div class="welcome-note">✦ AREA KHUSUS ADMIN ✦</div>
-      <h1>Halo, <span class="rainbow">Admin!</span></h1>
-      <p class="muted">Selamat datang kembali di ruang kreatif SinaArt ♡</p>
-    </div>
-
-    <section class="panel">
-      <h2>Masuk ke akunmu ☁️</h2>
-      <p class="muted">Login untuk mengelola layanan SinaArt.</p>
-
-      <form id="loginForm">
-        <div class="field">
-          <label for="email">Email admin</label>
-          <input id="email" type="email" autocomplete="username"
-                 placeholder="Masukkan email admin" required>
-        </div>
-
-        <div class="field">
-          <label for="password">Password</label>
-          <input id="password" type="password"
-                 autocomplete="current-password"
-                 placeholder="Masukkan password" required>
-        </div>
-
-        <button id="loginBtn" class="btn btn-primary btn-block" type="submit">
-          Masuk ke Dashboard ♡
-        </button>
-
-        <div id="loginMessage" class="message" role="status"></div>
-      </form>
-    </section>
-  </main>
-
-  <!-- DASHBOARD -->
-  <main id="dashboardSection" class="container hidden">
-    <div class="welcome-note">✦ ADMIN WORKSPACE ✦</div>
-    <h1>Dashboard <span class="rainbow">SinaArt</span> ♡</h1>
-    <p class="muted">
-      Kelola layanan kreatifmu di sini. Semua perubahan akan tersimpan ke Supabase.
-    </p>
-
-    <div id="pageMessage" class="message" role="status"></div>
-
-    <section class="panel">
-      <div class="section-heading">
-        <div class="section-icon">🖌️</div>
-        <div>
-          <h2 id="formTitle" style="margin-bottom:5px">Tambah layanan baru</h2>
-          <p class="muted" style="margin-bottom:0;font-size:13px">
-            Tambahkan karya atau layanan yang ingin kamu tawarkan.
-          </p>
-        </div>
+  <section class="panel" id="panelLayanan">
+    <h2 id="formTitle">🖌️ Tambah layanan baru</h2><p class="muted">Tambahkan jenis layanan yang ditawarkan SinaArt.</p>
+    <form id="serviceForm">
+      <div class="form-grid">
+        <div class="field full"><label for="serviceName">Nama layanan</label><input id="serviceName" maxlength="100" required placeholder="Contoh: Jasa Digital Art"></div>
+        <div class="field full"><label for="serviceDescription">Deskripsi layanan</label><textarea id="serviceDescription" maxlength="1000" required placeholder="Ceritakan detail layananmu..."></textarea></div>
+        <div class="field"><label for="servicePrice">Harga dasar (Rp)</label><input id="servicePrice" type="number" min="0" step="1" required placeholder="25000"></div>
       </div>
+      <div class="check-row"><input id="serviceActive" type="checkbox" checked><label for="serviceActive">Tampilkan layanan di website ♡</label></div>
+      <div class="actions"><button id="saveBtn" class="btn primary" type="submit">♡ Simpan layanan</button><button id="cancelEditBtn" class="btn light hidden" type="button">Batal mengedit</button></div>
+    </form>
+  </section>
 
-      <form id="serviceForm" style="margin-top:23px">
-        <div class="form-grid">
-          <div class="field full">
-            <label for="serviceName">Nama layanan</label>
-            <input id="serviceName" maxlength="100"
-                   placeholder="Contoh: Jasa Digital Art" required>
-          </div>
+  <section class="panel"><h2>🧸 Daftar layanan</h2><p class="muted">Edit, aktifkan, nonaktifkan, atau hapus layanan.</p><div id="serviceList" class="list">Memuat layanan...</div></section>
 
-          <div class="field full">
-            <label for="serviceDescription">Deskripsi layanan</label>
-            <textarea id="serviceDescription" maxlength="1000"
-                      placeholder="Ceritakan detail layananmu di sini..." required></textarea>
-          </div>
-
-          <div class="field">
-            <label for="servicePrice">Harga (Rp)</label>
-            <input id="servicePrice" type="number" min="0" step="1"
-                   placeholder="Contoh: 25000" required>
-          </div>
-        </div>
-
-        <div class="check-row">
-          <input id="serviceActive" type="checkbox" checked>
-          <label for="serviceActive">Tampilkan layanan di website ♡</label>
-        </div>
-
-        <div class="actions">
-          <button id="saveBtn" class="btn btn-primary" type="submit">
-            ♡ Simpan layanan
-          </button>
-
-          <button id="cancelEditBtn" class="btn btn-light hidden"
-                  type="button">
-            Batal mengedit
-          </button>
-        </div>
-      </form>
-    </section>
-
-    <section class="panel">
-      <div class="section-heading">
-        <div class="section-icon">🧸</div>
-        <div>
-          <h2 style="margin-bottom:5px">Daftar layanan</h2>
-          <p class="muted" style="margin-bottom:0;font-size:13px">
-            Atur layanan yang akan dilihat pengunjung website.
-          </p>
-        </div>
+  <section class="panel" id="panelProduk">
+    <h2 id="productFormTitle">🎨 Tambah produk baru</h2><p class="muted">Pilih layanan supaya produk muncul di halaman layanan yang sesuai.</p>
+    <form id="productForm">
+      <input type="hidden" id="productId">
+      <div class="form-grid">
+        <div class="field full"><label for="productService">Jenis layanan</label><select id="productService" required><option value="">Memuat layanan...</option></select></div>
+        <div class="field full"><label for="productName">Nama produk</label><input id="productName" maxlength="150" required placeholder="Contoh: Lukisan Portrait A4"></div>
+        <div class="field full"><label for="productDescription">Deskripsi produk</label><textarea id="productDescription" maxlength="1500" placeholder="Ukuran, bahan, atau detail produk..."></textarea></div>
+        <div class="field"><label for="productPrice">Harga (Rp)</label><input id="productPrice" type="number" min="0" step="1" required placeholder="50000"></div>
+        <div class="field"><label for="productImage">URL gambar produk (opsional)</label><input id="productImage" type="url" placeholder="https://..."></div>
       </div>
-
-      <div id="serviceList" class="service-list" style="margin-top:22px">
-        <p class="muted">Memuat layanan...</p>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    Dibuat dengan <span class="rainbow">♡ cinta dan kreativitas ♡</span> oleh SinaArt
-  </footer>
-
-  <!-- Supabase harus dimuat sebelum kode dashboard -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase.js"></script>
-
-  <script>
-    const loginSection = document.getElementById("loginSection");
-    const dashboardSection = document.getElementById("dashboardSection");
-    const loginForm = document.getElementById("loginForm");
-    const loginBtn = document.getElementById("loginBtn");
-    const loginMessage = document.getElementById("loginMessage");
-    const pageMessage = document.getElementById("pageMessage");
-    const logoutBtn = document.getElementById("logoutBtn");
-    const serviceForm = document.getElementById("serviceForm");
-    const serviceList = document.getElementById("serviceList");
-    const saveBtn = document.getElementById("saveBtn");
-    const cancelEditBtn = document.getElementById("cancelEditBtn");
-
-    let editId = null;
-
-    function showMessage(element, message, type = "error") {
-      element.textContent = message;
-      element.className = "message show " + type;
-    }
-
-    function clearMessage(element) {
-      element.textContent = "";
-      element.className = "message";
-    }
-
-    function rupiah(value) {
-      return "Rp" + Number(value || 0).toLocaleString("id-ID");
-    }
-
-    function showLogin() {
-      loginSection.classList.remove("hidden");
-      dashboardSection.classList.add("hidden");
-      logoutBtn.classList.add("hidden");
-    }
-
-    function showDashboard() {
-      loginSection.classList.add("hidden");
-      dashboardSection.classList.remove("hidden");
-      logoutBtn.classList.remove("hidden");
-    }
-
-    async function cekAdmin(user) {
-      if (!user) return false;
-
-      const { data, error } = await supabaseClient
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", user.id)
-        .maybeSingle();
-
-      if (error) {
-        console.error("Pemeriksaan admin:", error);
-        throw new Error(
-          "Tidak bisa memeriksa peran admin. Periksa pengaturan Supabase."
-        );
-      }
-
-      return data?.role === "admin";
-    }
-
-    async function bukaDashboardJikaAdmin(user) {
-      if (!user) {
-        showLogin();
-        return;
-      }
-
-      try {
-        const admin = await cekAdmin(user);
-
-        if (!admin) {
-          await supabaseClient.auth.signOut();
-          showLogin();
-          showMessage(
-            loginMessage,
-            "Akun ini tidak memiliki akses admin.",
-            "error"
-          );
-          return;
-        }
-
-        clearMessage(loginMessage);
-        showDashboard();
-        await muatLayanan();
-      } catch (error) {
-        showLogin();
-        showMessage(loginMessage, error.message, "error");
-      }
-    }
-
-    loginForm.addEventListener("submit", async function(event) {
-      event.preventDefault();
-      clearMessage(loginMessage);
-      loginBtn.disabled = true;
-      loginBtn.textContent = "Memeriksa akun...";
-
-      try {
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value;
-
-        const { data, error } = await supabaseClient.auth.signInWithPassword({
-          email,
-          password
-        });
-
-        if (error) throw error;
-
-        const admin = await cekAdmin(data.user);
-
-        if (!admin) {
-          await supabaseClient.auth.signOut();
-          throw new Error("Akun ini bukan admin SinaArt.");
-        }
-
-        showDashboard();
-        await muatLayanan();
-      } catch (error) {
-        showMessage(
-          loginMessage,
-          error.message || "Login gagal. Periksa email dan password.",
-          "error"
-        );
-      } finally {
-        loginBtn.disabled = false;
-        loginBtn.textContent = "Masuk ke Dashboard ♡";
-      }
-    });
-
-    logoutBtn.addEventListener("click", async function() {
-      const { error } = await supabaseClient.auth.signOut();
-
-      if (error) {
-        showMessage(pageMessage, "Gagal keluar: " + error.message, "error");
-        return;
-      }
-
-      showLogin();
-      loginForm.reset();
-      resetForm();
-      clearMessage(pageMessage);
-    });
-
-    async function muatLayanan() {
-      serviceList.textContent = "Memuat layanan...";
-
-      const { data, error } = await supabaseClient
-        .from("services")
-        .select("id, name, description, price, is_active, created_at")
-        .order("created_at", { ascending: false });
-
-      if (error) {
-        console.error("Gagal memuat layanan:", error);
-        serviceList.textContent =
-          "Gagal memuat layanan. Periksa kebijakan SELECT admin di Supabase.";
-        return;
-      }
-
-      serviceList.replaceChildren();
-
-      if (!data || data.length === 0) {
-        const empty = document.createElement("div");
-        empty.className = "empty-state";
-        empty.innerHTML = "<span>🎨</span>Belum ada layanan.<br>Yuk, tambahkan layanan pertamamu!";
-        serviceList.appendChild(empty);
-        return;
-      }
-
-      data.forEach(function(item) {
-        const card = document.createElement("article");
-        card.className = "service-item";
-
-        const title = document.createElement("h3");
-        title.textContent = item.name;
-
-        const description = document.createElement("p");
-        description.textContent = item.description || "Belum ada deskripsi.";
-
-        const price = document.createElement("p");
-        price.className = "price";
-        price.textContent = rupiah(item.price);
-
-        const status = document.createElement("span");
-        status.className = "status" + (item.is_active ? "" : " off");
-        status.textContent = item.is_active ? "♡ Aktif" : "Nonaktif";
-
-        const actions = document.createElement("div");
-        actions.className = "actions";
-
-        const editButton = document.createElement("button");
-        editButton.type = "button";
-        editButton.className = "btn btn-light";
-        editButton.textContent = "✏️ Edit";
-        editButton.addEventListener("click", function() {
-          mulaiEdit(item);
-        });
-
-        const toggleButton = document.createElement("button");
-        toggleButton.type = "button";
-        toggleButton.className = "btn btn-light";
-        toggleButton.textContent = item.is_active ? "Nonaktifkan" : "Aktifkan";
-        toggleButton.addEventListener("click", function() {
-          ubahStatus(item);
-        });
-
-        const deleteButton = document.createElement("button");
-        deleteButton.type = "button";
-        deleteButton.className = "btn btn-danger";
-        deleteButton.textContent = "🗑 Hapus";
-        deleteButton.addEventListener("click", function() {
-          hapusLayanan(item);
-        });
-
-        actions.append(editButton, toggleButton, deleteButton);
-        card.append(title, description, price, status, actions);
-        serviceList.appendChild(card);
-      });
-    }
-
-    serviceForm.addEventListener("submit", async function(event) {
-      event.preventDefault();
-      clearMessage(pageMessage);
-
-      saveBtn.disabled = true;
-      saveBtn.textContent = "Menyimpan...";
-
-      const name = document.getElementById("serviceName").value.trim();
-      const description =
-        document.getElementById("serviceDescription").value.trim();
-      const price = Number(document.getElementById("servicePrice").value);
-      const is_active = document.getElementById("serviceActive").checked;
-
-      if (!name || !description || !Number.isSafeInteger(price) || price < 0) {
-        showMessage(
-          pageMessage,
-          "Isi nama, deskripsi, dan harga dengan benar.",
-          "error"
-        );
-        saveBtn.disabled = false;
-        saveBtn.textContent = editId === null
-          ? "♡ Simpan layanan"
-          : "Simpan perubahan";
-        return;
-      }
-
-      const sedangEdit = editId !== null;
-      const serviceData = { name, description, price, is_active };
-
-      try {
-        let result;
-
-        if (!sedangEdit) {
-          result = await supabaseClient
-            .from("services")
-            .insert([serviceData]);
-        } else {
-          result = await supabaseClient
-            .from("services")
-            .update(serviceData)
-            .eq("id", editId);
-        }
-
-        if (result.error) throw result.error;
-
-        resetForm();
-        showMessage(
-          pageMessage,
-          sedangEdit
-            ? "Perubahan layanan berhasil disimpan! ♡"
-            : "Layanan berhasil ditambahkan! ♡",
-          "success"
-        );
-
-        await muatLayanan();
-      } catch (error) {
-        console.error("Gagal menyimpan layanan:", error);
-        showMessage(
-          pageMessage,
-          "Gagal menyimpan layanan. Periksa kebijakan INSERT/UPDATE Supabase.",
-          "error"
-        );
-      } finally {
-        saveBtn.disabled = false;
-        saveBtn.textContent = editId === null
-          ? "♡ Simpan layanan"
-          : "Simpan perubahan";
-      }
-    });
-
-    function mulaiEdit(item) {
-      editId = item.id;
-
-      document.getElementById("serviceName").value = item.name || "";
-      document.getElementById("serviceDescription").value =
-        item.description || "";
-      document.getElementById("servicePrice").value = item.price ?? 0;
-      document.getElementById("serviceActive").checked = !!item.is_active;
-
-      document.getElementById("formTitle").textContent = "Edit layanan ✏️";
-      saveBtn.textContent = "Simpan perubahan";
-      cancelEditBtn.classList.remove("hidden");
-
-      document.getElementById("serviceName").focus();
-      serviceForm.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }
-
-    async function ubahStatus(item) {
-      const { error } = await supabaseClient
-        .from("services")
-        .update({ is_active: !item.is_active })
-        .eq("id", item.id);
-
-      if (error) {
-        console.error(error);
-        showMessage(pageMessage, "Gagal mengubah status layanan.", "error");
-        return;
-      }
-
-      showMessage(pageMessage, "Status layanan berhasil diubah. ♡", "success");
-      await muatLayanan();
-    }
-
-    async function hapusLayanan(item) {
-      if (!confirm('Yakin ingin menghapus layanan "' + item.name + '"?')) {
-        return;
-      }
-
-      const { error } = await supabaseClient
-        .from("services")
-        .delete()
-        .eq("id", item.id);
-
-      if (error) {
-        console.error(error);
-        showMessage(pageMessage, "Gagal menghapus layanan.", "error");
-        return;
-      }
-
-      if (String(editId) === String(item.id)) resetForm();
-
-      showMessage(pageMessage, "Layanan berhasil dihapus.", "success");
-      await muatLayanan();
-    }
-
-    function resetForm() {
-      editId = null;
-      serviceForm.reset();
-      document.getElementById("serviceActive").checked = true;
-      document.getElementById("formTitle").textContent = "Tambah layanan baru";
-      saveBtn.textContent = "♡ Simpan layanan";
-      cancelEditBtn.classList.add("hidden");
-    }
-
-    cancelEditBtn.addEventListener("click", resetForm);
-
-    async function mulai() {
-      try {
-        const { data, error } = await supabaseClient.auth.getSession();
-
-        if (error) throw error;
-
-        await bukaDashboardJikaAdmin(data.session?.user || null);
-      } catch (error) {
-        showLogin();
-        showMessage(
-          loginMessage,
-          "Tidak bisa memulai dashboard. Periksa supabase.js dan koneksi internet.",
-          "error"
-        );
-      }
-    }
-
-    supabaseClient.auth.onAuthStateChange(function(event, session) {
-      if (event === "SIGNED_OUT") showLogin();
-    });
-
-    mulai();
-  </script>
+      <div class="check-row"><input id="productActive" type="checkbox" checked><label for="productActive">Produk aktif dan ditampilkan di website ♡</label></div>
+      <div class="actions"><button id="productSaveBtn" class="btn primary" type="submit">♡ Simpan produk</button><button id="productCancelBtn" class="btn light hidden" type="button">Batal mengedit</button></div>
+    </form>
+    <div id="productMessage" class="message" role="status"></div>
+  </section>
+
+  <section class="panel"><h2>🛍️ Daftar produk</h2><p class="muted">Edit, aktifkan, nonaktifkan, atau hapus produk.</p>
+    <div class="table-wrap"><table><thead><tr><th>Produk</th><th>Jenis layanan</th><th>Harga</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="productTable"><tr><td colspan="5">Memuat produk...</td></tr></tbody></table></div>
+  </section>
+</main>
+<footer>Dibuat dengan <span class="rainbow">♡ cinta dan kreativitas ♡</span> oleh SinaArt</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+let editId = null, productEditId = null, allServices = [], allProducts = [];
+
+function msg(el, text, type="error"){el.textContent=text;el.className="message show "+type}
+function clearMsg(el){el.textContent="";el.className="message"}
+function rupiah(n){return "Rp"+Number(n||0).toLocaleString("id-ID")}
+function showLogin(){$("loginSection").classList.remove("hidden");$("dashboardSection").classList.add("hidden");$("logoutBtn").classList.add("hidden")}
+function showDashboard(){$("loginSection").classList.add("hidden");$("dashboardSection").classList.remove("hidden");$("logoutBtn").classList.remove("hidden")}
+function makeButton(text,cls,fn){const b=document.createElement("button");b.type="button";b.className="btn "+cls;b.textContent=text;b.addEventListener("click",fn);return b}
+
+async function cekAdmin(user){
+  if(!user)return false;
+  const {data,error}=await supabaseClient.from("user_roles").select("role").eq("user_id",user.id).maybeSingle();
+  if(error)throw new Error("Gagal memeriksa role admin: "+error.message);
+  return data?.role==="admin";
+}
+async function bukaDashboard(user){
+  if(!user){showLogin();return}
+  try{
+    if(!await cekAdmin(user)){await supabaseClient.auth.signOut();showLogin();msg($("loginMessage"),"Akun ini tidak memiliki akses admin.");return}
+    clearMsg($("loginMessage"));showDashboard();await muatLayanan();await muatPilihanLayanan();await muatProduk();
+  }catch(e){showLogin();msg($("loginMessage"),e.message)}
+}
+$("loginForm").addEventListener("submit",async e=>{
+  e.preventDefault();clearMsg($("loginMessage"));$("loginBtn").disabled=true;$("loginBtn").textContent="Memeriksa akun...";
+  try{
+    if(typeof supabaseClient==="undefined"||!supabaseClient)throw new Error("Supabase belum terhubung. Periksa supabase.js.");
+    const {data,error}=await supabaseClient.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});
+    if(error)throw error;
+    if(!await cekAdmin(data.user)){await supabaseClient.auth.signOut();throw new Error("Akun ini bukan admin SinaArt.")}
+    showDashboard();await muatLayanan();await muatPilihanLayanan();await muatProduk();
+  }catch(e){msg($("loginMessage"),e.message||"Login gagal.")}
+  finally{$("loginBtn").disabled=false;$("loginBtn").textContent="Masuk ke Dashboard ♡"}
+});
+$("logoutBtn").addEventListener("click",async()=>{
+  const {error}=await supabaseClient.auth.signOut();
+  if(error){msg($("pageMessage"),error.message);return}
+  showLogin();$("loginForm").reset();resetServiceForm();resetProductForm();clearMsg($("pageMessage"));
+});
+
+async function muatLayanan(){
+  $("serviceList").textContent="Memuat layanan...";
+  const {data,error}=await supabaseClient.from("services").select("id,name,description,price,is_active,created_at").order("created_at",{ascending:false});
+  if(error){$("serviceList").textContent="Gagal memuat layanan: "+error.message;return}
+  allServices=data||[];$("serviceList").replaceChildren();
+  if(!allServices.length){$("serviceList").innerHTML='<div class="empty">🎨<br>Belum ada layanan. Tambahkan layanan pertamamu!</div>';return}
+  allServices.forEach(s=>{
+    const card=document.createElement("article");card.className="item";
+    const h=document.createElement("h3");h.textContent=s.name;
+    const d=document.createElement("p");d.textContent=s.description||"Belum ada deskripsi.";
+    const p=document.createElement("p");p.className="price";p.textContent=rupiah(s.price);
+    const badge=document.createElement("span");badge.className="status"+(s.is_active?"":" off");badge.textContent=s.is_active?"Aktif":"Nonaktif";
+    const a=document.createElement("div");a.className="actions";
+    a.append(makeButton("Edit","light",()=>editLayanan(s)),makeButton(s.is_active?"Nonaktifkan":"Aktifkan","light",()=>toggleLayanan(s)),makeButton("Hapus","danger",()=>hapusLayanan(s)));
+    card.append(h,d,p,badge,a);$("serviceList").append(card);
+  });
+  await muatPilihanLayanan();
+}
+$("serviceForm").addEventListener("submit",async e=>{
+  e.preventDefault();clearMsg($("pageMessage"));$("saveBtn").disabled=true;
+  const raw=$("servicePrice").value,price=Number(raw);
+  if(!Number.isSafeInteger(price)||price<0||raw===""){msg($("pageMessage"),"Masukkan harga yang benar.");$("saveBtn").disabled=false;return}
+  const payload={name:$("serviceName").value.trim(),description:$("serviceDescription").value.trim(),price,is_active:$("serviceActive").checked};
+  const wasEdit=editId!==null;
+  try{
+    const r=wasEdit?await supabaseClient.from("services").update(payload).eq("id",editId):await supabaseClient.from("services").insert([payload]);
+    if(r.error)throw r.error;
+    resetServiceForm();msg($("pageMessage"),wasEdit?"Layanan berhasil diperbarui ♡":"Layanan berhasil ditambahkan ♡","success");await muatLayanan();await muatProduk();
+  }catch(e){msg($("pageMessage"),"Gagal menyimpan layanan: "+e.message)}
+  finally{$("saveBtn").disabled=false;$("saveBtn").textContent=editId===null?"♡ Simpan layanan":"Simpan perubahan"}
+});
+function editLayanan(s){editId=s.id;$("serviceName").value=s.name||"";$("serviceDescription").value=s.description||"";$("servicePrice").value=s.price??0;$("serviceActive").checked=!!s.is_active;$("formTitle").textContent="✏️ Edit layanan";$("saveBtn").textContent="Simpan perubahan";$("cancelEditBtn").classList.remove("hidden");$("panelLayanan").scrollIntoView({behavior:"smooth"})}
+function resetServiceForm(){editId=null;$("serviceForm").reset();$("serviceActive").checked=true;$("formTitle").textContent="🖌️ Tambah layanan baru";$("saveBtn").textContent="♡ Simpan layanan";$("cancelEditBtn").classList.add("hidden")}
+$("cancelEditBtn").addEventListener("click",resetServiceForm);
+async function toggleLayanan(s){const {error}=await supabaseClient.from("services").update({is_active:!s.is_active}).eq("id",s.id);if(error){msg($("pageMessage"),error.message);return}msg($("pageMessage"),"Status layanan diperbarui ♡","success");await muatLayanan()}
+async function hapusLayanan(s){if(!confirm('Hapus layanan "'+s.name+'"?'))return;const {error}=await supabaseClient.from("services").delete().eq("id",s.id);if(error){msg($("pageMessage"),"Gagal menghapus layanan: "+error.message);return}if(String(editId)===String(s.id))resetServiceForm();msg($("pageMessage"),"Layanan berhasil dihapus.","success");await muatLayanan();await muatProduk()}
+
+async function muatPilihanLayanan(){
+  const old=$("productService").value;
+  const {data,error}=await supabaseClient.from("services").select("id,name").order("name");
+  if(error){$("productService").innerHTML='<option value="">Gagal memuat layanan</option>';console.error(error);return}
+  allServices=data||[];$("productService").innerHTML='<option value="">Pilih jenis layanan</option>';
+  allServices.forEach(s=>{const o=document.createElement("option");o.value=s.id;o.textContent=s.name;$("productService").append(o)});
+  if(old&&allServices.some(s=>String(s.id)===String(old)))$("productService").value=old;
+}
+$("productForm").addEventListener("submit",async e=>{
+  e.preventDefault();clearMsg($("productMessage"));$("productSaveBtn").disabled=true;
+  const raw=$("productPrice").value,price=Number(raw);
+  if(!$("productService").value||!$("productName").value.trim()||raw===""||!Number.isSafeInteger(price)||price<0){
+    msg($("productMessage"),"Pilih layanan dan isi nama serta harga dengan benar.");$("productSaveBtn").disabled=false;return
+  }
+  const payload={service_id:Number($("productService").value),name:$("productName").value.trim(),description:$("productDescription").value.trim(),price,image_url:$("productImage").value.trim()||null,is_active:$("productActive").checked};
+  const wasEdit=productEditId!==null;
+  try{
+    const r=wasEdit?await supabaseClient.from("products").update(payload).eq("id",productEditId):await supabaseClient.from("products").insert([payload]);
+    if(r.error)throw r.error;
+    resetProductForm();msg($("productMessage"),wasEdit?"Produk berhasil diperbarui ♡":"Produk berhasil ditambahkan ♡","success");await muatProduk();
+  }catch(e){console.error(e);msg($("productMessage"),"Gagal menyimpan produk: "+e.message)}
+  finally{$("productSaveBtn").disabled=false;$("productSaveBtn").textContent=productEditId===null?"♡ Simpan produk":"Simpan perubahan"}
+});
+async function muatProduk(){
+  $("productTable").innerHTML='<tr><td colspan="5">Memuat produk...</td></tr>';
+  const {data,error}=await supabaseClient.from("products").select("id,service_id,name,description,price,image_url,is_active,created_at").order("created_at",{ascending:false});
+  if(error){$("productTable").innerHTML='<tr><td colspan="5">Gagal memuat produk: '+escapeHTML(error.message)+'</td></tr>';return}
+  allProducts=data||[];$("productTable").replaceChildren();
+  if(!allProducts.length){$("productTable").innerHTML='<tr><td colspan="5">Belum ada produk. Tambahkan produk di formulir atas ♡</td></tr>';return}
+  allProducts.forEach(p=>{
+    const tr=document.createElement("tr"),td1=document.createElement("td"),strong=document.createElement("strong");strong.textContent=p.name;td1.append(strong);
+    if(p.image_url){const img=document.createElement("img");img.src=p.image_url;img.alt=p.name;img.className="thumb";img.loading="lazy";img.onerror=()=>img.remove();td1.append(img)}
+    const desc=document.createElement("div");desc.className="muted";desc.textContent=p.description||"";td1.append(desc);
+    const td2=document.createElement("td"),s=allServices.find(x=>String(x.id)===String(p.service_id));td2.textContent=s?s.name:"Layanan belum dipilih";
+    const td3=document.createElement("td");td3.textContent=rupiah(p.price);
+    const td4=document.createElement("td"),badge=document.createElement("span");badge.className="status"+(p.is_active?"":" off");badge.textContent=p.is_active?"Aktif":"Nonaktif";td4.append(badge);
+    const td5=document.createElement("td");td5.append(makeButton("Edit","light",()=>editProduk(p)),makeButton(p.is_active?"Nonaktifkan":"Aktifkan","light",()=>toggleProduk(p)),makeButton("Hapus","danger",()=>hapusProduk(p)));
+    tr.append(td1,td2,td3,td4,td5);$("productTable").append(tr);
+  });
+}
+function editProduk(p){productEditId=p.id;$("productId").value=p.id;$("productService").value=p.service_id==null?"":String(p.service_id);$("productName").value=p.name||"";$("productDescription").value=p.description||"";$("productPrice").value=p.price??"";$("productImage").value=p.image_url||"";$("productActive").checked=!!p.is_active;$("productFormTitle").textContent="✏️ Edit produk";$("productSaveBtn").textContent="Simpan perubahan";$("productCancelBtn").classList.remove("hidden");$("panelProduk").scrollIntoView({behavior:"smooth"})}
+function resetProductForm(){productEditId=null;$("productForm").reset();$("productId").value="";$("productActive").checked=true;$("productFormTitle").textContent="🎨 Tambah produk baru";$("productSaveBtn").textContent="♡ Simpan produk";$("productCancelBtn").classList.add("hidden")}
+$("productCancelBtn").addEventListener("click",resetProductForm);
+async function toggleProduk(p){const {error}=await supabaseClient.from("products").update({is_active:!p.is_active}).eq("id",p.id);if(error){msg($("productMessage"),"Gagal mengubah status: "+error.message);return}msg($("productMessage"),"Status produk diperbarui ♡","success");await muatProduk()}
+async function hapusProduk(p){if(!confirm('Yakin ingin menghapus produk "'+p.name+'"?'))return;const {error}=await supabaseClient.from("products").delete().eq("id",p.id);if(error){msg($("productMessage"),"Gagal menghapus produk: "+error.message);return}if(String(productEditId)===String(p.id))resetProductForm();msg($("productMessage"),"Produk berhasil dihapus.","success");await muatProduk()}
+function escapeHTML(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+
+async function mulai(){
+  try{
+    if(typeof supabaseClient==="undefined"||!supabaseClient)throw new Error("Supabase belum terhubung. Periksa file supabase.js.");
+    const {data,error}=await supabaseClient.auth.getSession();if(error)throw error;
+    await bukaDashboard(data.session?.user||null);
+    supabaseClient.auth.onAuthStateChange((event,session)=>{if(event==="SIGNED_OUT")showLogin()});
+  }catch(e){showLogin();msg($("loginMessage"),e.message||"Tidak bisa memulai dashboard.")}
+}
+mulai();
+</script>
 </body>
 </html>
-```
