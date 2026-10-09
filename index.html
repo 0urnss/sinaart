@@ -1,11 +1,11 @@
-
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#fff0f5">
-  <title>SinaArt — Art Made With Love</title>
+  <title>Welcome to SinaArt</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +19,7 @@
       --cream: #fffaf7;
       --text: #493740;
       --muted: #8d7a83;
-      --white: #ffffff;
+      --white: #fff;
     }
 
     * {
@@ -41,8 +41,8 @@
     }
 
     a {
-      color: inherit;
       text-decoration: none;
+      color: inherit;
     }
 
     button {
@@ -56,12 +56,12 @@
 
     h1, h2, h3 {
       font-family: "Playfair Display", serif;
-      line-height: 1.2;
+      line-height: 1.25;
     }
 
     /* NAVBAR */
     header {
-      background: rgba(255, 250, 247, .96);
+      background: rgba(255,250,247,.96);
       border-bottom: 1px solid #f4e4e9;
       position: sticky;
       top: 0;
@@ -72,8 +72,8 @@
     nav {
       min-height: 76px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 20px;
     }
 
@@ -94,15 +94,15 @@
       align-items: center;
       gap: 28px;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .nav-links a:hover {
       color: var(--pink-dark);
     }
 
-    .nav-button {
-      background: var(--pink);
+    .nav-cta {
+      background: var(--pink-dark);
       color: white !important;
       padding: 10px 18px;
       border-radius: 30px;
@@ -111,11 +111,11 @@
     /* BUTTON */
     .button {
       display: inline-flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       border: none;
       cursor: pointer;
-      padding: 13px 23px;
+      padding: 12px 22px;
       border-radius: 30px;
       font-weight: 700;
       transition: .2s;
@@ -134,13 +134,12 @@
     .button-outline {
       border: 1px solid #e5bdcc;
       color: var(--pink-dark);
-      margin-left: 9px;
-      background: transparent;
+      background: white;
     }
 
     /* HERO */
     .hero {
-      padding: 76px 0 84px;
+      padding: 75px 0 85px;
       background:
         radial-gradient(circle at 90% 15%, #f9dce7 0, transparent 28%),
         linear-gradient(135deg, #fff8fa, #fffaf7 65%);
@@ -150,7 +149,7 @@
       display: grid;
       grid-template-columns: 1.1fr .9fr;
       align-items: center;
-      gap: 65px;
+      gap: 60px;
     }
 
     .eyebrow {
@@ -161,15 +160,15 @@
       padding: 7px 15px;
       font-size: 12px;
       font-weight: 700;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
-      margin-bottom: 22px;
+      margin-bottom: 18px;
     }
 
     h1 {
-      font-size: clamp(42px, 5.3vw, 66px);
-      letter-spacing: -1.8px;
-      margin-bottom: 22px;
+      font-size: clamp(42px, 5.3vw, 65px);
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
     }
 
     h1 span {
@@ -180,8 +179,13 @@
     .hero p {
       color: var(--muted);
       max-width: 490px;
-      font-size: 16px;
-      margin-bottom: 30px;
+      margin-bottom: 28px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .hero-art {
@@ -243,15 +247,15 @@
       transform: rotate(4deg);
     }
 
-    /* SECTION */
+    /* GENERAL SECTION */
     section {
-      padding: 78px 0;
+      padding: 75px 0;
     }
 
     .section-heading {
       text-align: center;
-      max-width: 620px;
-      margin: 0 auto 42px;
+      max-width: 650px;
+      margin: 0 auto 40px;
     }
 
     .section-heading .eyebrow {
@@ -259,9 +263,8 @@
     }
 
     .section-heading h2,
-    .about-box h2,
-    .contact-box h2 {
-      font-size: clamp(32px, 4vw, 43px);
+    .about-box h2 {
+      font-size: clamp(31px, 4vw, 43px);
       margin-bottom: 13px;
     }
 
@@ -270,161 +273,213 @@
       font-size: 15px;
     }
 
-    /* SERVICES */
-    .services {
+    /* ORDER SECTION */
+    .orders {
       background: white;
+      min-height: 400px;
     }
 
-    .service-grid {
+    .category-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 24px;
+      gap: 22px;
     }
 
-    .service-card {
+    .category-card {
       border: 1px solid #f1e2e8;
-      border-radius: 22px;
-      overflow: hidden;
       background: white;
+      border-radius: 22px;
+      padding: 30px 22px;
+      text-align: center;
+      cursor: pointer;
       transition: .25s;
       min-width: 0;
     }
 
-    .service-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 15px 40px #9f5c7512;
+    .category-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--pink);
+      box-shadow: 0 15px 35px #9f5c7512;
     }
 
-    .service-visual {
-      height: 210px;
+    .category-icon {
+      width: 95px;
+      height: 95px;
+      margin: 0 auto 20px;
+      border-radius: 28px;
       display: flex;
-      align-items: center;
       justify-content: center;
-      font-size: 68px;
+      align-items: center;
+      font-size: 43px;
+      background: #fce8f0;
     }
 
-    .visual-bnw {
+    .category-card:nth-child(3n + 2) .category-icon {
       background: #f1edef;
     }
 
-    .visual-digital {
-      background: #fce8f0;
-    }
-
-    .visual-paint {
+    .category-card:nth-child(3n) .category-icon {
       background: #f9e7d9;
     }
 
-    .visual-web {
-      background: #e9e3f8;
-    }
-
-    .visual-default {
-      background: #fce8f0;
-    }
-
-    .service-content {
-      padding: 24px;
-    }
-
-    .service-content h3 {
+    .category-card h3 {
       font-size: 23px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       overflow-wrap: anywhere;
     }
 
-    .service-content p {
+    .category-card p {
       color: var(--muted);
-      font-size: 14px;
-      min-height: 68px;
-      margin-bottom: 18px;
-      overflow-wrap: anywhere;
+      font-size: 13px;
     }
 
-    .service-bottom {
-      border-top: 1px solid #f2e7eb;
-      padding-top: 17px;
+    .category-action {
+      display: inline-block;
+      color: var(--pink-dark);
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 18px;
+    }
+
+    /* PRODUCT GRID */
+    .products-view {
+      display: none;
+    }
+
+    .products-view.show {
+      display: block;
+    }
+
+    .category-view.hide {
+      display: none;
+    }
+
+    .products-toolbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 15px;
+      margin-bottom: 25px;
       flex-wrap: wrap;
     }
 
-    .price {
+    .products-toolbar h3 {
+      font-size: 27px;
+    }
+
+    .back-button {
+      border: 1px solid #e5bdcc;
+      border-radius: 25px;
+      background: white;
+      color: var(--pink-dark);
+      padding: 10px 16px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .back-button:hover {
+      background: var(--pink-light);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .product-card {
+      background: white;
+      border: 1px solid #f1e2e8;
+      border-radius: 20px;
+      overflow: hidden;
+      min-width: 0;
+      transition: .25s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px #9f5c7512;
+    }
+
+    .product-image {
+      height: 225px;
+      background: linear-gradient(145deg, #fce8f0, #fff0f5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      color: var(--pink-dark);
+      font-size: 60px;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-info {
+      padding: 20px;
+    }
+
+    .product-info h3 {
+      font-size: 21px;
+      margin-bottom: 8px;
+      overflow-wrap: anywhere;
+    }
+
+    .product-info p {
+      color: var(--muted);
+      font-size: 13px;
+      min-height: 45px;
+      overflow-wrap: anywhere;
+      margin-bottom: 15px;
+    }
+
+    .product-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      border-top: 1px solid #f2e7eb;
+      padding-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .product-price {
       color: var(--pink-dark);
       font-weight: 700;
       font-size: 14px;
     }
 
-    .text-link {
-      color: var(--pink-dark);
-      font-size: 13px;
+    .order-link {
+      background: var(--pink-dark);
+      color: white;
+      border-radius: 22px;
+      padding: 8px 13px;
+      font-size: 12px;
       font-weight: 700;
+      white-space: nowrap;
     }
 
-    .text-link:hover {
-      text-decoration: underline;
+    .order-link:hover {
+      background: #a94e73;
     }
 
-    .loading-message {
+    .message {
       grid-column: 1 / -1;
+      padding: 35px 15px;
       text-align: center;
-      padding: 30px;
       color: var(--muted);
+      background: #fffafc;
+      border-radius: 18px;
+      border: 1px dashed #e9c8d5;
     }
 
-    /* PORTFOLIO */
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
-    }
-
-    .portfolio-card {
-      border-radius: 20px;
-      overflow: hidden;
-      background: white;
-      border: 1px solid #f2e5e9;
-      transition: .25s;
-    }
-
-    .portfolio-card:hover {
-      transform: translateY(-4px);
-    }
-
-    .portfolio-art {
-      aspect-ratio: 4 / 4.3;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 70px;
-    }
-
-    .portfolio-art.one {
-      background: linear-gradient(145deg, #e8e1e3, #c8bdc3);
-    }
-
-    .portfolio-art.two {
-      background: linear-gradient(145deg, #f6d9e5, #f4b9d1);
-    }
-
-    .portfolio-art.three {
-      background: linear-gradient(145deg, #f9dfc7, #e9bca0);
-    }
-
-    .portfolio-caption {
-      padding: 16px 18px;
-    }
-
-    .portfolio-caption h3 {
-      font-size: 20px;
-      margin-bottom: 4px;
-    }
-
-    .portfolio-caption p {
-      color: var(--muted);
-      font-size: 13px;
+    .message button {
+      margin-top: 15px;
     }
 
     /* ABOUT */
@@ -438,13 +493,15 @@
       text-align: center;
     }
 
-    .about-box h2 {
-      margin-bottom: 20px;
-    }
-
     .about-box p {
       color: #79636e;
       margin-bottom: 16px;
+    }
+
+    .about-decoration {
+      font-size: 32px;
+      margin-top: 20px;
+      color: var(--pink-dark);
     }
 
     /* CONTACT */
@@ -460,6 +517,7 @@
     }
 
     .contact-box h2 {
+      font-size: clamp(30px, 4vw, 40px);
       margin-bottom: 14px;
     }
 
@@ -497,8 +555,8 @@
         min-height: 320px;
       }
 
-      .service-grid,
-      .portfolio-grid {
+      .category-grid,
+      .product-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -517,37 +575,12 @@
       }
 
       .nav-links {
-        gap: 12px;
+        gap: 13px;
         font-size: 12px;
       }
 
-      .nav-links .nav-button {
+      .nav-cta {
         padding: 8px 12px;
-      }
-
-      .nav-links a:not(.nav-button) {
-        display: none;
-      }
-
-      h1 {
-        font-size: 43px;
-      }
-
-      section {
-        padding: 58px 0;
-      }
-
-      .service-grid,
-      .portfolio-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .service-content p {
-        min-height: auto;
-      }
-
-      .button-outline {
-        margin: 10px 0 0;
       }
 
       .hero-art {
@@ -558,6 +591,73 @@
         width: 200px;
         height: 230px;
       }
+
+      section {
+        padding: 55px 0;
+      }
+
+      .category-grid,
+      .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .category-card {
+        padding: 20px 12px;
+        border-radius: 17px;
+      }
+
+      .category-icon {
+        width: 65px;
+        height: 65px;
+        border-radius: 20px;
+        font-size: 30px;
+        margin-bottom: 13px;
+      }
+
+      .category-card h3 {
+        font-size: 18px;
+      }
+
+      .category-card p {
+        font-size: 12px;
+      }
+
+      .category-action {
+        font-size: 12px;
+      }
+
+      .product-image {
+        height: 145px;
+        font-size: 42px;
+      }
+
+      .product-info {
+        padding: 13px;
+      }
+
+      .product-info h3 {
+        font-size: 17px;
+      }
+
+      .product-info p {
+        font-size: 12px;
+        min-height: 50px;
+      }
+
+      .product-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .products-toolbar h3 {
+        font-size: 22px;
+      }
+
+      .hero-buttons .button {
+        padding: 11px 15px;
+        font-size: 13px;
+      }
     }
   </style>
 </head>
@@ -565,41 +665,42 @@
 <body>
   <header>
     <nav class="container">
-      <a href="#" class="logo">Sina<span>Art.</span></a>
+      <a href="#home" class="logo">Sina<span>Art.</span></a>
 
       <div class="nav-links">
-        <a href="#layanan">Layanan</a>
-        <a href="#karya">Karya</a>
-        <a href="#tentang">Tentang</a>
-        <a href="#kontak" class="nav-button">Pesan Karya</a>
+        <a href="#home">Home</a>
+        <a href="#pemesanan">Pemesanan</a>
+        <a href="#about">About</a>
       </div>
     </nav>
   </header>
 
   <main>
-    <section class="hero">
+    <!-- HOME -->
+    <section class="hero" id="home">
       <div class="container hero-grid">
         <div>
           <span class="eyebrow">A little art, a lot of love</span>
 
           <h1>
-            Your ideas,<br>
-            made into <span>art.</span>
+            Welcome to<br>
+            <span>SinaArt.</span>
           </h1>
 
           <p>
-            Selamat datang di SinaArt! Tempat untuk mengubah
-            ide, kenangan, dan imajinasi menjadi karya seni
-            yang istimewa dan penuh makna.
+            Tempat untuk mengubah ide, kenangan, dan imajinasi
+            menjadi karya seni yang istimewa dan penuh makna.
+            Pilih layanan favoritmu dan buat karya yang personal.
           </p>
 
-          <a href="#layanan" class="button button-primary">
-            Jelajahi Layanan
-          </a>
-
-          <a href="#karya" class="button button-outline">
-            Lihat Karya
-          </a>
+          <div class="hero-buttons">
+            <a href="#pemesanan" class="button button-primary">
+              Jelajahi Karya ♡
+            </a>
+            <a href="#about" class="button button-outline">
+              Tentang SinaArt
+            </a>
+          </div>
         </div>
 
         <div class="hero-art">
@@ -615,64 +716,41 @@
       </div>
     </section>
 
-    <section class="services" id="layanan">
+    <!-- PEMESANAN -->
+    <section class="orders" id="pemesanan">
       <div class="container">
         <div class="section-heading">
-          <span class="eyebrow">What we create</span>
-          <h2>Our Art Services</h2>
-          <p>
-            Pilih jenis karya yang sesuai dengan ide dan
-            keinginanmu.
+          <span class="eyebrow">Find your favorite</span>
+          <h2 id="orderHeading">Pilih Kategori Karya</h2>
+          <p id="orderDescription">
+            Jelajahi berbagai kategori karya SinaArt dan temukan
+            produk yang sesuai dengan keinginanmu.
           </p>
         </div>
 
-        <!-- Layanan akan dimuat otomatis dari Supabase -->
-        <div class="service-grid" id="serviceGrid">
-          <p class="loading-message">Memuat layanan SinaArt...</p>
+        <!-- Pilihan kategori -->
+        <div class="category-view" id="categoryView">
+          <div class="category-grid" id="categoryGrid">
+            <p class="message">Memuat kategori...</p>
+          </div>
+        </div>
+
+        <!-- Kartu produk setelah kategori dipilih -->
+        <div class="products-view" id="productsView">
+          <div class="products-toolbar">
+            <h3 id="selectedCategory">Produk</h3>
+            <button type="button" class="back-button" id="backButton">
+              ← Kembali ke Kategori
+            </button>
+          </div>
+
+          <div class="product-grid" id="productGrid"></div>
         </div>
       </div>
     </section>
 
-    <section id="karya">
-      <div class="container">
-        <div class="section-heading">
-          <span class="eyebrow">Little pieces of art</span>
-          <h2>Selected Creations</h2>
-          <p>
-            Beberapa kategori karya yang bisa kamu jelajahi.
-            Galeri ini nantinya dapat diisi dengan karya aslimu.
-          </p>
-        </div>
-
-        <div class="portfolio-grid">
-          <article class="portfolio-card">
-            <div class="portfolio-art one">✏️</div>
-            <div class="portfolio-caption">
-              <h3>Black &amp; White</h3>
-              <p>Drawing · Line Art</p>
-            </div>
-          </article>
-
-          <article class="portfolio-card">
-            <div class="portfolio-art two">🪻</div>
-            <div class="portfolio-caption">
-              <h3>Digital Illustration</h3>
-              <p>Digital Art · Illustration</p>
-            </div>
-          </article>
-
-          <article class="portfolio-card">
-            <div class="portfolio-art three">🌼</div>
-            <div class="portfolio-caption">
-              <h3>Canvas Painting</h3>
-              <p>Painting · Handmade</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="about" id="tentang">
+    <!-- ABOUT -->
+    <section class="about" id="about">
       <div class="container about-box">
         <span class="eyebrow">A little about us</span>
         <h2>Art that tells your story.</h2>
@@ -688,29 +766,25 @@
           kanvas, kami ingin membantu membuat ide kreatifmu
           menjadi sesuatu yang bisa kamu simpan dan kenang.
         </p>
+
+        <div class="about-decoration">♡ ✿ ♡</div>
       </div>
     </section>
 
-    <section class="contact" id="kontak">
+    <!-- KONTAK -->
+    <section class="contact">
       <div class="container">
         <div class="contact-box">
           <span class="eyebrow">Let's make something</span>
           <h2>Have an idea in mind?</h2>
-
           <p>
-            Ceritakan karya yang kamu inginkan dan mari
-            wujudkan bersama SinaArt.
+            Punya pertanyaan atau ide karya sendiri?
+            Hubungi SinaArt melalui WhatsApp.
           </p>
 
-          <a
-            href="#"
-            id="whatsappButton"
-            class="button button-primary"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Pesan via WhatsApp ↗
-          </a>
+          <button type="button" id="whatsappButton" class="button button-primary">
+            Hubungi via WhatsApp ↗
+          </button>
         </div>
       </div>
     </section>
@@ -718,37 +792,95 @@
 
   <footer>
     <div class="container">
-      <a href="#" class="logo">SinaArt.</a>
+      <a href="#home" class="logo">SinaArt.</a>
       <p>Made with ♡ and creativity.</p>
       <p>© <span id="year"></span> SinaArt. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- Library Supabase harus dimuat sebelum supabase.js -->
+  <!-- Jangan hapus kedua script ini -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
 
   <script>
-    // GANTI dengan nomor WhatsApp kamu.
-    // Gunakan kode negara 62, tanpa tanda + atau angka 0 di depan.
+    // Nomor WhatsApp SinaArt
     const whatsappNumber = "62895322852505";
 
-    const whatsappMessage =
-      "Halo SinaArt! Saya ingin bertanya tentang layanan kamu.";
+    const categoryView = document.getElementById("categoryView");
+    const productsView = document.getElementById("productsView");
+    const categoryGrid = document.getElementById("categoryGrid");
+    const productGrid = document.getElementById("productGrid");
+    const orderHeading = document.getElementById("orderHeading");
+    const orderDescription = document.getElementById("orderDescription");
+    const selectedCategory = document.getElementById("selectedCategory");
 
-    const whatsappButton = document.getElementById("whatsappButton");
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
 
-    function pesanViaWhatsApp(namaLayanan) {
+    // Ikon kategori berdasarkan nama kategori
+    function pilihIkonKategori(kategori) {
+      const nama = kategori.toLowerCase();
+
+      if (
+        nama.includes("drawing") ||
+        nama.includes("bnw") ||
+        nama.includes("line art") ||
+        nama.includes("gambar")
+      ) {
+        return "✏️";
+      }
+
+      if (nama.includes("digital") || nama.includes("illustration")) {
+        return "🎨";
+      }
+
+      if (
+        nama.includes("painting") ||
+        nama.includes("lukisan") ||
+        nama.includes("canvas") ||
+        nama.includes("kanvas")
+      ) {
+        return "🖼️";
+      }
+
+      if (nama.includes("web") || nama.includes("website")) {
+        return "💻";
+      }
+
+      if (nama.includes("handmade") || nama.includes("kerajinan")) {
+        return "🌷";
+      }
+
+      return "♡";
+    }
+
+    // Format harga Rupiah
+    function formatHarga(harga) {
+      if (harga === null || harga === undefined || harga === "") {
+        return "Harga menyesuaikan";
+      }
+
+      const angka = Number(harga);
+
+      if (!Number.isFinite(angka)) {
+        return "Harga menyesuaikan";
+      }
+
+      return "Rp" + angka.toLocaleString("id-ID");
+    }
+
+    // Pesan WhatsApp
+    function pesanViaWhatsApp(namaProduk) {
       if (!/^[0-9]+$/.test(whatsappNumber)) {
-        alert(
-          "Nomor WhatsApp belum diatur. Ganti whatsappNumber di index.html terlebih dahulu."
-        );
+        alert("Periksa kembali nomor WhatsApp di index.html.");
         return;
       }
 
-      const pesan = namaLayanan
-        ? "Halo SinaArt! Saya tertarik dengan layanan " + namaLayanan + "."
-        : whatsappMessage;
+      const pesan = namaProduk
+        ? "Halo SinaArt! Saya tertarik memesan produk " +
+          namaProduk +
+          ". Apakah masih tersedia?"
+        : "Halo SinaArt! Saya ingin bertanya tentang layanan dan produk kamu.";
 
       const url =
         "https://wa.me/" +
@@ -759,133 +891,222 @@
       window.open(url, "_blank", "noopener,noreferrer");
     }
 
-    whatsappButton.addEventListener("click", function (event) {
-      event.preventDefault();
-      pesanViaWhatsApp("");
-    });
-
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
-
-    // Menentukan ilustrasi berdasarkan nama layanan.
-    function pilihVisual(nama) {
-      const n = nama.toLowerCase();
-
-      if (n.includes("bnw") || n.includes("drawing") || n.includes("line art")) {
-        return { icon: "✎", css: "visual-bnw" };
+    document.getElementById("whatsappButton").addEventListener(
+      "click",
+      function () {
+        pesanViaWhatsApp("");
       }
+    );
 
-      if (n.includes("digital")) {
-        return { icon: "🎨", css: "visual-digital" };
-      }
+    // Membuat pesan tampilan
+    function tampilkanPesan(elemen, teks) {
+      elemen.replaceChildren();
 
-      if (n.includes("painting") || n.includes("lukisan") || n.includes("canvas")) {
-        return { icon: "🖼️", css: "visual-paint" };
-      }
+      const pesan = document.createElement("p");
+      pesan.className = "message";
+      pesan.textContent = teks;
 
-      if (n.includes("website") || n.includes("web") || n.includes("online")) {
-        return { icon: "💻", css: "visual-web" };
-      }
-
-      return { icon: "♡", css: "visual-default" };
+      elemen.appendChild(pesan);
     }
 
-    // Mengambil data layanan dari Supabase.
-    async function tampilkanLayanan() {
-      const serviceGrid = document.getElementById("serviceGrid");
+    // Mengambil produk aktif dari Supabase.
+    // Nama kolom mengikuti tabel products milikmu.
+    async function ambilProduk() {
+      if (typeof supabaseClient === "undefined") {
+        throw new Error(
+          "supabaseClient tidak ditemukan. Periksa file supabase.js."
+        );
+      }
 
-      try {
-        if (typeof supabaseClient === "undefined") {
-          throw new Error(
-            "supabaseClient tidak ditemukan. Periksa file supabase.js."
-          );
-        }
+      const { data, error } = await supabaseClient
+        .from("products")
+        .select("id, nama, category, price, is_active, created_at, decription, image_url")
+        .eq("is_active", true)
+        .order("created_at", { ascending: true });
 
-        const { data, error } = await supabaseClient
-          .from("services")
-          .select("id, name, description, price")
-          .eq("is_active", true)
-          .order("created_at", { ascending: true });
+      if (error) {
+        throw error;
+      }
 
-        if (error) {
-          throw error;
-        }
+      return data || [];
+    }
 
-        serviceGrid.replaceChildren();
+    // Membuat kartu kategori dari data produk.
+    // Produk dengan category sama masuk ke kategori yang sama.
+    function tampilkanKategori(produk) {
+      categoryGrid.replaceChildren();
 
-        if (!data || data.length === 0) {
-          const pesan = document.createElement("p");
-          pesan.className = "loading-message";
-          pesan.textContent =
-            "Belum ada layanan aktif. Silakan cek kembali nanti.";
-          serviceGrid.appendChild(pesan);
-          return;
-        }
+      const kategoriUnik = [
+        ...new Set(
+          produk
+            .map(function (item) {
+              return (item.category || "").trim();
+            })
+            .filter(Boolean)
+        )
+      ];
 
-        data.forEach(function (layanan) {
-          const visual = pilihVisual(layanan.name || "");
+      if (kategoriUnik.length === 0) {
+        tampilkanPesan(
+          categoryGrid,
+          "Belum ada kategori atau produk aktif. Tambahkan produk melalui dashboard admin."
+        );
+        return;
+      }
 
+      kategoriUnik.forEach(function (kategori) {
+        const jumlahProduk = produk.filter(function (item) {
+          return (item.category || "").trim() === kategori;
+        }).length;
+
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "category-card";
+        card.setAttribute("aria-label", "Lihat kategori " + kategori);
+
+        const icon = document.createElement("div");
+        icon.className = "category-icon";
+        icon.textContent = pilihIkonKategori(kategori);
+
+        const title = document.createElement("h3");
+        title.textContent = kategori;
+
+        const deskripsi = document.createElement("p");
+        deskripsi.textContent =
+          jumlahProduk + (jumlahProduk === 1 ? " produk tersedia" : " produk tersedia");
+
+        const action = document.createElement("span");
+        action.className = "category-action";
+        action.textContent = "Lihat Produk →";
+
+        card.append(icon, title, deskripsi, action);
+
+        card.addEventListener("click", function () {
+          bukaKategori(kategori, produk);
+        });
+
+        categoryGrid.appendChild(card);
+      });
+    }
+
+    // Membuka kategori dan menampilkan produk di dalamnya
+    function bukaKategori(kategori, semuaProduk) {
+      const produkKategori = semuaProduk.filter(function (item) {
+        return (item.category || "").trim() === kategori;
+      });
+
+      categoryView.classList.add("hide");
+      productsView.classList.add("show");
+
+      orderHeading.textContent = "Koleksi " + kategori;
+      orderDescription.textContent =
+        "Temukan karya favoritmu dari kategori " + kategori + ".";
+      selectedCategory.textContent = kategori;
+
+      productGrid.replaceChildren();
+
+      if (produkKategori.length === 0) {
+        tampilkanPesan(productGrid, "Belum ada produk di kategori ini.");
+      } else {
+        produkKategori.forEach(function (produk) {
           const card = document.createElement("article");
-          card.className = "service-card";
+          card.className = "product-card";
 
-          const gambar = document.createElement("div");
-          gambar.className = "service-visual " + visual.css;
-          gambar.textContent = visual.icon;
-          gambar.setAttribute("aria-hidden", "true");
+          const imageContainer = document.createElement("div");
+          imageContainer.className = "product-image";
 
-          const content = document.createElement("div");
-          content.className = "service-content";
+          if (produk.image_url && produk.image_url.trim() !== "") {
+            const image = document.createElement("img");
+            image.src = produk.image_url;
+            image.alt = produk.nama || "Produk SinaArt";
+            image.loading = "lazy";
+
+            image.addEventListener("error", function () {
+              imageContainer.replaceChildren();
+              imageContainer.textContent = pilihIkonKategori(kategori);
+            });
+
+            imageContainer.appendChild(image);
+          } else {
+            imageContainer.textContent = pilihIkonKategori(kategori);
+          }
+
+          const info = document.createElement("div");
+          info.className = "product-info";
 
           const title = document.createElement("h3");
-          title.textContent = layanan.name || "Layanan SinaArt";
+          title.textContent = produk.nama || "Produk SinaArt";
 
           const description = document.createElement("p");
           description.textContent =
-            layanan.description || "Karya dibuat sesuai kebutuhanmu.";
+            produk.decription || "Karya dibuat dengan penuh kreativitas.";
 
           const bottom = document.createElement("div");
-          bottom.className = "service-bottom";
+          bottom.className = "product-bottom";
 
           const price = document.createElement("span");
-          price.className = "price";
-
-          const harga = Number(layanan.price);
-          price.textContent = Number.isFinite(harga)
-            ? "Mulai Rp" + harga.toLocaleString("id-ID")
-            : "Harga menyesuaikan";
+          price.className = "product-price";
+          price.textContent = formatHarga(produk.price);
 
           const order = document.createElement("a");
-          order.href = "#kontak";
-          order.className = "text-link";
+          order.href = "#";
+          order.className = "order-link";
           order.textContent = "Pesan ↗";
 
           order.addEventListener("click", function (event) {
             event.preventDefault();
-            pesanViaWhatsApp(layanan.name || "");
+            pesanViaWhatsApp(produk.nama || "produk SinaArt");
           });
 
           bottom.append(price, order);
-          content.append(title, description, bottom);
-          card.append(gambar, content);
-          serviceGrid.appendChild(card);
+          info.append(title, description, bottom);
+          card.append(imageContainer, info);
+          productGrid.appendChild(card);
         });
+      }
 
-        console.log("Layanan berhasil dimuat:", data.length);
+      // Pindah ke bagian produk agar hasil pilihan langsung terlihat
+      document.getElementById("pemesanan").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    // Kembali ke pilihan kategori
+    document.getElementById("backButton").addEventListener(
+      "click",
+      function () {
+        productsView.classList.remove("show");
+        categoryView.classList.remove("hide");
+
+        orderHeading.textContent = "Pilih Kategori Karya";
+        orderDescription.textContent =
+          "Jelajahi berbagai kategori karya SinaArt dan temukan produk yang sesuai dengan keinginanmu.";
+
+        document.getElementById("pemesanan").scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    );
+
+    // Muat data dari Supabase
+    async function tampilkanProdukDanKategori() {
+      try {
+        const produk = await ambilProduk();
+        tampilkanKategori(produk);
       } catch (error) {
-        console.error("Gagal memuat layanan:", error.message);
+        console.error("Gagal memuat produk:", error);
 
-        serviceGrid.replaceChildren();
-
-        const pesan = document.createElement("p");
-        pesan.className = "loading-message";
-        pesan.textContent =
-          "Layanan belum dapat dimuat. Silakan coba refresh halaman.";
-
-        serviceGrid.appendChild(pesan);
+        tampilkanPesan(
+          categoryGrid,
+          "Produk belum dapat dimuat. Periksa koneksi Supabase dan pengaturan akses tabel products."
+        );
       }
     }
 
-    tampilkanLayanan();
+    tampilkanProdukDanKategori();
   </script>
 </body>
 </html>
+```
