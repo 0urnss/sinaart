@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -13,653 +13,439 @@
 
   <style>
     :root {
-      --brown: #4b3028;
-      --brown2: #704936;
-      --cream: #fff7e9;
-      --paper: #fffdf7;
-      --pink: #f5b7c8;
-      --pink-dark: #c95f7b;
-      --muted: #826b60;
-      --line: #e8c9b5;
+      --brown:#4b3028;
+      --brown2:#704936;
+      --cream:#fff7e9;
+      --paper:#fffdf7;
+      --pink:#f5b7c8;
+      --pink-dark:#c95f7b;
+      --muted:#826b60;
+      --line:#e8c9b5;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * {margin:0;padding:0;box-sizing:border-box}
 
     html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 100px;
+      scroll-behavior:smooth;
+      scroll-padding-top:100px;
     }
 
     body {
-      font-family: "Nunito", sans-serif;
-      color: var(--brown);
-      line-height: 1.65;
-      overflow-x: hidden;
+      font-family:"Nunito",sans-serif;
+      color:var(--brown);
+      line-height:1.65;
+      overflow-x:hidden;
       background:
-        radial-gradient(circle at 8% 12%, #80523c, transparent 24rem),
-        radial-gradient(circle at 92% 55%, #704936, transparent 25rem),
+        radial-gradient(circle at 8% 12%,#80523c,transparent 24rem),
+        radial-gradient(circle at 92% 55%,#704936,transparent 25rem),
         var(--brown);
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a {color:inherit;text-decoration:none}
+    button {font:inherit;cursor:pointer}
 
-    button {
-      font: inherit;
-    }
+    .container {width:min(1120px,91%);margin:auto}
 
-    .container {
-      width: min(1120px, 91%);
-      margin: auto;
-    }
-
-    h1, h2, h3, .logo {
-      font-family: "Baloo 2", cursive;
-      line-height: 1.2;
+    h1,h2,h3,.logo {
+      font-family:"Baloo 2",cursive;
+      line-height:1.2;
     }
 
     .rainbow-text {
-      display: inline-block;
-      background: linear-gradient(
-        100deg,
-        #ed7186,
-        #f6ad55,
-        #f6d66b,
-        #8fbd8a,
-        #7db6dc,
-        #a997d5,
-        #ed7186
-      );
-      background-size: 220% auto;
-      color: transparent;
-      -webkit-background-clip: text;
-      background-clip: text;
-      animation: rainbow 7s linear infinite;
-      filter: drop-shadow(0 2px 0 #fff);
+      display:inline-block;
+      background:linear-gradient(100deg,#ed7186,#f6ad55,#f6d66b,#8fbd8a,#7db6dc,#a997d5,#ed7186);
+      background-size:220% auto;
+      color:transparent;
+      -webkit-background-clip:text;
+      background-clip:text;
+      animation:rainbow 7s linear infinite;
+      filter:drop-shadow(0 2px 0 #fff);
     }
 
     @keyframes rainbow {
-      to { background-position: 220% center; }
+      to {background-position:220% center}
     }
 
     @keyframes floaty {
-      0%, 100% { transform: translateY(0) rotate(-3deg); }
-      50% { transform: translateY(-9px) rotate(3deg); }
+      0%,100% {transform:translateY(0) rotate(-3deg)}
+      50% {transform:translateY(-9px) rotate(3deg)}
     }
 
     @keyframes bob {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+      0%,100% {transform:translateY(0)}
+      50% {transform:translateY(-5px)}
     }
 
     @keyframes twinkle {
-      0%, 100% { opacity: .55; transform: scale(.85); }
-      50% { opacity: 1; transform: scale(1.15); }
+      0%,100% {opacity:.55;transform:scale(.85)}
+      50% {opacity:1;transform:scale(1.15)}
     }
 
     /* NAVBAR */
-    header {
-      padding-top: 18px;
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
+    header {padding-top:18px;position:sticky;top:0;z-index:20}
 
     .header-inner {
-      min-height: 76px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 10px 22px;
-      background: var(--cream);
-      border: 2px dashed #e8bca7;
-      border-radius: 24px;
-      box-shadow: 0 7px 0 #321e1a35;
+      min-height:76px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:10px 22px;
+      background:var(--cream);
+      border:2px dashed #e8bca7;
+      border-radius:24px;
+      box-shadow:0 7px 0 #321e1a35;
     }
 
-    .logo {
-      font-size: 34px;
-      font-weight: 800;
-      white-space: nowrap;
-    }
+    .logo {font-size:34px;font-weight:800;white-space:nowrap}
 
     .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
     }
 
     .nav-links a {
-      padding: 9px 16px;
-      border-radius: 25px;
-      font-size: 14px;
-      font-weight: 800;
-      transition: .2s;
+      padding:9px 16px;
+      border-radius:25px;
+      font-size:14px;
+      font-weight:800;
+      transition:.2s;
     }
 
     .nav-links a:hover {
-      background: #f7d5d9;
-      color: #a74661;
-      transform: translateY(-2px);
+      background:#f7d5d9;
+      color:#a74661;
+      transform:translateY(-2px);
     }
 
-    .nav-links .nav-cta {
-      background: var(--pink);
-    }
+    .nav-links .nav-cta {background:var(--pink)}
 
     /* HERO */
-    .hero {
-      padding: 34px 0 25px;
-    }
+    .hero {padding:34px 0 25px}
 
     .hero-panel {
-      position: relative;
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      align-items: center;
-      gap: 28px;
-      padding: clamp(26px, 5vw, 55px);
-      background: var(--cream);
-      border: 2px solid #f3d4c0;
-      border-radius: 30px;
-      box-shadow: 0 8px 0 #321e1a35;
+      position:relative;
+      overflow:hidden;
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      align-items:center;
+      gap:28px;
+      padding:clamp(26px,5vw,55px);
+      background:var(--cream);
+      border:2px solid #f3d4c0;
+      border-radius:30px;
+      box-shadow:0 8px 0 #321e1a35;
     }
 
     .hero-panel::before {
-      content: "";
-      position: absolute;
-      inset: 12px;
-      border: 2px dashed #edc0b2;
-      border-radius: 23px;
-      pointer-events: none;
+      content:"";
+      position:absolute;
+      inset:12px;
+      border:2px dashed #edc0b2;
+      border-radius:23px;
+      pointer-events:none;
     }
 
-    .hero-copy, .hero-art {
-      position: relative;
-      z-index: 1;
-    }
+    .hero-copy,.hero-art {position:relative;z-index:1}
 
     .eyebrow {
-      display: inline-block;
-      background: #f9dce1;
-      color: #a94f63;
-      border: 1px solid #efbdc6;
-      border-radius: 20px;
-      padding: 6px 14px;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: .5px;
-      margin-bottom: 14px;
+      display:inline-block;
+      background:#f9dce1;
+      color:#a94f63;
+      border:1px solid #efbdc6;
+      border-radius:20px;
+      padding:6px 14px;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.5px;
+      margin-bottom:14px;
     }
 
-    h1 {
-      font-size: clamp(39px, 5.2vw, 63px);
-      margin-bottom: 15px;
-    }
+    h1 {font-size:clamp(39px,5.2vw,63px);margin-bottom:15px}
+    .welcome-word {display:block}
 
-    .welcome-word {
-      display: block;
-    }
+    .hero-copy p {max-width:500px;color:var(--muted);margin-bottom:24px}
 
-    .hero-copy p {
-      max-width: 500px;
-      color: var(--muted);
-      margin-bottom: 24px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 11px;
-      flex-wrap: wrap;
-    }
+    .hero-buttons {display:flex;gap:11px;flex-wrap:wrap}
 
     .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid transparent;
-      cursor: pointer;
-      padding: 11px 19px;
-      border-radius: 24px;
-      font-weight: 900;
-      transition: .2s;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:2px solid transparent;
+      padding:11px 19px;
+      border-radius:24px;
+      font-weight:900;
+      transition:.2s;
     }
 
     .button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 0 #4b302826;
+      transform:translateY(-3px);
+      box-shadow:0 5px 0 #4b302826;
     }
 
-    .button-primary {
-      background: var(--brown2);
-      color: white;
-    }
+    .button-primary {background:var(--brown2);color:white}
+    .button-primary:hover {background:var(--pink-dark)}
+    .button-outline {border-color:#d8aa91;background:var(--paper)}
 
-    .button-primary:hover {
-      background: var(--pink-dark);
-    }
-
-    .button-outline {
-      border-color: #d8aa91;
-      background: var(--paper);
-    }
-
-    .hero-art {
-      min-height: 275px;
-      display: grid;
-      place-items: center;
-    }
+    .hero-art {min-height:275px;display:grid;place-items:center}
 
     .art-paper {
-      width: min(290px, 85%);
-      min-height: 260px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 4px;
-      background: #f8dce0;
-      border: 3px solid white;
-      outline: 2px dashed #dca58f;
-      outline-offset: -12px;
-      border-radius: 48% 46% 44% 43%;
-      transform: rotate(3deg);
-      box-shadow: 0 10px 0 #4b30281c;
-      animation: floaty 5s ease-in-out infinite;
+      width:min(290px,85%);
+      min-height:260px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      gap:4px;
+      background:#f8dce0;
+      border:3px solid white;
+      outline:2px dashed #dca58f;
+      outline-offset:-12px;
+      border-radius:48% 46% 44% 43%;
+      transform:rotate(3deg);
+      box-shadow:0 10px 0 #4b30281c;
+      animation:floaty 5s ease-in-out infinite;
     }
 
-    .palette {
-      font-size: 90px;
-      line-height: 1.2;
-    }
-
-    .art-paper strong {
-      font-family: "Baloo 2", cursive;
-      font-size: 23px;
-      color: var(--brown2);
-    }
+    .palette {font-size:90px;line-height:1.2}
+    .art-paper strong {font-family:"Baloo 2",cursive;font-size:23px;color:var(--brown2)}
 
     .floating-note {
-      position: absolute;
-      background: var(--paper);
-      border: 1px solid #eac4ad;
-      border-radius: 12px;
-      padding: 8px 13px;
-      box-shadow: 0 5px 0 #4b30281c;
-      font-size: 13px;
-      font-weight: 900;
+      position:absolute;
+      background:var(--paper);
+      border:1px solid #eac4ad;
+      border-radius:12px;
+      padding:8px 13px;
+      box-shadow:0 5px 0 #4b30281c;
+      font-size:13px;
+      font-weight:900;
     }
 
-    .note-one {
-      top: 14px;
-      left: 0;
-      transform: rotate(-7deg);
-    }
+    .note-one {top:14px;left:0;transform:rotate(-7deg)}
+    .note-two {right:0;bottom:18px;transform:rotate(5deg)}
 
-    .note-two {
-      right: 0;
-      bottom: 18px;
-      transform: rotate(5deg);
-    }
+    .doodle {position:absolute;pointer-events:none;animation:twinkle 3s infinite}
+    .doodle-star {top:12px;right:16px;color:#f3b84e;font-size:32px}
+    .doodle-heart {left:18px;bottom:40px;color:var(--pink-dark);font-size:27px}
 
-    .doodle {
-      position: absolute;
-      pointer-events: none;
-      animation: twinkle 3s infinite;
-    }
-
-    .doodle-star {
-      top: 12px;
-      right: 16px;
-      color: #f3b84e;
-      font-size: 32px;
-    }
-
-    .doodle-heart {
-      left: 18px;
-      bottom: 40px;
-      color: var(--pink-dark);
-      font-size: 27px;
-    }
-
-    /* JUDUL BAGIAN */
-    section {
-      scroll-margin-top: 100px;
-    }
-
-    .orders {
-      padding: 34px 0 65px;
-    }
+    /* BAGIAN LAYANAN */
+    section {scroll-margin-top:100px}
+    .orders {padding:34px 0 65px}
 
     .section-heading {
-      text-align: center;
-      max-width: 690px;
-      margin: 0 auto 28px;
-      color: var(--cream);
+      text-align:center;
+      max-width:690px;
+      margin:0 auto 28px;
+      color:var(--cream);
     }
 
-    .section-heading h2 {
-      font-size: clamp(32px, 4.2vw, 44px);
-      margin-bottom: 8px;
-    }
+    .section-heading h2 {font-size:clamp(32px,4.2vw,44px);margin-bottom:8px}
+    .section-heading p {color:#f2dfd2;font-size:15px}
 
-    .section-heading p {
-      color: #f2dfd2;
-      font-size: 15px;
-    }
-
-    /* KARTU LAYANAN DARI SUPABASE */
     .category-view {
-      background: var(--cream);
-      padding: clamp(15px, 3vw, 28px);
-      border: 2px solid #e8c3ac;
-      border-radius: 28px;
-      box-shadow: 0 8px 0 #321e1a35;
+      background:var(--cream);
+      padding:clamp(15px,3vw,28px);
+      border:2px solid #e8c3ac;
+      border-radius:28px;
+      box-shadow:0 8px 0 #321e1a35;
     }
 
     .service-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:18px;
     }
 
     .service-card {
-      position: relative;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      background: var(--paper);
-      border: 2px solid var(--line);
-      border-radius: 22px;
-      padding: 22px;
-      overflow: hidden;
-      transition: transform .22s, box-shadow .22s;
+      position:relative;
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      align-items:stretch;
+      background:var(--paper);
+      border:2px solid var(--line);
+      border-radius:22px;
+      overflow:hidden;
+      transition:transform .22s,box-shadow .22s;
     }
 
     .service-card::after {
-      content: "✦";
-      position: absolute;
-      top: 8px;
-      right: 13px;
-      color: #d98c76;
-      animation: twinkle 3s infinite;
+      content:"✦";
+      position:absolute;
+      top:8px;
+      right:13px;
+      color:#d98c76;
+      pointer-events:none;
+      animation:twinkle 3s infinite;
     }
 
     .service-card:hover {
-      transform: translateY(-5px);
-      border-color: var(--pink-dark);
-      box-shadow: 0 7px 0 #d9a7a3;
+      transform:translateY(-5px);
+      border-color:var(--pink-dark);
+      box-shadow:0 7px 0 #d9a7a3;
     }
 
-    .service-icon {
-      width: 100%;
-      min-height: 115px;
-      display: grid;
-      place-items: center;
-      background: #f9dfe4;
-      border: 2px dashed #e9b7b9;
-      border-radius: 17px;
-      font-size: 53px;
-      margin-bottom: 16px;
-      animation: bob 4s ease-in-out infinite;
+    .service-image {
+      width:100%;
+      height:190px;
+      object-fit:cover;
+      display:block;
+      background:#f9dfe4;
+      border-bottom:2px dashed #e9b7b9;
     }
 
-    .service-card:nth-child(2n) .service-icon {
-      background: #e3e7f8;
-      border-color: #b8bce2;
+    .service-image-fallback {
+      width:100%;
+      min-height:130px;
+      display:grid;
+      place-items:center;
+      background:#f9dfe4;
+      border-bottom:2px dashed #e9b7b9;
+      font-size:53px;
     }
 
-    .service-card:nth-child(3n) .service-icon {
-      background: #f4e7d6;
-      border-color: #dfc09d;
-    }
+    .service-card:nth-child(2n) .service-image-fallback {background:#e3e7f8}
+    .service-card:nth-child(3n) .service-image-fallback {background:#f4e7d6}
+    .service-card:nth-child(4n) .service-image-fallback {background:#e6efd9}
 
-    .service-card:nth-child(4n) .service-icon {
-      background: #e6efd9;
-      border-color: #bfd3a8;
+    .service-content {
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      padding:20px;
     }
 
     .service-card h3 {
-      font-size: clamp(20px, 2.5vw, 26px);
-      margin-bottom: 8px;
-      overflow-wrap: anywhere;
+      font-size:clamp(20px,2.5vw,26px);
+      margin-bottom:8px;
+      overflow-wrap:anywhere;
     }
 
     .service-description {
-      color: var(--muted);
-      font-size: 14px;
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-      flex: 1;
-      width: 100%;
+      color:var(--muted);
+      font-size:14px;
+      white-space:pre-wrap;
+      overflow-wrap:anywhere;
+      flex:1;
+      width:100%;
     }
 
     .service-price {
-      color: var(--pink-dark);
-      font-size: 19px;
-      font-weight: 900;
-      margin: 16px 0;
+      color:var(--pink-dark);
+      font-size:17px;
+      font-weight:900;
+      margin:16px 0;
     }
 
     .service-order {
-      display: inline-block;
-      background: var(--brown2);
-      color: white;
-      padding: 9px 15px;
-      border-radius: 22px;
-      font-size: 12px;
-      font-weight: 900;
-      transition: .2s;
-      margin-top: auto;
+      display:inline-block;
+      background:var(--brown2);
+      color:white;
+      padding:10px 17px;
+      border-radius:22px;
+      font-size:13px;
+      font-weight:900;
+      transition:.2s;
+      margin-top:auto;
     }
 
     .service-order:hover {
-      background: var(--pink-dark);
-      transform: translateY(-2px);
+      background:var(--pink-dark);
+      transform:translateY(-2px);
     }
 
     .message {
-      grid-column: 1 / -1;
-      width: 100%;
-      padding: 30px 15px;
-      text-align: center;
-      color: var(--muted);
-      background: #fffaf2;
-      border-radius: 18px;
-      border: 2px dashed #e2bda7;
+      grid-column:1/-1;
+      width:100%;
+      padding:30px 15px;
+      text-align:center;
+      color:var(--muted);
+      background:#fffaf2;
+      border-radius:18px;
+      border:2px dashed #e2bda7;
     }
 
     /* ABOUT */
-    .about {
-      padding: 60px 0;
-    }
+    .about {padding:60px 0}
 
     .about-box {
-      max-width: 790px;
-      margin: auto;
-      text-align: center;
-      background: var(--cream);
-      border: 2px dashed #e8c3ac;
-      border-radius: 28px;
-      padding: clamp(25px, 5vw, 45px);
-      box-shadow: 0 7px 0 #321e1a35;
+      max-width:790px;
+      margin:auto;
+      text-align:center;
+      background:var(--cream);
+      border:2px dashed #e8c3ac;
+      border-radius:28px;
+      padding:clamp(25px,5vw,45px);
+      box-shadow:0 7px 0 #321e1a35;
     }
 
-    .about-box h2 {
-      font-size: clamp(30px, 4vw, 42px);
-      margin-bottom: 14px;
-    }
-
-    .about-box p {
-      color: var(--muted);
-      margin-bottom: 14px;
-    }
-
-    .about-decoration {
-      font-size: 32px;
-      margin-top: 16px;
-      animation: floaty 3s infinite;
-    }
+    .about-box h2 {font-size:clamp(30px,4vw,42px);margin-bottom:14px}
+    .about-box p {color:var(--muted);margin-bottom:14px}
+    .about-decoration {font-size:32px;margin-top:16px;animation:floaty 3s infinite}
 
     /* KONTAK */
-    .contact {
-      padding: 10px 0 55px;
-    }
+    .contact {padding:10px 0 55px}
 
     .contact-box {
-      text-align: center;
-      padding: 42px 22px;
-      border: 2px solid #e8c3ac;
-      border-radius: 28px;
-      background: var(--cream);
-      box-shadow: 0 7px 0 #321e1a35;
+      text-align:center;
+      padding:42px 22px;
+      border:2px solid #e8c3ac;
+      border-radius:28px;
+      background:var(--cream);
+      box-shadow:0 7px 0 #321e1a35;
     }
 
-    .contact-box h2 {
-      font-size: clamp(29px, 4vw, 40px);
-      margin-bottom: 12px;
+    .contact-box h2 {font-size:clamp(29px,4vw,40px);margin-bottom:12px}
+    .contact-box p {color:var(--muted);margin-bottom:22px}
+
+    footer {padding:25px 0;text-align:center;color:#f5dfd1;font-size:13px}
+    footer .logo {display:inline-block;margin-bottom:5px;color:var(--cream);font-size:28px}
+
+    /* RESPONSIVE */
+    @media(max-width:760px) {
+      header {padding-top:10px}
+
+      .header-inner {min-height:66px;padding:9px 13px}
+      .logo {font-size:29px}
+      .nav-links {gap:2px}
+      .nav-links a {padding:8px 10px;font-size:12px}
+
+      .hero-panel {grid-template-columns:1fr;gap:14px}
+      .hero-art {min-height:260px}
+      .service-grid {gap:12px}
+      .service-image {height:145px}
+      .service-content {padding:13px}
+      .service-card h3 {font-size:19px}
+      .service-description {font-size:12px}
+      .service-price {font-size:14px;margin:12px 0}
+      .service-order {font-size:11px;padding:8px 10px}
     }
 
-    .contact-box p {
-      color: var(--muted);
-      margin-bottom: 22px;
+    @media(max-width:420px) {
+      .container {width:93%}
+      .header-inner {gap:6px}
+      .logo {font-size:25px}
+      .nav-links a {padding:7px 8px;font-size:11px}
+      .hero-panel {padding:25px 20px}
+      .hero-copy p {font-size:14px}
+      .hero-buttons .button {font-size:12px;padding:10px 13px}
+      .category-view {padding:12px}
+      .service-card h3 {font-size:17px}
+      .service-image {height:120px}
+      .service-content {padding:10px}
+      .service-order {font-size:10px;padding:8px}
     }
 
-    footer {
-      padding: 25px 0;
-      text-align: center;
-      color: #f5dfd1;
-      font-size: 13px;
-    }
-
-    footer .logo {
-      display: inline-block;
-      margin-bottom: 5px;
-      color: var(--cream);
-      font-size: 28px;
-    }
-
-    /* RESPONSIVE HP */
-    @media (max-width: 760px) {
-      header {
-        padding-top: 10px;
-      }
-
-      .header-inner {
-        min-height: 66px;
-        padding: 9px 13px;
-      }
-
-      .logo {
-        font-size: 29px;
-      }
-
-      .nav-links {
-        gap: 2px;
-      }
-
-      .nav-links a {
-        padding: 8px 10px;
-        font-size: 12px;
-      }
-
-      .hero-panel {
-        grid-template-columns: 1fr;
-        gap: 14px;
-      }
-
-      .hero-art {
-        min-height: 260px;
-      }
-
-      .service-grid {
-        gap: 12px;
-      }
-
-      .service-card {
-        padding: 13px;
-      }
-
-      .service-icon {
-        min-height: 95px;
-        font-size: 43px;
-      }
-
-      .service-card h3 {
-        font-size: 19px;
-      }
-
-      .service-description {
-        font-size: 12px;
-      }
-
-      .service-price {
-        font-size: 15px;
-        margin: 12px 0;
-      }
-
-      .service-order {
-        font-size: 11px;
-        padding: 8px 10px;
-      }
-    }
-
-    @media (max-width: 420px) {
-      .container {
-        width: 93%;
-      }
-
-      .header-inner {
-        gap: 6px;
-      }
-
-      .logo {
-        font-size: 25px;
-      }
-
-      .nav-links a {
-        padding: 7px 8px;
-        font-size: 11px;
-      }
-
-      .hero-panel {
-        padding: 25px 20px;
-      }
-
-      .hero-copy p {
-        font-size: 14px;
-      }
-
-      .hero-buttons .button {
-        font-size: 12px;
-        padding: 10px 13px;
-      }
-
-      .category-view {
-        padding: 12px;
-      }
-
-      .service-card h3 {
-        font-size: 17px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: .01ms !important;
+    @media(prefers-reduced-motion:reduce) {
+      *,*::before,*::after {
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important;
+        scroll-behavior:auto!important;
+        transition-duration:.01ms!important;
       }
     }
   </style>
@@ -681,7 +467,6 @@
   </header>
 
   <main>
-    <!-- HOME -->
     <section class="hero" id="home">
       <div class="container">
         <div class="hero-panel">
@@ -699,28 +484,20 @@
             </p>
 
             <div class="hero-buttons">
-              <a href="#pemesanan" class="button button-primary">
-                Jelajahi Layanan ✦
-              </a>
-
-              <a href="#about" class="button button-outline">
-                Tentang SinaArt ♡
-              </a>
+              <a href="#pemesanan" class="button button-primary">Jelajahi Layanan ✦</a>
+              <a href="#about" class="button button-outline">Tentang SinaArt ♡</a>
             </div>
           </div>
 
           <div class="hero-art">
             <span class="doodle doodle-star">✦</span>
             <span class="doodle doodle-heart">♥</span>
-
             <div class="floating-note note-one">♡ Made with love</div>
 
             <div class="art-paper">
               <div class="palette">🎨</div>
               <strong>little ideas, big art</strong>
-              <span class="rainbow-text" style="font-weight:900">
-                made just for you ✨
-              </span>
+              <span class="rainbow-text" style="font-weight:900">made just for you ✨</span>
             </div>
 
             <div class="floating-note note-two">✦ Art is a feeling</div>
@@ -729,16 +506,12 @@
       </div>
     </section>
 
-    <!-- LAYANAN -->
     <section class="orders" id="pemesanan">
       <div class="container">
         <div class="section-heading">
           <span class="eyebrow">✿ Find your favorite ✿</span>
           <h2><span class="rainbow-text">Our Services</span></h2>
-          <p>
-            Pilih layanan yang kamu butuhkan dan temukan karya
-            yang paling cocok untukmu. ♡
-          </p>
+          <p>Pilih layanan yang kamu butuhkan dan temukan karya yang paling cocok untukmu. ♡</p>
         </div>
 
         <div class="category-view">
@@ -749,14 +522,10 @@
       </div>
     </section>
 
-    <!-- ABOUT -->
     <section class="about" id="about">
       <div class="container about-box">
         <span class="eyebrow">♡ A little about us ♡</span>
-
-        <h2>
-          <span class="rainbow-text">Art that tells your story.</span>
-        </h2>
+        <h2><span class="rainbow-text">Art that tells your story.</span></h2>
 
         <p>
           SinaArt adalah ruang kreatif untuk menghadirkan karya seni yang personal.
@@ -772,20 +541,12 @@
       </div>
     </section>
 
-    <!-- KONTAK -->
     <section class="contact">
       <div class="container">
         <div class="contact-box">
           <span class="eyebrow">✦ Let's make something ✦</span>
-
-          <h2>
-            <span class="rainbow-text">Have an idea in mind?</span>
-          </h2>
-
-          <p>
-            Punya pertanyaan atau ide karya sendiri?
-            Hubungi SinaArt melalui WhatsApp.
-          </p>
+          <h2><span class="rainbow-text">Have an idea in mind?</span></h2>
+          <p>Punya pertanyaan atau ide karya sendiri? Hubungi SinaArt melalui WhatsApp.</p>
 
           <button type="button" id="whatsappButton" class="button button-primary">
             Hubungi via WhatsApp ↗
@@ -797,16 +558,13 @@
 
   <footer>
     <div class="container">
-      <a href="#home" class="logo">
-        <span class="rainbow-text">SinaArt</span>♡
-      </a>
-
+      <a href="#home" class="logo"><span class="rainbow-text">SinaArt</span>♡</a>
       <p>Made with ♡ and creativity.</p>
       <p>© <span id="year"></span> SinaArt. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- KONEKSI SUPABASE: JANGAN HAPUS -->
+  <!-- KONEKSI SUPABASE -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
 
@@ -814,58 +572,29 @@
     const whatsappNumber = "62895322852505";
     const serviceGrid = document.getElementById("serviceGrid");
 
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
+    document.getElementById("year").textContent = new Date().getFullYear();
 
     function formatHarga(harga) {
-      if (harga === null || harga === undefined || harga === "") {
-        return "Harga menyesuaikan";
-      }
-
       const angka = Number(harga);
 
-      if (!Number.isFinite(angka)) {
+      if (harga === null || harga === undefined || harga === "" ||
+          !Number.isFinite(angka)) {
         return "Harga menyesuaikan";
       }
 
       return "Rp" + angka.toLocaleString("id-ID");
     }
 
-    function pesanViaWhatsApp(namaLayanan) {
-      const pesan =
-        "Halo SinaArt! Saya tertarik dengan layanan " +
-        namaLayanan +
-        ". Boleh tanya informasi lebih lanjut?";
-
-      window.open(
-        "https://wa.me/" + whatsappNumber +
-        "?text=" + encodeURIComponent(pesan),
-        "_blank",
-        "noopener,noreferrer"
-      );
-    }
-
-    document.getElementById("whatsappButton")
-      .addEventListener("click", function () {
-        pesanViaWhatsApp("SinaArt");
+    function escapeHTML(value) {
+      return String(value ?? "").replace(/[&<>"']/g, function(char) {
+        return {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;"
+        }[char];
       });
-
-    async function ambilLayanan() {
-      if (typeof supabaseClient === "undefined") {
-        throw new Error(
-          "supabaseClient tidak ditemukan. Periksa file supabase.js."
-        );
-      }
-
-      const { data, error } = await supabaseClient
-        .from("services")
-        .select("id, name, description, price, is_active, created_at")
-        .eq("is_active", true)
-        .order("created_at", { ascending: false });
-
-      if (error) throw error;
-
-      return data || [];
     }
 
     function pilihIkon(index) {
@@ -873,13 +602,97 @@
       return ikon[index % ikon.length];
     }
 
-    function buatKartuLayanan(layanan, index) {
+    document.getElementById("whatsappButton").addEventListener("click", function() {
+      const pesan = "Halo SinaArt! Saya ingin bertanya tentang layanan SinaArt.";
+      window.open(
+        "https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(pesan),
+        "_blank",
+        "noopener,noreferrer"
+      );
+    });
+
+    // Mengambil layanan aktif beserta URL foto.
+    async function ambilLayanan() {
+      if (typeof supabaseClient === "undefined") {
+        throw new Error("supabaseClient tidak ditemukan. Periksa file supabase.js.");
+      }
+
+      const { data, error } = await supabaseClient
+        .from("services")
+        .select("id, name, description, price, image_url, is_active, created_at")
+        .eq("is_active", true)
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+      return data || [];
+    }
+
+    // Mengambil kisaran harga produk aktif untuk setiap layanan.
+    async function ambilKisaranHarga(layanan) {
+      const { data, error } = await supabaseClient
+        .from("products")
+        .select("price")
+        .eq("service_id", layanan.id)
+        .eq("is_active", true);
+
+      if (error) {
+        console.error("Gagal mengambil harga produk:", error.message);
+      }
+
+      const hargaProduk = (data || [])
+        .map(function(item) {
+          return Number(item.price);
+        })
+        .filter(function(harga) {
+          return Number.isFinite(harga) && harga >= 0;
+        });
+
+      if (hargaProduk.length > 0) {
+        const min = Math.min(...hargaProduk);
+        const max = Math.max(...hargaProduk);
+
+        if (min === max) return formatHarga(min);
+        return formatHarga(min) + " – " + formatHarga(max);
+      }
+
+      // Kalau belum ada produk aktif, gunakan harga layanan.
+      if (layanan.price !== null && layanan.price !== undefined) {
+        return "Mulai " + formatHarga(layanan.price);
+      }
+
+      return "Hubungi kami";
+    }
+
+    function buatKartuLayanan(layanan, index, kisaranHarga) {
       const card = document.createElement("article");
       card.className = "service-card";
 
-      const icon = document.createElement("div");
-      icon.className = "service-icon";
-      icon.textContent = pilihIkon(index);
+      // Foto layanan. Jika URL kosong atau gambar gagal dimuat,
+      // tampilkan emoji sebagai pengganti.
+      if (layanan.image_url) {
+        const gambar = document.createElement("img");
+        gambar.className = "service-image";
+        gambar.src = layanan.image_url;
+        gambar.alt = layanan.name || "Foto layanan SinaArt";
+        gambar.loading = "lazy";
+
+        gambar.addEventListener("error", function() {
+          const fallback = document.createElement("div");
+          fallback.className = "service-image-fallback";
+          fallback.textContent = pilihIkon(index);
+          gambar.replaceWith(fallback);
+        }, { once: true });
+
+        card.appendChild(gambar);
+      } else {
+        const fallback = document.createElement("div");
+        fallback.className = "service-image-fallback";
+        fallback.textContent = pilihIkon(index);
+        card.appendChild(fallback);
+      }
+
+      const content = document.createElement("div");
+      content.className = "service-content";
 
       const title = document.createElement("h3");
       title.textContent = layanan.name || "Layanan SinaArt";
@@ -891,28 +704,20 @@
 
       const price = document.createElement("div");
       price.className = "service-price";
-      price.textContent = formatHarga(layanan.price);
+      price.textContent = kisaranHarga;
 
-      const order = document.createElement("a");
-      order.className = "service-order";
-      order.href =
-        "https://wa.me/" + whatsappNumber +
-        "?text=" + encodeURIComponent(
-          "Halo SinaArt! Saya tertarik dengan layanan " +
-          (layanan.name || "SinaArt") +
-          ". Boleh tanya informasi lebih lanjut?"
-        );
+      const button = document.createElement("a");
+      button.className = "service-order";
+      button.textContent = "Lihat Produk →";
+      button.href = "produk.html?service_id=" + encodeURIComponent(layanan.id);
 
-      order.target = "_blank";
-      order.rel = "noopener noreferrer";
-      order.textContent = "Pesan via WhatsApp ↗";
-
-      card.append(icon, title, description, price, order);
+      content.append(title, description, price, button);
+      card.appendChild(content);
 
       return card;
     }
 
-    function tampilkanLayanan(layanan) {
+    async function tampilkanLayanan(layanan) {
       serviceGrid.replaceChildren();
 
       if (layanan.length === 0) {
@@ -920,22 +725,25 @@
         pesan.className = "message";
         pesan.textContent =
           "Belum ada layanan aktif. Nantikan layanan terbaru dari SinaArt ya! ♡";
-
         serviceGrid.appendChild(pesan);
         return;
       }
 
-      layanan.forEach(function (item, index) {
-        serviceGrid.appendChild(
-          buatKartuLayanan(item, index)
-        );
-      });
+      // Ambil harga layanan secara paralel agar pemuatan lebih cepat.
+      const daftarKartu = await Promise.all(
+        layanan.map(async function(item, index) {
+          const harga = await ambilKisaranHarga(item);
+          return buatKartuLayanan(item, index, harga);
+        })
+      );
+
+      serviceGrid.replaceChildren(...daftarKartu);
     }
 
     async function muatLayanan() {
       try {
         const layanan = await ambilLayanan();
-        tampilkanLayanan(layanan);
+        await tampilkanLayanan(layanan);
       } catch (error) {
         console.error("Gagal memuat layanan:", error);
 
@@ -954,4 +762,3 @@
   </script>
 </body>
 </html>
-```
