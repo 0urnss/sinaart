@@ -4,451 +4,422 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#4b3028">
 <title>Produk - SinaArt</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root {
-    --cokelat: #4b3028;
-    --cokelat-muda: #704936;
-    --cream: #fff7e9;
-    --pink: #f5b7c8;
-    --pink-tua: #c95f7b;
-    --garis: #e8c9b5;
-    --abu: #826b60;
+    --brown:#4b3028;
+    --brown2:#704936;
+    --cream:#fff7e9;
+    --paper:#fffdf7;
+    --pink:#f5b7c8;
+    --pink-dark:#c95f7b;
+    --muted:#826b60;
+    --line:#e8c9b5;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+* {margin:0;padding:0;box-sizing:border-box}
 
 html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 110px;
+    scroll-behavior:smooth;
+    scroll-padding-top:100px;
 }
 
 body {
-    font-family: "Nunito", sans-serif;
-    color: var(--cokelat);
+    font-family:"Nunito",sans-serif;
+    color:var(--brown);
+    line-height:1.65;
+    overflow-x:hidden;
     background:
-        radial-gradient(circle at 10% 10%, #80523c 0, transparent 350px),
-        var(--cokelat);
-    line-height: 1.6;
+        radial-gradient(circle at 8% 12%,#80523c,transparent 24rem),
+        radial-gradient(circle at 92% 55%,#704936,transparent 25rem),
+        var(--brown);
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-button {
-    font-family: inherit;
-}
+a {color:inherit;text-decoration:none}
+button {font:inherit;cursor:pointer}
 
 .container {
-    width: 92%;
-    max-width: 1000px;
-    margin: auto;
+    width:min(1120px,91%);
+    margin:auto;
+}
+
+h1,h2,h3,.logo {
+    font-family:"Baloo 2",cursive;
+    line-height:1.2;
 }
 
 .rainbow-text {
-    display: inline-block;
-    background: linear-gradient(
-        90deg,
-        #ed7186,
-        #f6ad55,
-        #f6d66b,
-        #8fbd8a,
-        #7db6dc,
-        #a997d5,
-        #ed7186
-    );
-    background-size: 200% auto;
-    color: transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
-    animation: rainbow 7s linear infinite;
+    display:inline-block;
+    background:linear-gradient(100deg,#ed7186,#f6ad55,#f6d66b,#8fbd8a,#7db6dc,#a997d5,#ed7186);
+    background-size:220% auto;
+    color:transparent;
+    -webkit-background-clip:text;
+    background-clip:text;
+    animation:rainbow 7s linear infinite;
+    filter:drop-shadow(0 2px 0 #fff);
 }
 
 @keyframes rainbow {
-    to {
-        background-position: 200% center;
-    }
+    to {background-position:220% center}
 }
 
-/* NAVBAR */
+/* NAVBAR — SAMA DENGAN INDEX.HTML */
 
 header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    padding-top: 15px;
+    padding-top:18px;
+    position:sticky;
+    top:0;
+    z-index:20;
 }
 
-.navbar {
-    min-height: 76px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 10px 22px;
-    background: var(--cream);
-    border: 2px dashed var(--garis);
-    border-radius: 35px;
-    box-shadow: 0 7px 0 #321e1a35;
+.header-inner {
+    min-height:76px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    padding:10px 22px;
+    background:var(--cream);
+    border:2px dashed #e8bca7;
+    border-radius:24px;
+    box-shadow:0 7px 0 #321e1a35;
 }
 
 .logo {
-    font-family: "Baloo 2", cursive;
-    font-size: 35px;
-    font-weight: 800;
-    line-height: 1;
-    white-space: nowrap;
+    font-size:34px;
+    font-weight:800;
+    white-space:nowrap;
 }
 
 .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
 }
 
 .nav-links a {
-    padding: 10px 16px;
-    border-radius: 30px;
-    font-size: 15px;
-    font-weight: 900;
-    transition: 0.2s;
+    padding:9px 16px;
+    border-radius:25px;
+    font-size:14px;
+    font-weight:800;
+    transition:.2s;
 }
 
-.nav-links a:hover,
-.nav-links .active {
-    background: var(--pink);
+.nav-links a:hover {
+    background:#f7d5d9;
+    color:#a74661;
+    transform:translateY(-2px);
 }
 
-/* BAGIAN JUDUL */
-
-main {
-    padding: 45px 0 60px;
+.nav-links .nav-cta {
+    background:var(--pink);
 }
 
-.judul {
-    text-align: center;
-    color: var(--cream);
-    margin-bottom: 25px;
+/* JUDUL */
+
+main {padding:34px 0 60px}
+
+.section-heading {
+    text-align:center;
+    max-width:690px;
+    margin:0 auto 28px;
+    color:var(--cream);
 }
 
-.label-judul {
-    display: inline-block;
-    background: #f9dce1;
-    color: #a94f63;
-    border-radius: 25px;
-    padding: 7px 15px;
-    font-size: 13px;
-    font-weight: 900;
-    margin-bottom: 12px;
+.eyebrow {
+    display:inline-block;
+    background:#f9dce1;
+    color:#a94f63;
+    border:1px solid #efbdc6;
+    border-radius:20px;
+    padding:6px 14px;
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:.5px;
+    margin-bottom:14px;
 }
 
-.judul h1 {
-    font-family: "Baloo 2", cursive;
-    font-size: clamp(35px, 6vw, 52px);
-    line-height: 1.15;
-    margin-bottom: 8px;
+.section-heading h1 {
+    font-size:clamp(39px,5.2vw,55px);
+    margin-bottom:8px;
 }
 
-.judul p {
-    color: #f2dfd2;
-    font-size: 15px;
+.section-heading p {
+    color:#f2dfd2;
+    font-size:15px;
 }
 
 .kembali {
-    display: inline-block;
-    padding: 10px 17px;
-    border: 2px solid var(--garis);
-    border-radius: 30px;
-    background: var(--cream);
-    font-weight: 900;
-    margin-bottom: 20px;
-    transition: 0.2s;
+    display:inline-flex;
+    align-items:center;
+    margin-bottom:20px;
+    border:2px solid #d8aa91;
+    background:var(--paper);
+    border-radius:24px;
+    padding:10px 17px;
+    font-weight:900;
+    transition:.2s;
 }
 
 .kembali:hover {
-    background: var(--pink);
-    transform: translateY(-2px);
+    background:var(--pink);
+    transform:translateY(-2px);
 }
 
-/* DAFTAR PRODUK */
+/* PRODUK: SATU KARTU PER PRODUK */
 
 #productList {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
+    display:flex;
+    flex-direction:column;
+    gap:26px;
 }
 
 .produk-card {
-    position: relative;
-    padding: clamp(20px, 4vw, 35px);
-    background: var(--cream);
-    border: 2px solid #f3d4c0;
-    border-radius: 35px;
-    box-shadow: 0 8px 0 #321e1a35;
-    overflow: hidden;
+    position:relative;
+    min-width:0;
+    padding:clamp(26px,5vw,45px);
+    background:var(--cream);
+    border:2px solid #f3d4c0;
+    border-radius:30px;
+    box-shadow:0 8px 0 #321e1a35;
+    overflow:hidden;
 }
 
 .produk-card::before {
-    content: "";
-    position: absolute;
-    inset: 12px;
-    border: 2px dashed #edc0b2;
-    border-radius: 26px;
-    pointer-events: none;
+    content:"";
+    position:absolute;
+    inset:12px;
+    border:2px dashed #edc0b2;
+    border-radius:23px;
+    pointer-events:none;
 }
 
 .produk-content {
-    position: relative;
-    z-index: 1;
+    position:relative;
+    z-index:1;
+    min-width:0;
 }
 
-/* NAMA LAYANAN */
-
 .jenis-layanan {
-    display: inline-block;
-    background: #f9dce1;
-    color: #a94f63;
-    border: 1px solid #efbdc6;
-    border-radius: 25px;
-    padding: 7px 15px;
-    font-size: 13px;
-    font-weight: 900;
-    margin-bottom: 12px;
+    display:inline-block;
+    background:#f9dce1;
+    color:#a94f63;
+    border:1px solid #efbdc6;
+    border-radius:20px;
+    padding:6px 14px;
+    font-size:12px;
+    font-weight:900;
+    margin-bottom:14px;
 }
 
 .nama-atas {
-    font-family: "Baloo 2", cursive;
-    font-size: clamp(28px, 4vw, 38px);
-    line-height: 1.2;
-    overflow-wrap: anywhere;
-    margin-bottom: 22px;
+    font-size:clamp(30px,4.5vw,42px);
+    overflow-wrap:anywhere;
+    margin-bottom:22px;
 }
 
-/* FOTO PRODUK */
+/* FOTO TIDAK DIPOTONG */
 
 .foto-produk {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #fffdf7;
-    border: 2px dashed var(--garis);
-    border-radius: 25px;
-    overflow: hidden;
-    margin-bottom: 22px;
-    min-height: 180px;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:var(--paper);
+    border:2px dashed var(--line);
+    border-radius:22px;
+    overflow:hidden;
+    margin-bottom:22px;
+    min-height:160px;
 }
 
 .foto-produk img {
-    display: block;
-
-    /* Foto mengikuti ukuran dan rasio aslinya */
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 80vh;
-
-    object-fit: contain;
+    display:block;
+    width:auto;
+    height:auto;
+    max-width:100%;
+    max-height:80vh;
+    object-fit:contain;
 }
 
 .foto-kosong {
-    width: 100%;
-    min-height: 260px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(
-        135deg,
-        #fffdf7,
-        #f9e2e6,
-        #f6edda
-    );
-    color: var(--pink-tua);
-    font-size: 55px;
+    width:100%;
+    min-height:260px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#fffdf7,#f9e2e6,#f6edda);
+    color:var(--pink-dark);
+    font-size:55px;
 }
 
 /* DETAIL PRODUK */
 
 .detail-produk {
-    background: #fffdf7;
-    border: 2px solid var(--garis);
-    border-radius: 28px;
-    padding: clamp(18px, 3vw, 28px);
+    background:var(--paper);
+    border:2px solid var(--line);
+    border-radius:24px;
+    padding:clamp(20px,3.5vw,30px);
 }
 
 .detail-produk h2 {
-    font-family: "Baloo 2", cursive;
-    font-size: clamp(25px, 4vw, 32px);
-    line-height: 1.2;
-    overflow-wrap: anywhere;
-    margin-bottom: 8px;
+    font-size:clamp(25px,4vw,32px);
+    overflow-wrap:anywhere;
+    margin-bottom:8px;
 }
 
 .deskripsi {
-    color: var(--abu);
-    font-size: 15px;
-    white-space: pre-line;
-    overflow-wrap: anywhere;
-    margin-bottom: 20px;
+    color:var(--muted);
+    font-size:15px;
+    white-space:pre-line;
+    overflow-wrap:anywhere;
+    margin-bottom:20px;
 }
 
 .bagian-harga {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    border-top: 2px dashed var(--garis);
-    padding-top: 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:15px;
+    border-top:2px dashed var(--line);
+    padding-top:18px;
 }
 
 .harga {
-    color: var(--pink-tua);
-    font-family: "Baloo 2", cursive;
-    font-size: 26px;
-    font-weight: 800;
+    color:var(--pink-dark);
+    font-size:25px;
+    font-weight:900;
 }
 
 .btn-pesan {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 19px;
-    border: none;
-    border-radius: 30px;
-    background: var(--cokelat-muda);
-    color: white;
-    font-size: 14px;
-    font-weight: 900;
-    cursor: pointer;
-    transition: 0.2s;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:11px 19px;
+    border:0;
+    border-radius:24px;
+    background:var(--brown2);
+    color:white;
+    font-size:13px;
+    font-weight:900;
+    transition:.2s;
 }
 
 .btn-pesan:hover {
-    background: var(--pink-tua);
-    transform: translateY(-2px);
+    background:var(--pink-dark);
+    transform:translateY(-2px);
 }
 
 /* STATUS DAN FOOTER */
 
 .status {
-    background: var(--cream);
-    border: 2px dashed var(--garis);
-    border-radius: 25px;
-    padding: 30px 20px;
-    text-align: center;
-    color: var(--abu);
-    overflow-wrap: anywhere;
+    background:var(--cream);
+    border:2px dashed var(--line);
+    border-radius:25px;
+    padding:30px 20px;
+    text-align:center;
+    color:var(--muted);
+    overflow-wrap:anywhere;
 }
 
 footer {
-    padding: 25px 0 35px;
-    color: #f5dfd1;
-    text-align: center;
-    font-size: 13px;
+    padding:25px 0;
+    text-align:center;
+    color:#f5dfd1;
+    font-size:13px;
 }
 
-.footer-logo {
-    font-family: "Baloo 2", cursive;
-    font-size: 30px;
-    font-weight: 800;
+footer .logo {
+    display:inline-block;
+    margin-bottom:5px;
+    color:var(--cream);
+    font-size:28px;
 }
 
-/* RESPONSIVE HP */
+/* RESPONSIVE — MENGIKUTI INDEX.HTML */
 
-@media (max-width: 600px) {
-    header {
-        padding-top: 10px;
+@media(max-width:760px) {
+    header {padding-top:10px}
+
+    .header-inner {
+        min-height:66px;
+        padding:9px 13px;
     }
 
-    .navbar {
-        min-height: 65px;
-        padding: 9px 13px;
-        gap: 5px;
-        border-radius: 30px;
-    }
+    .logo {font-size:29px}
 
-    .logo {
-        font-size: 27px;
-    }
-
-    .nav-links {
-        gap: 2px;
-    }
+    .nav-links {gap:2px}
 
     .nav-links a {
-        padding: 8px 9px;
-        font-size: 12px;
+        padding:8px 10px;
+        font-size:12px;
     }
 
-    main {
-        padding-top: 30px;
-    }
-
-    .produk-card {
-        padding: 19px 15px;
-        border-radius: 27px;
-    }
+    .produk-card {padding:24px 19px}
 
     .produk-card::before {
-        inset: 8px;
-        border-radius: 20px;
+        inset:8px;
+        border-radius:19px;
     }
 
     .foto-produk {
-        border-radius: 19px;
-        margin-bottom: 17px;
+        border-radius:18px;
+        margin-bottom:17px;
     }
 
-    .foto-produk img {
-        max-height: 70vh;
+    .foto-produk img {max-height:70vh}
+
+    .detail-produk {padding:20px}
+
+    .deskripsi {font-size:14px}
+}
+
+@media(max-width:420px) {
+    .container {width:93%}
+
+    .header-inner {gap:6px}
+
+    .logo {font-size:25px}
+
+    .nav-links a {
+        padding:7px 8px;
+        font-size:11px;
     }
 
-    .detail-produk {
-        padding: 18px;
-        border-radius: 22px;
+    main {padding-top:30px}
+
+    .produk-card {
+        padding:20px 15px;
+        border-radius:25px;
     }
 
-    .deskripsi {
-        font-size: 14px;
+    .produk-card::before {
+        inset:7px;
+        border-radius:18px;
     }
 
     .bagian-harga {
-        align-items: flex-start;
-        flex-direction: column;
+        align-items:flex-start;
+        flex-direction:column;
     }
 
-    .btn-pesan {
-        width: 100%;
-    }
+    .btn-pesan {width:100%}
 }
 
-@media (max-width: 370px) {
-    .logo {
-        font-size: 23px;
-    }
-
-    .nav-links a {
-        padding: 7px;
-        font-size: 11px;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        animation: none !important;
-        scroll-behavior: auto !important;
+@media(prefers-reduced-motion:reduce) {
+    *,*::before,*::after {
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important;
+        scroll-behavior:auto!important;
+        transition-duration:.01ms!important;
     }
 }
 </style>
@@ -457,23 +428,22 @@ footer {
 <body>
 
 <header>
-    <nav class="container navbar">
+    <nav class="container header-inner" aria-label="Navigasi utama">
         <a href="index.html#home" class="logo">
             <span class="rainbow-text">SinaArt</span>♡
         </a>
 
         <div class="nav-links">
             <a href="index.html#home">Home</a>
-            <a href="index.html#pemesanan" class="active">Pemesanan</a>
+            <a href="index.html#pemesanan" class="nav-cta">Pemesanan</a>
             <a href="index.html#about">About</a>
         </div>
     </nav>
 </header>
 
 <main class="container">
-
-    <div class="judul">
-        <span class="label-judul">✿ FIND YOUR FAVORITE ✿</span>
+    <div class="section-heading">
+        <span class="eyebrow">✿ Find your favorite ✿</span>
         <h1><span class="rainbow-text">Our Products</span></h1>
         <p id="intro">Karya pilihan SinaArt, dibuat dengan penuh cinta. ♡</p>
     </div>
@@ -482,17 +452,16 @@ footer {
         ← Kembali ke Layanan
     </a>
 
-    <section id="productList">
+    <section id="productList" aria-live="polite">
         <div class="status">Memuat produk SinaArt... ♡</div>
     </section>
-
 </main>
 
 <footer>
     <div class="container">
-        <div class="footer-logo">
+        <a href="index.html#home" class="logo">
             <span class="rainbow-text">SinaArt</span>♡
-        </div>
+        </a>
         <p>Made with ♡ and creativity.</p>
         <p>© <span id="year"></span> SinaArt. All rights reserved.</p>
     </div>
@@ -505,7 +474,6 @@ footer {
 const whatsappNumber = "62895322852505";
 const params = new URLSearchParams(window.location.search);
 const serviceId = params.get("service_id");
-
 const productList = document.getElementById("productList");
 
 document.getElementById("year").textContent =
@@ -542,10 +510,8 @@ function pesanProduk(nama) {
         ". Apakah masih tersedia?";
 
     window.open(
-        "https://wa.me/" +
-        whatsappNumber +
-        "?text=" +
-        encodeURIComponent(pesan),
+        "https://wa.me/" + whatsappNumber +
+        "?text=" + encodeURIComponent(pesan),
         "_blank",
         "noopener,noreferrer"
     );
@@ -558,13 +524,9 @@ function buatProduk(produk, namaLayanan) {
     const content = document.createElement("div");
     content.className = "produk-content";
 
-    /* Nama layanan */
-
     const badge = document.createElement("div");
     badge.className = "jenis-layanan";
     badge.textContent = "✿ " + (namaLayanan || "SinaArt");
-
-    /* Nama produk bagian atas */
 
     const namaAtas = document.createElement("h2");
     namaAtas.className = "nama-atas";
@@ -573,14 +535,11 @@ function buatProduk(produk, namaLayanan) {
         escapeHTML(produk.name || "Produk SinaArt") +
         "</span>";
 
-    /* Foto produk */
-
     const foto = document.createElement("div");
     foto.className = "foto-produk";
 
     if (produk.image_url) {
         const img = document.createElement("img");
-
         img.src = produk.image_url;
         img.alt = produk.name || "Foto produk SinaArt";
         img.loading = "lazy";
@@ -588,11 +547,12 @@ function buatProduk(produk, namaLayanan) {
 
         img.addEventListener("error", function() {
             foto.replaceChildren();
+
             const kosong = document.createElement("div");
             kosong.className = "foto-kosong";
             kosong.textContent = "♡";
             foto.appendChild(kosong);
-        });
+        }, { once:true });
 
         foto.appendChild(img);
     } else {
@@ -601,8 +561,6 @@ function buatProduk(produk, namaLayanan) {
         kosong.textContent = "♡";
         foto.appendChild(kosong);
     }
-
-    /* Detail produk */
 
     const detail = document.createElement("div");
     detail.className = "detail-produk";
@@ -633,7 +591,6 @@ function buatProduk(produk, namaLayanan) {
 
     bagianHarga.append(harga, tombol);
     detail.append(nama, deskripsi, bagianHarga);
-
     content.append(badge, namaAtas, foto, detail);
     card.appendChild(content);
 
@@ -659,7 +616,6 @@ async function muatProduk() {
 
             if (!layanan.error && layanan.data) {
                 namaLayanan = layanan.data.name || "";
-
                 document.title = namaLayanan + " - SinaArt";
 
                 document.getElementById("intro").textContent =
@@ -675,7 +631,7 @@ async function muatProduk() {
                 "id,service_id,name,description,price,image_url,is_active,created_at"
             )
             .eq("is_active", true)
-            .order("created_at", { ascending: true });
+            .order("created_at", { ascending:true });
 
         if (serviceId) {
             query = query.eq("service_id", serviceId);
@@ -683,19 +639,17 @@ async function muatProduk() {
 
         const { data, error } = await query;
 
-        if (error) {
-            throw error;
-        }
+        if (error) throw error;
 
         const products = data || [];
-
         productList.replaceChildren();
 
         if (products.length === 0) {
-            productList.innerHTML =
-                '<div class="status">' +
-                "Belum ada produk aktif di layanan ini. ♡" +
-                "</div>";
+            const status = document.createElement("div");
+            status.className = "status";
+            status.textContent =
+                "Belum ada produk aktif di layanan ini. ♡";
+            productList.appendChild(status);
             return;
         }
 
@@ -720,12 +674,17 @@ async function muatProduk() {
     } catch (error) {
         console.error("Gagal memuat produk:", error);
 
-        productList.innerHTML =
-            '<div class="status">' +
-            "Produk belum dapat dimuat. Periksa koneksi atau akses Supabase." +
-            "<br><small>" +
-            escapeHTML(error.message) +
-            "</small></div>";
+        const status = document.createElement("div");
+        status.className = "status";
+        status.textContent =
+            "Produk belum dapat dimuat. Periksa koneksi atau akses Supabase. ";
+
+        const detailError = document.createElement("small");
+        detailError.textContent = error.message || "";
+        status.appendChild(document.createElement("br"));
+        status.appendChild(detailError);
+
+        productList.replaceChildren(status);
     }
 }
 
