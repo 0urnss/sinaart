@@ -190,13 +190,28 @@ $("removeServiceImage").addEventListener("click",()=>{
   $("serviceImageFile").value="";currentServiceImageUrl=null;
   const preview=$("serviceImagePreview");preview.removeAttribute("src");preview.style.display="none";
 });
+// Kompres foto di browser sebelum diunggah: sisi terpanjang maksimal 1600px, WebP kualitas 80%.
+async function kompresFoto(file){
+  if(!file.type.startsWith("image/"))throw new Error("Pilih file gambar yang valid.");
+  let bitmap;
+  try { bitmap = await createImageBitmap(file); }
+  catch { throw new Error("Foto tidak bisa dibaca. Coba pilih foto JPG, PNG, atau WEBP."); }
+  const maxSisi=1600, skala=Math.min(1,maxSisi/Math.max(bitmap.width,bitmap.height));
+  const canvas=document.createElement("canvas");
+  canvas.width=Math.max(1,Math.round(bitmap.width*skala));
+  canvas.height=Math.max(1,Math.round(bitmap.height*skala));
+  const ctx=canvas.getContext("2d");
+  ctx.drawImage(bitmap,0,0,canvas.width,canvas.height); bitmap.close?.();
+  const blob=await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error("Kompresi foto gagal. Coba foto lain.")),"image/webp",0.8));
+  return new File([blob],(file.name.replace(/\.[^.]+$/," ").trim()||"foto")+".webp",{type:"image/webp",lastModified:Date.now()});
+}
 async function uploadFotoLayanan(){
   const file=$("serviceImageFile").files[0];
   if(!file)return currentServiceImageUrl;
   if(!file.type.startsWith("image/")||file.size>5*1024*1024)throw new Error("Foto layanan harus berupa gambar dengan ukuran maksimal 5 MB.");
-  const ext=(file.name.split(".").pop()||"jpg").toLowerCase().replace(/[^a-z0-9]/g,"")||"jpg";
-  const path="services/"+Date.now()+"-"+Math.random().toString(36).slice(2,9)+"."+ext;
-  const {data,error}=await supabaseClient.storage.from("sinaart-images").upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type});
+  const foto=await kompresFoto(file);
+  const path="services/"+Date.now()+"-"+Math.random().toString(36).slice(2,9)+".webp";
+  const {data,error}=await supabaseClient.storage.from("sinaart-images").upload(path,foto,{cacheControl:"31536000",upsert:false,contentType:"image/webp"});
   if(error)throw new Error("Gagal mengunggah foto layanan: "+error.message+". Pastikan bucket sinaart-images mengizinkan upload untuk admin.");
   const {data:publicData}=supabaseClient.storage.from("sinaart-images").getPublicUrl(data.path);
   return publicData.publicUrl;
@@ -216,9 +231,9 @@ async function uploadFotoProduk(){
   const file=$("productImageFile").files[0];
   if(!file)return currentProductImageUrl;
   if(!file.type.startsWith("image/")||file.size>5*1024*1024)throw new Error("Foto harus berupa gambar dengan ukuran maksimal 5 MB.");
-  const ext=(file.name.split(".").pop()||"jpg").toLowerCase().replace(/[^a-z0-9]/g,"")||"jpg";
-  const path="products/"+Date.now()+"-"+Math.random().toString(36).slice(2,9)+"."+ext;
-  const {data,error}=await supabaseClient.storage.from("sinaart-images").upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type});
+  const foto=await kompresFoto(file);
+  const path="products/"+Date.now()+"-"+Math.random().toString(36).slice(2,9)+".webp";
+  const {data,error}=await supabaseClient.storage.from("sinaart-images").upload(path,foto,{cacheControl:"31536000",upsert:false,contentType:"image/webp"});
   if(error)throw new Error("Gagal mengunggah foto: "+error.message+". Pastikan bucket sinaart-images mengizinkan upload untuk admin.");
   const {data:publicData}=supabaseClient.storage.from("sinaart-images").getPublicUrl(data.path);
   return publicData.publicUrl;
