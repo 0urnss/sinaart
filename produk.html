@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Produk SinaArt</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fffaf3;color:#503a32;font-family:'Segoe UI',sans-serif}
+header{padding:18px 7%;display:flex;justify-content:space-between;align-items:center;background:#fff}
+header a{color:#704c40;text-decoration:none;font-weight:600}
+main{max-width:1100px;margin:35px auto;padding:0 20px}
+h1{color:#9c655c;text-align:center}
+#deskripsi{text-align:center;color:#88756b}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;margin-top:30px}
+.card{background:white;border-radius:18px;overflow:hidden;box-shadow:0 4px 15px #6a493315}
+.card img{width:100%;height:210px;object-fit:cover;background:#f5e8dc}
+.info{padding:17px}
+.info h3{margin:0 0 8px}
+.info p{color:#88756b;line-height:1.5}
+.harga{font-weight:bold;color:#a35e52;font-size:18px}
+.btn{display:block;text-align:center;background:#b97870;color:white;padding:11px;border-radius:10px;text-decoration:none;margin-top:15px}
+#pesan{text-align:center;padding:40px 10px}
+</style>
+</head>
+<body>
+<header>
+<a href="index.html">← Kembali ke SinaArt</a>
+<strong>🎨 SinaArt</strong>
+</header>
+<main>
+<h1 id="judul">Produk Kami</h1>
+<p id="deskripsi">Pilihan produk SinaArt untuk kamu 💗</p>
+<div class="grid" id="daftar"></div>
+<p id="pesan">Memuat produk...</p>
+</main>
+<script>
+const nomorWA = "62895322852505";
+const params = new URLSearchParams(location.search);
+const serviceId = params.get("service_id");
+
+async function muatProduk(){
+  const daftar = document.getElementById("daftar");
+  const pesan = document.getElementById("pesan");
+
+  if(!serviceId){
+    pesan.textContent = "Pilih layanan terlebih dahulu dari halaman utama.";
+    return;
+  }
+
+  if(!window.supabaseClient){
+    pesan.textContent = "Koneksi Supabase belum tersedia. Periksa file supabase.js.";
+    return;
+  }
+
+  const {data: layanan,error: errLayanan} = await supabaseClient
+    .from("services")
+    .select("id,name,description")
+    .eq("id",serviceId)
+    .eq("is_active",true)
+    .maybeSingle();
+
+  if(errLayanan || !layanan){
+    pesan.textContent = "Layanan tidak ditemukan.";
+    return;
+  }
+
+  document.getElementById("judul").textContent = layanan.name;
+  document.getElementById("deskripsi").textContent =
+    layanan.description || "Temukan produk pilihan dari layanan ini.";
+
+  const {data: produk,error} = await supabaseClient
+    .from("products")
+    .select("id,name,description,price,image_url")
+    .eq("service_id",serviceId)
+    .eq("is_active",true)
+    .order("created_at",{ascending:false});
+
+  if(error){
+    pesan.textContent = "Produk gagal dimuat: " + error.message;
+    return;
+  }
+
+  if(!produk || produk.length===0){
+    pesan.textContent = "Belum ada produk untuk layanan ini.";
+    return;
+  }
+
+  pesan.style.display="none";
+
+  daftar.innerHTML = produk.map(p=>{
+    const harga = Number(p.price).toLocaleString("id-ID");
+    const teks = `Halo SinaArt, saya tertarik dengan produk ${p.name} seharga Rp${harga}.`;
+    const gambar = p.image_url
+      ? `<img src="${escapeHTML(p.image_url)}" alt="${escapeHTML(p.name)}" onerror="this.style.display='none'">`
+      : `<div style="height:210px;display:grid;place-items:center;background:#f5e8dc">🎨</div>`;
+
+    return `<article class="card">
+      ${gambar}
+      <div class="info">
+        <h3>${escapeHTML(p.name)}</h3>
+        <p>${escapeHTML(p.description || "Produk pilihan SinaArt.")}</p>
+        <div class="harga">Rp${harga}</div>
+        <a class="btn" target="_blank" rel="noopener"
+          href="https://wa.me/${nomorWA}?text=${encodeURIComponent(teks)}">Pesan Produk</a>
+      </div>
+    </article>`;
+  }).join("");
+}
+
+function escapeHTML(value){
+  return String(value ?? "").replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[c]);
+}
+
+muatProduk();
+</script>
+</body>
+</html>
